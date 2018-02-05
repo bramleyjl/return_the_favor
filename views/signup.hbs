@@ -1,0 +1,22 @@
+<h1>{{title}}</h1>
+<div class="error">
+{{error}}
+</div>
+
+<form method="POST" action="/signups/veterans/new">
+    <div>
+        <label for="name">Name</label>
+        <input type="text" name="name">
+    </div>
+    <div>
+        <label for="email">Email</label>
+        <input type="text" name="email">
+    </div>
+    <div>
+        <label for="county">County</label>
+        <input type="text" name="county">
+    </div>    
+    <div>
+        <input type="submit" value="Submit">
+    </div>
+</form>

@@ -1,4 +1,6 @@
+'use strict';
 var express = require('express');
+
 var router = express.Router();
 
 /* GET discounts listing. */
@@ -25,4 +27,6 @@ router.get('/view/:slug', function(req, res, next) {
 router.get('/search/:slug', function(req, res, next) {
   res.send(`Discounts that match ${req.params.slug} displayed here`);
 });
+
+
 module.exports = router;
