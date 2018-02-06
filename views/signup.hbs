@@ -1,8 +1,6 @@
 <h1>{{title}}</h1>
-<div class="error">
-{{error}}
-</div>
 
+{{#if veteran}}
 <form method="POST" action="/signups/veterans/new">
     <div>
         <label for="name">Name</label>
@@ -20,3 +18,107 @@
         <input type="submit" value="Submit">
     </div>
 </form>
+{{/if}}
+
+{{#if business}}
+<form method="POST" action="/signups/businesses/new">
+    <div>
+        <label for="business">Business Name</label>
+        <input type="text" name="business">
+    </div>
+    <div>
+        <label for="county">County</label>
+        <select name="county">
+          <option value=1>Rensselaer</option>
+          <option value=2>Albany</option>
+          <option value=3>Schenectady</option>
+          <option value=4>Saratoga</option>
+        </select>
+    </div>
+    <div>
+        <label for="state">State</label><br>
+        <select name="state">
+          <option value=1>New York</option>
+        </select>
+    </div>
+    <div>
+        <label for="city">City</label>
+        <input type="text" name="city">
+    </div>
+    <div>
+        <label for="discount">Discount</label>
+        <input type="textarea" name="discount">
+    </div>
+    <div>
+        <label for="category">Business Category</label>
+        <select name="category">
+          <option value=1>Casual Dining and Take-Out</option>
+          <option value=2>Art and Antiques</option>
+          <option value=3>Banking</option>
+          <option value=4>Books</option>
+          <option value=5>Cleaners</option>
+          <option value=6>Clothing</option>
+          <option value=7>Family and Recreation</option>
+          <option value=8>Flowers</option>
+          <option value=9>Fine Dining and Nightlife</option>
+          <option value=10>Haircare and Spas</option>
+          <option value=11>Jewelry</option>
+          <option value=12>Legal</option>
+          <option value=13>Automotive</option>
+          <option value=14>Home Services</option>
+          <option value=15>Travel</option>
+          <option value=16>Theater and Arts</option>
+          <option value=17>Storage</option>
+          <option value=18>Pets</option>
+          <option value=19>Health and Fitness</option>
+        </select>
+    </div>            
+    <div>
+        <label for="website">Website</label>
+        <input type="url" name="website">
+    </div>
+    <div>
+        <label for="phone">Phone</label>
+        <input type="tel" name="phone">
+    </div>
+    <div>
+        <label for="email">Email</label>
+        <input type="email" name="email">
+    </div>
+    <div>
+        <label for="facebook">Facebook</label>
+        <input type="url" name="facebook">
+    </div>
+    <div>
+        <label for="twitter">Twitter</label>
+        <input type="url" name="twitter">
+    </div>
+    <div>
+        <label for="instagram">Instagram</label>
+        <input type="url" name="instagram">
+    </div>
+    <p>The following fields will be kept private and for administrative purposes only</p>
+    <div>
+        <label for="expiration">Expiration of Discount</label><br>
+        <input type="radio" name="expiration" value="3">Three Months<br>
+        <input type="radio" name="expiration" value="6">Six Months<br>
+        <input type="radio" name="expiration" value="9">Nine Months<br>
+        <input type="radio" name="expiration" value="12">Twelve Months
+    </div>
+    <div>
+        <label for="business_contact">Business Contact</label>
+        <input type="text" name="business_contact">
+    </div>
+    <div>
+        <label for="business_email">Business Email</label>
+        <input type="email" name="business_email">
+    </div>
+    <div>
+        <label for="business_phone">Business Phone</label>
+        <input type="number" name="business_phone">
+    </div>            
+    <div>
+        <input type="submit" value="Submit">
+    </div>
+</form>
+{{/if}}

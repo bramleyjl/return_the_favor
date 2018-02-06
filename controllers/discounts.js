@@ -1,11 +1,13 @@
 'use strict';
 var express = require('express');
-
 var router = express.Router();
+var discounts = require('../models/discounts.js');
 
 /* GET discounts listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+router.get('/', function(req, res) {
+  discounts.returnAllDiscounts().then(function(results) {
+    res.render('discount', results )
+  });
 });
 
 /* GET discounts by category */

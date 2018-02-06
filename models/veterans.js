@@ -1,9 +1,14 @@
-'use strict';
+'use strict'
 let db = require('../db.js')
 
-exports.cowabungaDude = function() {
-  return db.query("SELECT * FROM `veterans`", function (err, results) {
-    if (err) throw err
-    return results 
+exports.createVeteran = function(name, email, county) {
+  var newVeteran = {
+    name : name,
+    email : email,
+    county : county
+  }
+  db.query("INSERT INTO `veterans` SET ?", [newVeteran], function (err, results, fields) {
+    if (err) throw err;
+    return results
   })
 }
