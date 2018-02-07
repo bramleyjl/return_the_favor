@@ -9,8 +9,8 @@
     }   
 
      #outerdiv.wide-discounts{
-        width: 700px;
-        height:500px;
+        width: 600px;
+        height:650px;
     }
 }
 
@@ -24,7 +24,7 @@
 
      #outerdiv.wide-discounts{
         width: 700px;
-        height:500px;
+        height:525px;
     }
 }
 
@@ -39,7 +39,7 @@
 
      #outerdiv.wide-discounts{
         width: 900px;
-        height:420px;
+        height:400px;
     }
 }
 
@@ -54,7 +54,7 @@
 
     #outerdiv.wide-discounts{
         width: 1000px;
-        height:500px;
+        height:400px;
     }
 
 }  
@@ -67,10 +67,7 @@
         height:450px;
     }
 
-     #outerdiv.wide-discounts{
-        width: 1000px;
-        height:500px;
-    }
+  
 }
 
 
@@ -81,10 +78,7 @@
         height:400px;
     }
 
-     #outerdiv.wide-discounts{
-        width: 1000px;
-        height:500px;
-    }
+  
  }    
 
 /*over this width is 7 postings wide */
@@ -94,10 +88,7 @@
         height:450px;
     }
 
-     #outerdiv.wide-discounts{
-        width: 1000px;
-        height:500px;
-    }
+
 } 
 
 
