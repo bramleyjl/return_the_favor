@@ -216,6 +216,13 @@ z-index:11;
 
 }
 
+.black-heading {
+
+    color: #000;
+    text-decoration: none;
+
+}
+
 #filter {
     font-size: 20px;
     float: right;
