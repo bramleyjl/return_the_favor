@@ -52,6 +52,7 @@ h3 {
     border-bottom: 3px solid #C3960D;
     padding: 12px 150px 12px 150px;
     position: fixed;
+    z-index: 12;
 }
 .logo {
     padding: 12px 0 12px 0;
@@ -106,7 +107,7 @@ h3 {
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 11;
+    z-index: 12;
 }
 
 .dropdown-content a {
@@ -187,6 +188,18 @@ border: 0px ;
 margin-left: 130px;
 }
 
+
+#outerdiv.wide-discounts
+{
+
+overflow:hidden;
+position:relative;
+z-index:1;
+border: 0px ;
+margin: 40px  0px 0px 0px;
+
+}
+
 #inneriframe
 {
 position:absolute;
@@ -194,6 +207,8 @@ top:-150px;
 width:100%;
 border: 0px ;
 }
+
+
 
 #sidebar
 {
