@@ -8,6 +8,7 @@ var config = require( './config.json' );
 var indexController = require('./controllers/index');
 var discountsController = require('./controllers/discounts');
 var signupsController = require('./controllers/signups');
+var adminController = require('./controllers/admin');
 
 var app = express();
 
@@ -27,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexController);
 app.use('/discounts', discountsController);
 app.use('/signups', signupsController);
+app.use('/admin', adminController);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

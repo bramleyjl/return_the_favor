@@ -17,7 +17,8 @@ router.get('/categories/:id', function (req, res, next) {
   discounts.returnDiscountsByCategory(req.params.id).then( function (discounts) {
     res.render('discount', {discounts : discounts, category : discounts[0].name});
   }).catch( function (err) {
-    if (err) throw err
+    if (err) res.redirect('/discounts');
+
   });
 });
 
@@ -26,7 +27,7 @@ router.get('/counties/:id', function (req, res, next) {
   discounts.returnDiscountsByCounty(req.params.id).then( function (discounts) {
     res.render('discount', {discounts : discounts, county : discounts[0].name});
   }).catch( function (err) {
-    if (err) throw err
+    if (err) res.redirect('/discounts');
   });
 });
 
