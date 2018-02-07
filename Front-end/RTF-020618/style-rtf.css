@@ -1,0 +1,339 @@
+/*START OF GENERAL DEFAULT STYLES FOR THE SITE */
+
+* {
+    font-family: 'Lato',sans-serif;
+}
+body {
+    margin: 0px;
+}
+
+p {
+    font-size: 15px;
+    width: auto;
+    text-align: justify;
+    text-justify: inter-word;
+}
+u {
+    text-decoration: none;
+    border-bottom: 3px solid currentColor;
+}
+
+
+/* END OF GENERAL DEFAULT STYLES FOR THE SITE */
+
+
+/* START OF NAVIGATION BAR STYLES */
+
+.navbar{
+    display: flex;
+    width: 100%;
+    height: 150px;
+    background-color: #335579;
+    border-bottom: 3px solid #C3960D;
+    padding: 12px 150px 12px 150px;
+    position: fixed;
+}
+.logo {
+    padding: 12px 0 12px 0;
+}
+.logo a{
+    text-decoration: none;
+}
+.logo:hover {
+    background-color: transparent;
+}
+.rtf {
+    font-size: 30px;
+    color: white;
+    padding: 55px 5px;
+}
+.menu{
+    display:block;
+    padding: 65px 150px;
+}
+.dropdown {
+    display:block;
+    font-size: 20px;
+    float: right;
+    overflow: visible;
+    padding-left: 20px;
+}
+.fa-caret-down {
+    color: #eb4c4f;
+}
+.dropbtn a{
+    text-decoration: none;
+    color:inherit;
+}
+.dropdown .dropbtn {
+    border: none;
+    outline: none;
+    color: white;
+    background-color: inherit;
+    font: inherit;
+    margin: 0;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #6B8293;
+}
+
+.dropdown-content {
+    display: none;
+    overflow: visible;
+    position: absolute;
+    font-size: 15px;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 11;
+}
+
+.dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* END OF NAVIGATION BAR STYLES */
+
+/* START OF SECTION TEXT AREA STYLES */
+
+#sectionOne {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    height: auto;
+    border-bottom: 3px solid #C3960D;
+    padding: 205px 150px 40px 150px;
+    background-color: #BCE5f7;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+
+#sectionTwo {
+    display: block;
+    box-sizing: border-box;
+    width: inherit;
+    height: auto;
+    border-bottom: 3px solid #C3960D;
+    padding: 40px 150px 40px 150px;
+    text-align: justify;
+    text-justify: inter-word;
+}
+.dogtags, .building {
+    width: 45px;
+    height: 45px;
+    padding-left: 5px;
+}
+.pics {
+    display: block;
+}
+.jason, .tank {
+    border: 1px solid #C3960D;
+    border-radius: 4px;
+    width: auto;
+    height: 150px;
+    padding: 5px 5px;
+    margin: 5px;
+}
+
+.accent {
+  border-bottom: 3px solid white;
+ }
+
+ /* END OF SECTION TEXT AREA STYLES */
+
+ /* START OF DISCOUNT IFRAME AREA STYLES */
+
+ #outerdiv
+{
+
+overflow:hidden;
+position:relative;
+z-index:1;
+border: 0px ;
+margin-left: 130px;
+}
+
+#inneriframe
+{
+position:absolute;
+top:-150px;
+width:100%;
+border: 0px ;
+}
+
+#sidebar 
+{
+float: right;
+width: 150px;
+max-height: 383px;
+padding: 10px 15px 10px 15px;
+margin: 67px 150px 0px 0px;
+background-color:#BCE5f7;
+font-size: 14px;
+position:relative;
+z-index:11;
+
+}
+
+#discount-title {
+    padding: 0px 147px 0px 150px;
+    font-family: 'Lato',sans-serif;
+    float:left;
+
+}
+
+#filter {
+    font-size: 20px;
+    float: right;
+    overflow: visible;
+    z-index:10;
+    padding-top: 17px;
+    padding-right: 15px;
+    
+}
+
+#filter #town {
+    border: none;
+    outline: none;
+    color: #eb4c4f;
+    background-color: inherit;
+    font: inherit;
+    margin: 0;
+    display: inline;
+}
+
+/* END OF DISCOUNT IFRAME AREA STYLES */
+
+ .container {
+     padding: 0px;
+     background-color: inherit;
+     font-family: 'Lato', sans-serif;
+ }
+ input[type=text], select {
+     background-color: inherit;
+     width: 25%;
+     padding-top: 12px;
+     border: 1px solid #C3960D;
+ }
+ input[type=submit] {
+     width:15%;
+     background-color: #eb4c4f;
+     color: white;
+     padding-top: 12px;
+     text-align: center;
+     margin: 5px;
+ }
+ input[type=submit]:hover {
+     background-color: #C3960D;
+ }
+input[type=text] {
+    width:30%;
+    margin: 5px;
+}
+select {
+    width: 15%;
+    overflow:visible;
+    margin: 5px;
+}
+input[class=search] {
+    float: center;
+    margin: 5px 0 0 30%;
+}
+textarea[name=buslinks] {
+    background-color:inherit;
+    width: 65%;
+    height: auto;
+    overflow: visible;
+    float:right;
+}
+textarea[name=desoffer] {
+    background-color:inherit;
+    width: 75%;
+    height: auto;
+    overflow: visible;
+}
+textarea[name=postEvent] {
+    background-color:inherit;
+    width: 75%;
+    height: auto;
+    overflow: visible
+}
+
+
+/* START OF FOOTER */
+
+
+#footer {
+    box-sizing: border-box;
+    width: inherit;
+    height: 150px;
+    border-top: 3px solid #EB4C4F;
+    margin-top:50px;
+    padding: 0px 150px;
+    background-color: #335579;
+    font-family: 'Lato',sans-serif;
+    color: #fff;
+}
+
+/* END OF FOOTER */
+
+
+/* START OF MEDIA QUERIES */
+
+
+/* over this width is 2 postings wide */
+@media only screen and (min-width: 500px) {
+    #outerdiv {
+        width: 410px;
+        height:1700px;
+}
+
+/* over this width is 3 postings wide */
+@media only screen and (min-width: 700px) {
+    #outerdiv {
+        width: 450px;
+        height:1700px;
+}
+
+/* over this width is 4 postings wide */
+@media only screen and (min-width: 800px) {
+    #outerdiv {
+        width: 650px;
+        height:1700px;
+}
+
+/* over this width is 5 postings wide */
+@media only screen and (min-width: 950px) {
+    #outerdiv {
+        width: 700px;
+        height:1000px;
+}
+
+/* over this width is 6 postings wide */
+@media only screen and (min-width: 1100px) {
+    #outerdiv {
+        width: 850px;
+        height:900px;
+}
+
+/* over this width is 7 postings wide */
+@media only screen and (min-width: 1200px) {
+    #outerdiv {
+        width: 1000px;
+        height:400px;
+}
