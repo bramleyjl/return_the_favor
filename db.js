@@ -1,12 +1,13 @@
 'use strict'
 var mysql = require('mysql');
+var settings = require('./config.json')
 
 var connection = mysql.createConnection({
-    host     : '165.227.193.154',
-    port     : 3306,
-    user     : 'john',
-    password : 'devpass',
-    database : 'return_the_favor'
+    host     : settings.db.host,
+    port     : settings.db.port,
+    user     : settings.db.user,
+    password : settings.db.password,
+    database : settings.db.database
 });
 
 connection.connect(function(err) {

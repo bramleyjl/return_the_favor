@@ -3,21 +3,31 @@ var express = require('express');
 var router = express.Router();
 var discounts = require('../models/discounts.js');
 
-/* GET discounts listing. */
+// discounts index listing
 router.get('/', function(req, res) {
-  discounts.returnAllDiscounts().then(function(results) {
-    res.render('discount', results )
+  discounts.returnAllDiscounts().then( function (discounts) {
+    res.render('discount', {discounts : discounts} )
+  }).catch( function ( err ) {
+    throw err
   });
 });
 
-/* GET discounts by category */
-router.get('/categories/:slug', function(req, res, next) {
-  res.send(`Discounts in the ${req.params.slug} category`);
+// discounts sorted by category
+router.get('/categories/:id', function (req, res, next) {
+  discounts.returnDiscountsByCategory(req.params.id).then( function (discounts) {
+    res.render('discount', {discounts : discounts, category : discounts[0].name});
+  }).catch( function (err) {
+    if (err) throw err
+  });
 });
 
-/* GET discounts by county */
-router.get('/counties/:slug', function(req, res, next) {
-  res.send(`Discounts in ${req.params.slug} county`);
+// discounts sorted by county
+router.get('/counties/:id', function (req, res, next) {
+  discounts.returnDiscountsByCounty(req.params.id).then( function (discounts) {
+    res.render('discount', {discounts : discounts, county : discounts[0].name});
+  }).catch( function (err) {
+    if (err) throw err
+  });
 });
 
 /* Get discounts by Id */
