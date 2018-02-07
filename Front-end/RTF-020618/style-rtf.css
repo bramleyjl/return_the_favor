@@ -128,7 +128,6 @@ u {
     box-sizing: border-box;
     width: inherit;
     height: auto;
-    border-bottom: 3px solid #C3960D;
     padding: 40px 150px 40px 150px;
     text-align: justify;
     text-justify: inter-word;
@@ -176,7 +175,7 @@ width:100%;
 border: 0px ;
 }
 
-#sidebar 
+#sidebar
 {
 float: right;
 width: 150px;
@@ -204,7 +203,7 @@ z-index:11;
     z-index:10;
     padding-top: 17px;
     padding-right: 15px;
-    
+
 }
 
 #filter #town {
@@ -279,8 +278,9 @@ textarea[name=postEvent] {
 
 
 #footer {
+    display: block;
     box-sizing: border-box;
-    width: inherit;
+    width: 100%;
     height: 150px;
     border-top: 3px solid #EB4C4F;
     margin-top:50px;
@@ -289,51 +289,13 @@ textarea[name=postEvent] {
     font-family: 'Lato',sans-serif;
     color: #fff;
 }
+.social{
+    margin: 5px;
+    float: right;
+}
+.fa-facebook-square, .fa-twitter-square {
+    padding-left: 15px;
+}
+
 
 /* END OF FOOTER */
-
-
-/* START OF MEDIA QUERIES */
-
-
-/* over this width is 2 postings wide */
-@media only screen and (min-width: 500px) {
-    #outerdiv {
-        width: 410px;
-        height:1700px;
-}
-
-/* over this width is 3 postings wide */
-@media only screen and (min-width: 700px) {
-    #outerdiv {
-        width: 450px;
-        height:1700px;
-}
-
-/* over this width is 4 postings wide */
-@media only screen and (min-width: 800px) {
-    #outerdiv {
-        width: 650px;
-        height:1700px;
-}
-
-/* over this width is 5 postings wide */
-@media only screen and (min-width: 950px) {
-    #outerdiv {
-        width: 700px;
-        height:1000px;
-}
-
-/* over this width is 6 postings wide */
-@media only screen and (min-width: 1100px) {
-    #outerdiv {
-        width: 850px;
-        height:900px;
-}
-
-/* over this width is 7 postings wide */
-@media only screen and (min-width: 1200px) {
-    #outerdiv {
-        width: 1000px;
-        height:400px;
-}
