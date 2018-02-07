@@ -1,42 +1,47 @@
+/* START OF MEDIA QUERIES */
 
 /* over this width is 2 postings wide */
-@media only screen and (min-width: 500px) {
-    #outerdiv {
-        width: 410px;
-        height:1700px;
-}
-
-/* over this width is 3 postings wide */
 @media only screen and (min-width: 700px) {
     #outerdiv {
-        width: 450px;
-        height:1700px;
-}
-
-/* over this width is 4 postings wide */
-@media only screen and (min-width: 800px) {
-    #outerdiv {
-        width: 650px;
-        height:1700px;
-}
-
-/* over this width is 5 postings wide */
-@media only screen and (min-width: 950px) {
-    #outerdiv {
-        width: 700px;
+        width: 410px;
         height:1000px;
 }
 
-/* over this width is 6 postings wide */
-@media only screen and (min-width: 1100px) {
+/* over this width is 3 postings wide */
+@media only screen and (min-width: 875px) {
     #outerdiv {
-        width: 850px;
+        width: 500px;
         height:900px;
 }
 
-/* over this width is 7 postings wide */
-@media only screen and (min-width: 1200px) {
+/* over this width is 4 postings wide */
+@media only screen and (min-width: 1000px) {
     #outerdiv {
-        width: 1000px;
-        height:400px;
+        width: 600px;
+        height:800px;
 }
+
+/* over this width is 5 postings wide */
+@media only screen and (min-width: 1100px) {
+    #outerdiv {
+        width: 700px;
+        height:700px;
+}
+
+/* over this width is 6 postings wide */
+@media only screen and (min-width: 1250px) {
+    #outerdiv {
+        width: 900px;
+        height:600px;
+}
+
+/*over this width is 7 postings wide */
+@media only screen and (min-width: 1300px) {
+    #outerdiv {
+        width: 1200px;
+        height:400px;
+} 
+
+
+/* END OF MEDIA QUERIES */
+
