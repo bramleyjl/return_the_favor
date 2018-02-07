@@ -1,0 +1,42 @@
+
+/* over this width is 2 postings wide */
+@media only screen and (min-width: 500px) {
+    #outerdiv {
+        width: 410px;
+        height:1700px;
+}
+
+/* over this width is 3 postings wide */
+@media only screen and (min-width: 700px) {
+    #outerdiv {
+        width: 450px;
+        height:1700px;
+}
+
+/* over this width is 4 postings wide */
+@media only screen and (min-width: 800px) {
+    #outerdiv {
+        width: 650px;
+        height:1700px;
+}
+
+/* over this width is 5 postings wide */
+@media only screen and (min-width: 950px) {
+    #outerdiv {
+        width: 700px;
+        height:1000px;
+}
+
+/* over this width is 6 postings wide */
+@media only screen and (min-width: 1100px) {
+    #outerdiv {
+        width: 850px;
+        height:900px;
+}
+
+/* over this width is 7 postings wide */
+@media only screen and (min-width: 1200px) {
+    #outerdiv {
+        width: 1000px;
+        height:400px;
+}
