@@ -324,7 +324,7 @@ textarea[name=postEvent] {
     width: inherit;
     height: 150px;
     border-top: 3px solid #EB4C4F;
-    margin-top:50px;
+    margin-top:0px;
     padding: 0px 150px;
     background-color: #335579;
     font-family: 'Lato',sans-serif;
