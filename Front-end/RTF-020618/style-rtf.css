@@ -3,6 +3,13 @@
 * {
     font-family: 'Lato',sans-serif;
 }
+
+a {
+ 
+ color:#295c92;
+
+}
+
 body {
     margin: 0px;
 }
@@ -18,6 +25,19 @@ u {
     border-bottom: 3px solid currentColor;
 }
 
+h2 {
+ font-size: 20px;
+ font-family: 'Lato',sans-serif;
+ font-weight: normal;
+ letter-spacing: 1.2px;
+}
+
+h3 {
+ font-size: 14px;
+ font-family: 'Lato',sans-serif;
+ font-weight: normal;
+ letter-spacing: 1.2px;
+}
 
 /* END OF GENERAL DEFAULT STYLES FOR THE SITE */
 
@@ -276,8 +296,19 @@ textarea[name=postEvent] {
 
 /* START OF FOOTER */
 
-
 #footer {
+    box-sizing: border-box;
+    width: inherit;
+    height: 150px;
+    border-top: 3px solid #EB4C4F;
+    margin-top:50px;
+    padding: 0px 150px;
+    background-color: #335579;
+    font-family: 'Lato',sans-serif;
+    color: #fff;
+}
+
+/* #footer {
     display: block;
     box-sizing: border-box;
     width: 100%;
@@ -288,7 +319,7 @@ textarea[name=postEvent] {
     background-color: #335579;
     font-family: 'Lato',sans-serif;
     color: #fff;
-}
+} */
 .social{
     margin: 5px;
     float: right;
