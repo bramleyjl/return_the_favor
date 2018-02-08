@@ -5,7 +5,7 @@
 }
 
 a {
- 
+
  color:#295c92;
 
 }
@@ -173,6 +173,10 @@ h3 {
 
 .accent {
   border-bottom: 2px solid white;
+ }
+
+ .fa-envelope {
+     padding-left: 5px;
  }
 
  /* END OF SECTION TEXT AREA STYLES */
@@ -343,5 +347,3 @@ textarea[name=postEvent] {
 
 
 /* END OF FOOTER */
-
-
