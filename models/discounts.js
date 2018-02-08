@@ -15,7 +15,7 @@ exports.returnAllDiscounts = function() {
 //returns all discounts based on cateogry id
 exports.returnDiscountsByCategory = function(category) {
   return new Promise(function (resolve, reject) {
-    db.query("SELECT *, `categories`.`name` FROM `discounts` JOIN `categories` ON `discounts`.`category` = `categories`.`id` WHERE `category` = ?", [category], function (err, results, fields) {
+    db.query("SELECT *, `categories`.`name` FROM `discounts` JOIN `categories` ON `discounts`.`category` = `categories`.`id` WHERE `category` = ?", [category], function (err, results) {
       if (err) return reject(err);
       return (resolve(results))
     });
@@ -25,7 +25,17 @@ exports.returnDiscountsByCategory = function(category) {
 //returns all discounts based on cateogry id
 exports.returnDiscountsByCounty = function(county) {
   return new Promise(function (resolve, reject) {
-    db.query("SELECT *, `counties`.`name` FROM `discounts` JOIN `counties` ON `discounts`.`county` = `counties`.`id` WHERE `county` = ?", [county], function (err, results, fields) {
+    db.query("SELECT *, `counties`.`name` FROM `discounts` JOIN `counties` ON `discounts`.`county` = `counties`.`id` WHERE `county` = ?", [county], function (err, results) {
+      if (err) return reject(err);
+      return (resolve(results))
+    });
+  });
+}
+
+//returns single discount by querying its id
+exports.returnDiscountsById = function(id) {
+  return new Promise(function (resolve, reject) {
+    db.query("SELECT * FROM `discounts` WHERE `id` = ?", [id], function (err, results) {
       if (err) return reject(err);
       return (resolve(results))
     });
