@@ -17,7 +17,8 @@ router.get('/categories/:id', function (req, res, next) {
   discounts.returnDiscountsByCategory(req.params.id).then( function (discounts) {
     res.render('discount', {discounts : discounts, category : discounts[0].name});
   }).catch( function (err) {
-    if (err) throw err
+    if (err) res.redirect('/discounts');
+
   });
 });
 
@@ -26,13 +27,19 @@ router.get('/counties/:id', function (req, res, next) {
   discounts.returnDiscountsByCounty(req.params.id).then( function (discounts) {
     res.render('discount', {discounts : discounts, county : discounts[0].name});
   }).catch( function (err) {
-    if (err) throw err
+    if (err) res.redirect('/discounts');
   });
 });
 
-/* Get discounts by Id */
-router.get('/view/:slug', function(req, res, next) {
-  res.send(`Discount with id ${req.params.slug} displayed here`);
+// single discount by id
+router.get('/view/:id', function(req, res, next) {
+ console.log(req.params.id)
+ discounts.returnDiscountsById(req.params.id).then( function (discounts) {
+    console.log(discounts)
+    res.render('discount', {discounts : discounts})
+  }).catch( function (err) {
+    if (err) res.redirect('discounts');
+  })  
 });
 
 /* Get discounts by search result */

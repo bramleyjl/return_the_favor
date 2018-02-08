@@ -46,6 +46,7 @@ router.post('/businesses/new', function(req, res, next) {
       facebook : req.body.facebook,
       twitter : req.body.twitter,
       instagram : req.body.instagram,
+      expiration : req.body.expiration,
       business_contact : req.body.business_contact,
       business_email : req.body.business_email,
       business_phone : req.body.business_phone }

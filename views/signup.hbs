@@ -102,13 +102,15 @@
         <label for="instagram">Instagram</label>
         <input type="url" name="instagram">
     </div>
-    <p>The following fields will be kept private and for administrative purposes only</p>
+    <p>The following fields will be kept private and for administrative purposes only:</p>
     <div>
-        <label for="expiration">Expiration of Discount</label><br>
-        <input type="radio" name="expiration" value="3">Three Months<br>
-        <input type="radio" name="expiration" value="6">Six Months<br>
-        <input type="radio" name="expiration" value="9">Nine Months<br>
-        <input type="radio" name="expiration" value="12">Twelve Months
+        <label for="expiration">Expiration</label>
+        <select name="expiration">
+          <option value=3>3 Months</option>
+          <option value=6>6 Monhts</option>
+          <option value=9>9 Monhts</option>
+          <option value=12>12 Months</option>
+        </select>
     </div>
     <div>
         <label for="business_contact">Business Contact</label>
@@ -120,7 +122,7 @@
     </div>
     <div>
         <label for="business_phone">Business Phone</label>
-        <input type="number" name="business_phone">
+        <input type="tel" name="business_phone">
     </div>            
     <div>
         <input type="submit" value="Submit">
