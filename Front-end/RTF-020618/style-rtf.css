@@ -25,14 +25,32 @@ u {
     border-bottom: 2px solid currentColor;
 }
 
+ h1 {
+    margin: 0px;
+    font-size: 25px;
+    color: white;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+ }  
+
 h2 {
+ font-size: 20px;
+ font-family: 'Lato',sans-serif;
+ font-weight: normal;
+ letter-spacing: 1.2px;
+ text-transform: uppercase;
+}
+
+h3 {
  font-size: 20px;
  font-family: 'Lato',sans-serif;
  font-weight: normal;
  letter-spacing: 1.2px;
 }
 
-h3 {
+
+h4 {
  font-size: 14px;
  font-family: 'Lato',sans-serif;
  font-weight: normal;
@@ -64,11 +82,14 @@ h3 {
 .logo:hover {
     background-color: transparent;
 }
+
+
 .rtf {
-    font-size: 30px;
-    color: white;
-    padding: 55px 5px;
-}
+    padding: 65px 5px;
+ } 
+
+
+
 .menu{
     display:block;
     padding: 65px 150px;
@@ -173,6 +194,7 @@ h3 {
 
 .accent {
   border-bottom: 2px solid white;
+
  }
 
  .fa-envelope {
