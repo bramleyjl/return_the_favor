@@ -5,11 +5,12 @@ var discounts = require('../models/discounts.js');
 
 // discounts index listing
 router.get('/', function(req, res) {
-  discounts.returnAllDiscounts().then( function (discounts) {
+/*  discounts.returnAllDiscounts().then( function (discounts) {
     res.render('discount', {discounts : discounts} )
   }).catch( function ( err ) {
     throw err
-  });
+  }); */
+res.render('discounts');
 });
 
 // discounts sorted by category

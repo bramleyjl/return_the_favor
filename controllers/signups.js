@@ -9,7 +9,7 @@ var router = express.Router();
 
 // GET signups index
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Signups Index' });
+  res.render('support');
 });
 
 // GET veterans signup page
