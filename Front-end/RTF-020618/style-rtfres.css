@@ -1,11 +1,26 @@
 /* START OF MEDIA QUERIES */
 
 /* over this width is 2 postings wide */
-@media only screen and (min-width: 700px) {
+@media only screen and (min-width: 200px) {
 
     #outerdiv {
-        width: 410px;
-        height:1000px;
+        width: 280px;
+        height:900px;
+    }   
+
+     #outerdiv.wide-discounts{
+        width: 540px;
+        height:650px;
+    }
+}
+
+
+/* over this width is 2 postings wide */
+@media only screen and (min-width: 750px) {
+
+    #outerdiv {
+        width: 280px;
+        height:900px;
     }   
 
      #outerdiv.wide-discounts{
@@ -16,9 +31,9 @@
 
 
 /* over this width is 3 postings wide */
-@media only screen and (min-width: 875px) {
+@media only screen and (min-width: 890px) {
     #outerdiv {
-        width: 500px;
+        width: 430px;
         height:825px;
     }
 
@@ -31,9 +46,9 @@
 
 
 /* over this width is 4 postings wide */
-@media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 1015px) {
     #outerdiv {
-        width: 600px;
+        width: 550px;
         height:700px;
     }
 
@@ -46,9 +61,9 @@
 
 
 /* over this width is 5 postings wide */
-@media only screen and (min-width: 1100px) {
+@media only screen and (min-width: 1180px) {
     #outerdiv {
-        width: 700px;
+        width: 680px;
         height:575px;
     }
 
@@ -61,9 +76,9 @@
 
 
 /* over this width is 6 postings wide */
-@media only screen and (min-width: 1250px) {
+@media only screen and (min-width: 1278px) {
     #outerdiv {
-        width: 900px;
+        width: 820px;
         height:450px;
     }
 
@@ -90,7 +105,5 @@
 
 
 } 
-
-
 /* END OF MEDIA QUERIES */
 
