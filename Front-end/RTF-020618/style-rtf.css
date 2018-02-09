@@ -1,3 +1,33 @@
+
+
+/*WRAPPER STYLES */
+
+.main {
+float:left;
+width: 100%;
+display: block;
+
+}
+
+.wrapper {
+width: 100%;
+margin: 0 auto;
+display: block;
+max-width: 1200px;
+
+}
+
+.clearfix {
+clear: both;
+
+}
+
+
+/*END WRAPPER STYLES */
+
+
+/*START OF GENERAL DEFAULT STYLES FOR THE SITE */
+
 /*START OF GENERAL DEFAULT STYLES FOR THE SITE */
 
 * {
@@ -59,6 +89,7 @@ h4 {
 }
 
 /* END OF GENERAL DEFAULT STYLES FOR THE SITE */
+
 
 
 /* START OF NAVIGATION BAR STYLES */

@@ -74,7 +74,7 @@
 /*over this width is 7 postings wide */
 @media only screen and (min-width: 1450px) {
     #outerdiv {
-        width: 1000px;
+        width: 975px;
         height:400px;
     }
 
