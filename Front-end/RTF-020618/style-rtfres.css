@@ -16,6 +16,13 @@
 
 @media only screen and (max-width: 850px) {
  /* things that should appear on mobile*/
+
+           .rtf {
+
+            display:none;
+
+           }     
+
 }
 
 /* over this width is 2 postings wide */
