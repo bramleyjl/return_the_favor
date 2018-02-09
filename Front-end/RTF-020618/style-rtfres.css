@@ -4,7 +4,7 @@
 @media only screen and (min-width: 200px) {
 
     #outerdiv {
-        width: 280px;
+        width: 150px;
         height:900px;
     }   
 
@@ -14,6 +14,9 @@
     }
 }
 
+@media only screen and (max-width: 850px) {
+ /* things that should appear on mobile*/
+}
 
 /* over this width is 2 postings wide */
 @media only screen and (min-width: 750px) {
@@ -27,6 +30,11 @@
         width: 600px;
         height:650px;
     }
+
+
+
+  
+
 }
 
 
@@ -41,6 +49,8 @@
         width: 700px;
         height:525px;
     }
+
+
 }
 
 

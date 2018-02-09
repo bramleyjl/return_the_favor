@@ -70,6 +70,7 @@ h2 {
  font-weight: normal;
  letter-spacing: 1.2px;
  text-transform: uppercase;
+
 }
 
 h3 {
@@ -284,9 +285,19 @@ z-index:11;
 }
 
 #discount-title {
-    padding: 0px 147px 0px 150px;
+    padding: 0px 0px 0px 0px;
     font-family: 'Lato',sans-serif;
     float:left;
+    width: 50%;
+
+}
+
+#discount-heading-wrapper {
+
+background-color: none;
+height: 50px;
+width: 45%;
+margin-left: 170px;
 
 }
 
@@ -294,12 +305,14 @@ z-index:11;
 
     color: #000;
     text-decoration: none;
+    max-width: 200px;
 
 }
 
 #filter {
     font-size: 20px;
     float: right;
+    clear: none;
     overflow: visible;
     z-index:10;
     padding-top: 17px;
@@ -307,14 +320,15 @@ z-index:11;
 
 }
 
-#filter #town {
+#filter #home-filter {
     border: none;
     outline: none;
     color: #eb4c4f;
     background-color: inherit;
     font: inherit;
     margin: 0;
-    display: inline;
+    
+
 }
 
 /* END OF HOMEPAGE IFRAME AREA STYLES */
