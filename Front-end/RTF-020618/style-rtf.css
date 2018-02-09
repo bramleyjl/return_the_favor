@@ -1,6 +1,6 @@
 
 
-/*WRAPPER STYLES 
+/*WRAPPER STYLES
 
 .main {
 float:left;
@@ -62,7 +62,7 @@ u {
     font-weight: normal;
     text-transform: uppercase;
     letter-spacing: 1.2px;
- }  
+ }
 
 h2 {
  font-size: 20px;
@@ -118,7 +118,7 @@ h4 {
 
 .rtf {
     padding: 65px 5px;
- } 
+ }
 
 
 
@@ -237,41 +237,32 @@ h4 {
 
  /* START OF HOME PAGE IFRAME AREA STYLES */
 
- #outerdiv
-{
-
+#outerdiv {
 overflow:hidden;
 position:relative;
 z-index:1;
-border: 0px ;
+border: 0px;
 margin-left: 130px;
 }
 
 
-#outerdiv.wide-discounts
-{
-
+#outerdiv.wide-discounts {
 overflow:hidden;
 position:relative;
 z-index:1;
 border: 0px ;
-margin: 40px  0px 0px 0px;
-
+margin: 40px 0px 0px 0px;
 }
 
-#inneriframe
-{
+#inneriframe {
 position:absolute;
 top:-150px;
 right: -20px;
 width:100%;
-border: 0px ;
+border: 0px;
 }
 
-
-
-#sidebar
-{
+#sidebar {
 float: right;
 width: 150px;
 max-height: 383px;
@@ -279,9 +270,8 @@ padding: 10px 15px 10px 15px;
 margin: 67px 150px 0px 0px;
 background-color:#BCE5f7;
 font-size: 14px;
-position:relative;
-z-index:11;
-
+position: relative;
+z-index: 11;
 }
 
 #discount-title {
@@ -339,7 +329,7 @@ margin-left: 170px;
      font-family: 'Lato', sans-serif;
  }
  input[type=text], select {
-     background-color: inherit;
+     background-color: #f2f2f2;
      width: 25%;
      padding-top: 12px;
      border: 1px solid #C3960D;
@@ -369,20 +359,20 @@ input[class=search] {
     margin: 5px 0 0 30%;
 }
 textarea[name=buslinks] {
-    background-color:inherit;
+    background-color: #f2f2f2;
     width: 65%;
     height: auto;
     overflow: visible;
     float:right;
 }
 textarea[name=desoffer] {
-    background-color:inherit;
+    background-color: #f2f2f2;
     width: 75%;
     height: auto;
     overflow: visible;
 }
 textarea[name=postEvent] {
-    background-color:inherit;
+    background-color: #f2f2f2;
     width: 75%;
     height: auto;
     overflow: visible
