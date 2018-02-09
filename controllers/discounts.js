@@ -13,6 +13,22 @@ router.get('/', function(req, res) {
 res.render('discounts');
 });
 
+// discounts searched/filtered
+router.post('/', function(req, res) {
+  var searchFilters = req.body;
+
+  delete searchFilters["city"]
+  delete searchFilters["recent"]
+  delete searchFilters["search"]
+
+  console.log(searchFilters);
+ /* var stuff = discounts.filterDiscounts(searchFilters);
+  stuff.then(function(result) {
+   console.log(result) //will log results.
+  }) */
+  res.redirect('/discounts#sectionTwo');
+})
+
 // discounts sorted by category
 router.get('/categories/:id', function (req, res, next) {
   discounts.returnDiscountsByCategory(req.params.id).then( function (discounts) {

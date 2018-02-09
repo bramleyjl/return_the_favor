@@ -3,7 +3,7 @@ let db = require('../db.js');
 let moment = require('moment');
 
 //returns an object with all discounts
-exports.returnAllDiscounts = function() {
+exports.returnAllDiscounts = function(params) {
   return new Promise(function (resolve, reject) {
     db.query("SELECT * FROM `discounts`", function (err, results, fields) {
       if (err) return reject(err);
@@ -12,10 +12,23 @@ exports.returnAllDiscounts = function() {
   });
 }
 
-//returns all discounts based on cateogry id
-exports.returnDiscountsByCategory = function(category) {
+//master filter function, combines multiple filtering/searching options
+exports.filterDiscounts = function(params) {
   return new Promise(function (resolve, reject) {
-    db.query("SELECT *, `categories`.`name` FROM `discounts` JOIN `categories` ON `discounts`.`category` = `categories`.`id` WHERE `category` = ?", [category], function (err, results) {
+    db.query("SELECT * FROM `discounts` WHERE \
+    (`county` = ? OR ? = 'All') \
+    AND (`category` = ? OR ? = 'all')", 
+    [params.county, params.county, params.category, params.category], function (err, results) {
+      if (err) return reject(err);
+      return (resolve(results))
+    });
+  });  
+}
+
+//returns all discounts based on county id
+exports.returnDiscountsByCounty = function(county) {
+  return new Promise(function (resolve, reject) {
+    db.query("SELECT * FROM `discounts` JOIN `counties` ON `discounts`.`county` = `counties`.`id` WHERE `county` = ?", [county], function (err, results) {
       if (err) return reject(err);
       return (resolve(results))
     });
@@ -23,9 +36,9 @@ exports.returnDiscountsByCategory = function(category) {
 }
 
 //returns all discounts based on cateogry id
-exports.returnDiscountsByCounty = function(county) {
+exports.returnDiscountsByCategory = function(category) {
   return new Promise(function (resolve, reject) {
-    db.query("SELECT *, `counties`.`name` FROM `discounts` JOIN `counties` ON `discounts`.`county` = `counties`.`id` WHERE `county` = ?", [county], function (err, results) {
+    db.query("SELECT * FROM `discounts` JOIN `categories` ON `discounts`.`category` = `categories`.`id` WHERE `category` = ?", [category], function (err, results) {
       if (err) return reject(err);
       return (resolve(results))
     });

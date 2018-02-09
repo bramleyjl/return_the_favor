@@ -3,8 +3,6 @@ var express = require('express');
 var veterans = require('../models/veterans.js');
 var discounts = require('../models/discounts.js');
 
-
-
 var router = express.Router();
 
 // GET signups index
@@ -12,45 +10,32 @@ router.get('/', function(req, res, next) {
   res.render('support');
 });
 
-// GET veterans signup page
-router.get('/veterans', function(req, res, next) {
-  res.render('signup', { title: 'Veterans Signup', veteran: true });
-});
-
 // Submit new veteran form
-router.post('/veterans/new', function(req, res, next) {
+router.post('/veteran', function(req, res, next) {
   if (req.body.name === '' || req.body.email === '' || req.body.county === '') {
     res.redirect('/error')
   }
   veterans.createVeteran(req.body.name, req.body.email, req.body.county);
-  res.redirect('/');
-});
-
-// GET businesses signup page 
-router.get('/businesses', function(req, res, next) {
-  res.render('signup', { title: 'Business Signup', business: true });
+  res.redirect('/discounts');
 });
 
 // Submit new discount form
-router.post('/businesses/new', function(req, res, next) {
+router.post('/discount', function(req, res, next) {
   var newDiscount = {
-      business : req.body.business, 
-      county : req.body.county,
-      state : req.body.state,
-      city : req.body.city,
-      discount : req.body.discount,
-      category : req.body.category,
-      website : req.body.website,
-      phone : req.body.phone,
-      email : req.body.email,
-      facebook : req.body.facebook,
-      twitter : req.body.twitter,
-      instagram : req.body.instagram,
-      expiration : req.body.expiration,
-      business_contact : req.body.business_contact,
-      business_email : req.body.business_email,
-      business_phone : req.body.business_phone }
+    busname : req.body.busname, 
+    county : req.body.county,
+    state : 1,
+    city : req.body.city,
+    category : req.body.category,
+    street: req.body.street,
+    buslinks : req.body.buslinks,
+    desoffer : req.body.desoffer,
+    expiration : req.body.expiration,
+    cname : req.body.cname,
+    busmail : req.body.busmail,
+    cphone : req.body.cphone }
   discounts.createDiscount(newDiscount);
+  res.redirect('/home');
 });
 
 module.exports = router;
