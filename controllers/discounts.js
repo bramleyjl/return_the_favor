@@ -5,27 +5,28 @@ var discounts = require('../models/discounts.js');
 
 // discounts index listing
 router.get('/', function(req, res) {
-/*  discounts.returnAllDiscounts().then( function (discounts) {
-    res.render('discount', {discounts : discounts} )
-  }).catch( function ( err ) {
-    throw err
-  }); */
-res.render('discounts');
+  var defaultSearch = {
+    county : 'all',
+    county : 'all',
+    category : 'all',
+    category : 'all',
+    search : '',
+    search : '',
+    recent : '10'
+  }
+  var searchQuery = discounts.filterDiscounts(defaultSearch);
+  searchQuery.then(function(result) {
+   console.log(result) //will log results.
+  })
+  res.render('discounts');
 });
 
 // discounts searched/filtered
 router.post('/', function(req, res) {
-  var searchFilters = req.body;
-
-  delete searchFilters["city"]
-  delete searchFilters["recent"]
-  delete searchFilters["search"]
-
-  console.log(searchFilters);
- /* var stuff = discounts.filterDiscounts(searchFilters);
-  stuff.then(function(result) {
+  var searchQuery = discounts.filterDiscounts(req.body);
+  searchQuery.then(function(result) {
    console.log(result) //will log results.
-  }) */
+  })
   res.redirect('/discounts#sectionTwo');
 })
 

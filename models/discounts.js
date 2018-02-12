@@ -14,11 +14,14 @@ exports.returnAllDiscounts = function(params) {
 
 //master filter function, combines multiple filtering/searching options
 exports.filterDiscounts = function(params) {
+  params.recent = parseInt(params.recent)
   return new Promise(function (resolve, reject) {
     db.query("SELECT * FROM `discounts` WHERE \
-    (`county` = ? OR ? = 'All') \
-    AND (`category` = ? OR ? = 'all')", 
-    [params.county, params.county, params.category, params.category], function (err, results) {
+    (`county` = ? OR ? = 'all') \
+    AND (`category` = ? OR ? = 'all') \
+    AND MATCH (`busname`, `desoffer`) AGAINST (?) OR ? = '' \
+    ORDER BY `created` DESC LIMIT ?",
+    [params.county, params.county, params.category, params.category, params.search, params.search, params.recent], function (err, results) {
       if (err) return reject(err);
       return (resolve(results))
     });
