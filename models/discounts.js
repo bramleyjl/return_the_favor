@@ -3,7 +3,7 @@ let db = require('../db.js');
 let moment = require('moment');
 
 //returns an object with all discounts
-exports.returnAllDiscounts = function(params) {
+exports.returnAllDiscounts = function() {
   return new Promise(function (resolve, reject) {
     db.query("SELECT * FROM `discounts`", function (err, results, fields) {
       if (err) return reject(err);
@@ -16,36 +16,16 @@ exports.returnAllDiscounts = function(params) {
 exports.filterDiscounts = function(params) {
   params.recent = parseInt(params.recent)
   return new Promise(function (resolve, reject) {
-    db.query("SELECT * FROM `discounts` WHERE \
-    (`county` = ? OR ? = 'all') \
-    AND (`category` = ? OR ? = 'all') \
-    AND MATCH (`busname`, `desoffer`) AGAINST (?) OR ? = '' \
-    ORDER BY `created` DESC LIMIT ?",
-    [params.county, params.county, params.category, params.category, params.search, params.search, params.recent], function (err, results) {
+    db.query("SELECT * FROM `discounts` \
+      WHERE (`county` = ? OR ? = 'all') \
+      AND (`category` = ? OR ? = 'all') \
+      AND (MATCH (`busname`, `desoffer`) AGAINST (?) OR ? = '') \
+      ORDER BY `created` DESC LIMIT ?",
+      [params.county, params.county, params.category, params.category, params.search, params.search, params.recent], function (err, results) {
       if (err) return reject(err);
       return (resolve(results))
     });
   });  
-}
-
-//returns all discounts based on county id
-exports.returnDiscountsByCounty = function(county) {
-  return new Promise(function (resolve, reject) {
-    db.query("SELECT * FROM `discounts` JOIN `counties` ON `discounts`.`county` = `counties`.`id` WHERE `county` = ?", [county], function (err, results) {
-      if (err) return reject(err);
-      return (resolve(results))
-    });
-  });
-}
-
-//returns all discounts based on cateogry id
-exports.returnDiscountsByCategory = function(category) {
-  return new Promise(function (resolve, reject) {
-    db.query("SELECT * FROM `discounts` JOIN `categories` ON `discounts`.`category` = `categories`.`id` WHERE `category` = ?", [category], function (err, results) {
-      if (err) return reject(err);
-      return (resolve(results))
-    });
-  });
 }
 
 //returns single discount by querying its id
@@ -66,5 +46,15 @@ exports.createDiscount = function(params) {
   db.query("INSERT INTO `holding_discounts` SET ?", [discount], function (err, results, fields) {
     if (err) throw err;
     return results
+  });
+}
+
+//returns the entire discounts holding table
+exports.returnAllHolding = function() {
+  return new Promise(function (resolve, reject) {
+    db.query("SELECT * FROM `holding_discounts`", function (err, results, fields) {
+      if (err) return reject(err);
+      return resolve(results)
+    });
   });
 }

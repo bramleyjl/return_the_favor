@@ -14,8 +14,8 @@ router.get('/', function(req, res) {
     search : '',
     recent : '10'
   }
-  var searchQuery = discounts.filterDiscounts(defaultSearch);
-  searchQuery.then(function(result) {
+  var defaultQuery = discounts.filterDiscounts(defaultSearch);
+  defaultQuery.then(function(result) {
    console.log(result) //will log results.
   })
   res.render('discounts');
@@ -27,7 +27,7 @@ router.post('/', function(req, res) {
   searchQuery.then(function(result) {
    console.log(result) //will log results.
   })
-  res.redirect('/discounts#sectionTwo');
+  res.render('discounts');
 })
 
 // discounts sorted by category
