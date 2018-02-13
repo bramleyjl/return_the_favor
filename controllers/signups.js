@@ -34,7 +34,7 @@ router.post('/discount', function(req, res, next) {
     cname : req.body.cname,
     busmail : req.body.busmail,
     cphone : req.body.cphone }
-  discounts.createDiscount(newDiscount);
+  discounts.createHoldingDiscount(newDiscount);
   res.redirect('/home');
 });
 

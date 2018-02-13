@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style-rtf.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style-rtfres.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700" rel="stylesheet">
+  </head>
+
+  <body>
+<!-- ************************ START OF NAVBAR AREA**************** -->
+    <div class="navbar">
+
+      <div class="logo">
+        <a href="home"><img src="images/logo-circle.png" alt "RTFLogo"></a>
+      </div>
+
+        <div class = "rtf">
+          <span><u>Ret</u>urn The F.A.V.O.R.</span>
+        </div>
+
+      <div class= "menu">
+
+        <div class="dropdown">
+            <button class="dropbtn"><a href="about">About/Contact</a>
+            </button>
+          </div>
+
+          <div class="dropdown">
+            <button class="dropbtn">Support
+              <i class="fa fa-caret-down"></i>
+            </button>
+
+              <div class="dropdown-content">
+                  <a href="signups">Add a Discount</a>
+                  <a href="signups#sectionTwo">Add an Event</a>
+              </div>
+
+          </div>
+
+
+          <div class="dropdown">
+            <button class="dropbtn">Veterans
+              <i class="fa fa-caret-down"></i>
+            </button>
+
+              <div class="dropdown-content">
+                  <a href="discounts">Discounts</a>
+                  <a href="events">Events</a>
+              </div>
+          </div>
+      <!--closing menu-->
+      </div>
+    <!--closing navbar -->
+    </div>
+
+<!-- ************************ END OF NAVBAR AREA**************** -->
+
+<!-- ************************ START OF SECTION ONE **************** -->
+    <div id= "sectionOne">
+      <h2><span class= "accent">Adm</span>in</h2>
+      <img class= "dogtags" src= "images/icon-ID_tags.svg">
+      <img class= "building" src= "images/icon-shop.svg">
+
+      <table class="recent-threads">
+      <h2>Holding Table</h2>
+      <thead>
+        <tr>
+            <td>Business Name</td>
+            <td>Offer</td>
+            <td>Contact Name</td>
+            <td>Email</td>
+            <td>Phone</td>
+            <td>Delete Entry</td>
+        </tr>
+      </thead>
+        {{#holding}}
+      <tr>
+          <td>{{busname}}</td>
+          <td>{{desoffer}}</td>
+          <td>{{cname}}</td>
+          <td>{{busmail}}</td>
+          <td>{{cphone}}</td>
+          <td>
+            <form method="POST" action="/admin/holding_discounts/delete">
+              <input type="hidden" name="id" value={{id}}>
+              <button type="submit">Delete</button>
+            </form>
+          </td>
+      </tr>
+        {{/holding}}
+      </table>
+
+    <!-- close section one -->
+    </div>
+<!-- ************************ END OF SECTION ONE **************** -->
+
+<!-- ************************ START OF SECTION TWO **************** -->
+    <div id= "sectionTwo">
+      <h2><u>Con</u>tact</h2>
+      <img class= "dogtags" src= "images/icon-ID_tags.svg">
+      <img class= "building" src= "images/icon-shop.svg">
+      <br>
+
+      <span><b>Return The F.A.V.O.R.</b>
+      </span>
+
+      <br>
+
+      <span><b>Jason Lebrecht</b>
+      </span>
+
+      <br>
+
+      <span><b>1234 Main St</b>
+      </span>
+
+      <br>
+
+      <span><b>Troy, NY 12345  </b>
+      </span>
+
+      <br>
+
+      <br>
+
+      <span><a href= "mailto:RTF@gmail.com"<b>RTF@gmail.com</b></a>
+      </span>
+
+      <i class="fa fa-envelope fa-2x"></i>
+    </div>
+
+<!-- ************************ END OF SECTION TWO **************** -->
+
+<!-- ______________START OF THE FOOTER AREA OF THE PAGE_______________ -->
+
+    <div id= "footer">
+      <div class="social">
+        <i class="fa fa-instagram fa-3x"></i>
+        <i class="fa fa-facebook-square fa-3x"></i>
+        <i class="fa fa-twitter-square fa-3x"></i>
+      </div>
+      <h3>Copyright 2018 <i>Return The Favor</i></h3>
+
+    </div>
+
+<!-- ______________END THE FOOTER AREA OF THE PAGE_______________ -->
+
+</body>
+</html>

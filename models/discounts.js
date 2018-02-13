@@ -38,8 +38,10 @@ exports.returnDiscountsById = function(id) {
   });
 }
 
+////////BEGINNING OF 'holding_discounts' FUNCTIONS////////
+
 //inserts submitted discount into the holding table for review
-exports.createDiscount = function(params) {
+exports.createHoldingDiscount = function(params) {
   var discount = params;
   var currentTime =  moment(new Date());
   discount.expiration = moment(currentTime).add({months:discount.expiration}).format("YYYY-MM-DD HH:mm:ss");
@@ -47,6 +49,14 @@ exports.createDiscount = function(params) {
     if (err) throw err;
     return results
   });
+}
+
+//deletes discount from holding table by id
+exports.deleteHoldingDiscount = function(id) {
+  db.query("DELETE FROM `holding_discounts` WHERE id = ?", [id], function (err, results) {
+    if (err) throw err;
+    console.log(results)
+  })
 }
 
 //returns the entire discounts holding table

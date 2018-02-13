@@ -60,10 +60,4 @@ router.get('/view/:id', function(req, res, next) {
   })  
 });
 
-/* Get discounts by search result */
-router.get('/search/:slug', function(req, res, next) {
-  res.send(`Discounts that match ${req.params.slug} displayed here`);
-});
-
-
 module.exports = router;
