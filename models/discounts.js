@@ -53,10 +53,61 @@ exports.createHoldingDiscount = function(params) {
 
 //deletes discount from holding table by id
 exports.deleteHoldingDiscount = function(id) {
-  db.query("DELETE FROM `holding_discounts` WHERE id = ?", [id], function (err, results) {
-    if (err) throw err;
-    console.log(results)
+  return new Promise(function (resolve, reject) {
+    db.query("DELETE FROM `holding_discounts` WHERE id = ?", [id], function (err, results) {
+      if (err) return reject(err);
+      return resolve(results)
+    });
+  });
+}
+
+//updates discount in holding table
+exports.updateHoldingDiscount = function(params) {
+  db.query("UPDATE `holding_discounts` \
+    SET `busname` = ?, \
+    `state` = ?, \
+    `county` = ?, \
+    `city` = ?, \
+    `street` = ?, \
+    `desoffer` = ?, \
+    `category` = ?, \
+    `buslinks` = ?, \
+    `cname` = ?, \
+    `cphone` = ?, \
+    `busmail` = ? \
+    WHERE `id` = ?", [
+    params.busname, 
+    params.state,
+    params.county,
+    params.city,
+    params.street,
+    params.desoffer,
+    params.category,
+    params.buslinks,
+    params.cname,
+    params.cphone,
+    params.busmail,
+    params.id
+    ], function (err, results) {
+      if (err) throw err
+      console.log(results)
   })
+}
+
+//creates new row in discount table and removes identical holding table row
+exports.validateHoldingDiscount = function(params) {
+
+  //turn Handlebars' parsed timestamps back into SQL-ready timestamps
+  params.created = (params.created).substring(4, 24)
+  params.created = moment(params.created, "MMM-DD-YYYY HH:mm:ss").format("YYYY-MM-DD HH:mm:ss")
+  params.expiration = (params.expiration).substring(4,24)
+  params.expiration = moment(params.expiration, "MMM-DD-YYYY HH:mm:ss").format("YYYY-MM-DD HH:mm:ss")
+  return new Promise(function (resolve, reject) {
+    db.query("INSERT INTO `discounts` SET ?", [params], function (err, results, fields) {
+      if (err) return reject(err);
+      return resolve(results)
+    });
+  });
 }
 
 //returns the entire discounts holding table
