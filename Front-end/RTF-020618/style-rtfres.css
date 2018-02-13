@@ -6,7 +6,7 @@
     #outerdiv {
         width: 150px;
         height:900px;
-    }   
+    }
 
      #outerdiv.wide-discounts{
         width: 540px;
@@ -14,16 +14,17 @@
     }
 }
 
-@media only screen and (max-width: 850px) {
+@media only screen and (max-width: 1105px) {
  /* things that should appear on mobile*/
 
-           .rtf {
+           .rtf h1 {
 
             display:none;
 
-           }     
+           }
 
 }
+
 
 /* over this width is 2 postings wide */
 @media only screen and (min-width: 750px) {
@@ -31,7 +32,7 @@
     #outerdiv {
         width: 280px;
         height:900px;
-    }   
+    }
 
      #outerdiv.wide-discounts{
         width: 600px;
@@ -40,7 +41,7 @@
 
 
 
-  
+
 
 }
 
@@ -89,7 +90,7 @@
         height:400px;
     }
 
-}  
+}
 
 
 /* over this width is 6 postings wide */
@@ -99,7 +100,7 @@
         height:450px;
     }
 
-  
+
 }
 
 
@@ -110,8 +111,8 @@
         height:400px;
     }
 
-  
- }    
+
+ }
 
 /*over this width is 7 postings wide */
 @media only screen and (min-width: 1550px) {
@@ -121,6 +122,5 @@
     }
 
 
-} 
+}
 /* END OF MEDIA QUERIES */
-
