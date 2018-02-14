@@ -81,61 +81,85 @@
 			<!-- <form action="#"> -->
 
   			<div class="container">
-    			<input type="text" placeholder="  Business Name as you want it to appear" name="busname" required>
-				<label for="county">County</label>
-    			<select id="county" name="county">
-	  			<option disabled selected value>Choose one or more</option>
-      			<option value="Albany">Albany</option>
-      			<option value="Rensselaer">Rensselaer</option>
-      			<option value="All">All</option>
-    			</select>
+  				
+  				<form method="post" action="/signups/discount">
 
-				<label for="city">City</label>
-    			<select id="city" name="city">
-				<option disabled selected value>Choose one or more</option>
-  				<option value="all">All</option>
-  				<option value="Albany">Albany</option>
-  				<option value="Latham">Latham</option>
-  				<option value="Rensselaer">Rensselaer</option>
-  				<option value="Albany">Troy</option>
-    			</select>
+  					<div>
+  						<label for="busname"> Business Name </label>
+    					<input type="text" placeholder="  Business Name as you want it to appear" name="busname" required>
+    		
+						<label for="county">County</label>
+    					<select id="county" name="county">
+	  					<option disabled selected value>Choose one or more</option>
+      					<option value="Albany">Albany</option>
+      					<option value="Rensselaer">Rensselaer</option>
+      					<option value="All">All</option>
+    					</select>
+    				</div>
+    			
+    				<div>
+						<label for="city">City</label>
+    					<select id="city" name="city">
+						<option disabled selected value>Choose one or more</option>
+  						<option value="all">All</option>
+  						<option value="Albany">Albany</option>
+  						<option value="Latham">Latham</option>
+  						<option value="Rensselaer">Rensselaer</option>
+  						<option value="Albany">Troy</option>
+    					</select>
+    		  
+    					<label for="category">Category</label>
+    					<select id="category" name="category">
+						<option disabled selected value>Choose one</option>
+  						<option value="all">All</option>
+  						<option value="Automotive">Automotive</option>
+  						<option value="finedining">Fine Dining</option>
+  						<option value="casualdining">Casual Dining</option>
+  						<option value="professional">Professional Services</option>
+    					</select>
+    				</div>
 
-    			<label for="category">Category</label>
-    			<select id="category" name="category">
-				<option disabled selected value>Choose one</option>
-  				<option value="all">All</option>
-  				<option value="Automotive">Automotive</option>
-  				<option value="finedining">Fine Dining</option>
-  				<option value="casualdining">Casual Dining</option>
-  				<option value="professional">Professional Services</option>
-    			</select>
+					<br>
+				
+					<div>
+						<label for="street">Street</label>
+						<input type="text" placeholder=" House# + Street/ Ignore for Multiple Locations" name="street">
+					</div>
 
-				<br>
+					<div>
+						<textarea name="buslinks" placeholder= "Add your Business Website URL and any Links to 	Social Media You want displayed here. If you don't have any websites make sure you submit a House# + Street"></textarea>
+			   	 	</div>
 
-				<input type="text" placeholder=" House# + Street/ Ignore for Multiple Locations" name="street">
-				<textarea name="buslinks" placeholder= "Add your Business Website URL and any Links to Social Media You want displayed here. If you don't have any websites make sure you submit a House# + Street"></textarea>
+					<h3>Your Offer</h3>
 
-				<h3>Your Offer</h3>
+					<textarea name="desoffer" placeholder= "Describe your Offer exactly as you want it to appear. Be sure to be specific and to include any limitations. Example- '20% off for a tune-ups and/or brake service, once per service, not valid in conjuction with any other discounts'"></textarea>
+				
+					<div>
+				
+						<label for="expiration">Expiration</label>
+    					<select id="expiration" name="expiration">
+						<option disabled selected value>Choose one</option>
+  						<option value="3mos">3 months</option>
+  						<option value="6mos">6 months</option>
+  						<option value="9mos">9 months</option>
+  						<option value="12mos">12 months</option>
+						</select>
+			    	</div>
 
-				<textarea name="desoffer" placeholder= "Describe your Offer exactly as you want it to appear. Be sure to be specific and to include any limitations. Example- '20% off for a tune-ups and/or brake service, once per service, not valid in conjuction with any other discounts'"></textarea>
-				<label for="expiration">Expiration</label>
-    			<select id="expiration" name="expiration">
-				<option disabled selected value>Choose one</option>
-  				<option value="3mos">3 months</option>
-  				<option value="6mos">6 months</option>
-  				<option value="9mos">9 months</option>
-  				<option value="12mos">12 months</option>
-				</select>
+					<h3>Business Contact Info</h3>
 
-				<h3>Business Contact Info</h3>
+					<input type="text" placeholder="  Contact Name 'First_Last' Not Displayed" name="cname" required>
 
-				<input type="text" placeholder="  Contact Name 'First_Last' Not Displayed" name="cname" required>
+    				<input type="text" placeholder="  Contact Email Address Not Displayed" name="busmail" required>
 
-    			<input type="text" placeholder="  Contact Email Address Not Displayed" name="busmail" required>
+					<input type="text" placeholder="  Contact Phone Not Displayed" name="cphone" required>
 
-				<input type="text" placeholder="  Contact Phone Not Displayed" name="cphone" required>
+    				<div>
+    				<input type="submit" value="Submit Your Offer">
+    				</div>
 
-    			<input type="submit" value="Submit Your Offer">
+    			</form>	
+  			
   			<!-- div closing of container -->
   			</div>
   		<!-- div closing section one -->
