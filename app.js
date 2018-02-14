@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var config = require( './config.json' );
 var indexController = require('./controllers/index');
 var discountsController = require('./controllers/discounts');
-var signupsController = require('./controllers/signups');
+var supportController = require('./controllers/support');
 var eventsController = require('./controllers/events');
 var adminController = require('./controllers/admin');
 
@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // call controllers
 app.use('/', indexController);
 app.use('/discounts', discountsController);
-app.use('/signups', signupsController);
+app.use('/support', supportController);
 app.use('/events', eventsController);
 app.use('/admin', adminController);
 
