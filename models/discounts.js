@@ -2,6 +2,8 @@
 let db = require('../db.js');
 let moment = require('moment');
 
+////////beginning of 'live_discounts' functions////////
+
 //returns an object with all discounts
 exports.returnAllDiscounts = function() {
   return new Promise(function (resolve, reject) {
@@ -38,7 +40,52 @@ exports.returnDiscountsById = function(id) {
   });
 }
 
-////////BEGINNING OF 'holding_discounts' FUNCTIONS////////
+//updates discount
+exports.updateDiscount = function(params) {
+  db.query("UPDATE `discounts` \
+    SET `busname` = ?, \
+    `state` = ?, \
+    `county` = ?, \
+    `city` = ?, \
+    `street` = ?, \
+    `desoffer` = ?, \
+    `category` = ?, \
+    `buslinks` = ?, \
+    `cname` = ?, \
+    `busmail` = ?, \
+    `cphone` = ?, \
+    `notes` = ? \
+    WHERE `id` = ?", [
+    params.busname, 
+    params.state,
+    params.county,
+    params.city,
+    params.street,
+    params.desoffer,
+    params.category,
+    params.buslinks,
+    params.cname,
+    params.busmail,
+    params.cphone,
+    params.notes,
+    params.id
+    ], function (err, results) {
+      if (err) throw err
+      console.log(results)
+  })
+}
+
+//deletes discount from holding table by id
+exports.deleteDiscount = function(id) {
+  return new Promise(function (resolve, reject) {
+    db.query("DELETE FROM `discounts` WHERE id = ?", [id], function (err, results) {
+      if (err) return reject(err);
+      return resolve(results)
+    });
+  });
+}
+
+////////beginning of 'holding_discounts' functions////////
 
 //inserts submitted discount into the holding table for review
 exports.createHoldingDiscount = function(params) {
@@ -51,10 +98,10 @@ exports.createHoldingDiscount = function(params) {
   });
 }
 
-//deletes discount from holding table by id
-exports.deleteHoldingDiscount = function(id) {
+//returns the entire discounts holding table
+exports.returnAllHoldingDiscounts = function() {
   return new Promise(function (resolve, reject) {
-    db.query("DELETE FROM `holding_discounts` WHERE id = ?", [id], function (err, results) {
+    db.query("SELECT * FROM `holding_discounts`", function (err, results, fields) {
       if (err) return reject(err);
       return resolve(results)
     });
@@ -73,8 +120,9 @@ exports.updateHoldingDiscount = function(params) {
     `category` = ?, \
     `buslinks` = ?, \
     `cname` = ?, \
+    `busmail` = ?, \
     `cphone` = ?, \
-    `busmail` = ? \
+    `notes` = ? \
     WHERE `id` = ?", [
     params.busname, 
     params.state,
@@ -85,13 +133,24 @@ exports.updateHoldingDiscount = function(params) {
     params.category,
     params.buslinks,
     params.cname,
-    params.cphone,
     params.busmail,
+    params.cphone,
+    params.notes,
     params.id
     ], function (err, results) {
       if (err) throw err
       console.log(results)
   })
+}
+
+//deletes discount from holding table by id
+exports.deleteHoldingDiscount = function(id) {
+  return new Promise(function (resolve, reject) {
+    db.query("DELETE FROM `holding_discounts` WHERE id = ?", [id], function (err, results) {
+      if (err) return reject(err);
+      return resolve(results)
+    });
+  });
 }
 
 //creates new row in discount table and removes identical holding table row
@@ -103,16 +162,6 @@ exports.validateHoldingDiscount = function(params) {
   params.expiration = moment(params.expiration, "MMM-DD-YYYY HH:mm:ss").format("YYYY-MM-DD HH:mm:ss")
   return new Promise(function (resolve, reject) {
     db.query("INSERT INTO `discounts` SET ?", [params], function (err, results, fields) {
-      if (err) return reject(err);
-      return resolve(results)
-    });
-  });
-}
-
-//returns the entire discounts holding table
-exports.returnAllHolding = function() {
-  return new Promise(function (resolve, reject) {
-    db.query("SELECT * FROM `holding_discounts`", function (err, results, fields) {
       if (err) return reject(err);
       return resolve(results)
     });

@@ -104,7 +104,7 @@
           <td><input type="text" value="{{cname}}" name="cname"></td>
           <td><input type="text" value="{{busmail}}" name="busmail"></td>
           <td><input type="text" value="{{cphone}}" name="cphone"></td>
-          <td><input type="text" placeholder="Notes" name="notes"></td>          
+          <td><input type="text" value="{{notes}}" name="notes"></td>          
           <td>
               <button type="submit" name="action" value="Delete">Delete</button>
           </td>
@@ -122,6 +122,68 @@
     <!-- close section one -->
     </div>
 <!-- ************************ END OF DISCOUNTS HOLDING **************** -->
+
+<!-- ************************ START OF LIVE DISCOUNTS  **************** -->
+    <div id= "sectionOne">
+      <h2><span class= "accent">Live</span>Discounts</h2>
+      <img class= "dogtags" src= "images/icon-ID_tags.svg">
+      <img class= "building" src= "images/icon-shop.svg">
+
+      <table class="recent-threads">
+      <h2>Live Table</h2>
+      <thead>
+        <tr>
+            <td>Business Id</td>
+            <td>Business Name</td>
+            <td>State</td>
+            <td>County</td>
+            <td>City</td>
+            <td>Street</td>
+            <td>Offer</td>
+            <td>Category</td>
+            <td>Website</td>
+            <td>Creation Date</td>
+            <td>Expiration Date</td>
+            <td>Contact Name</td>
+            <td>Email</td>
+            <td>Phone</td>
+            <td>Notes</td>
+            <td>Delete Entry</td>
+            <td>Edit Entry</td>
+        </tr>
+      </thead>
+        {{#live_discounts}}
+      <form method="POST" action="/admin/live_discounts">
+      <tr>
+          <td><input type="hidden" name="id" value={{id}}>{{id}}</td>
+          <td><input type="text" value="{{busname}}" name="busname"></td>
+          <td><input type="text" value="{{state}}" name="state"></td>
+          <td><input type="text" value="{{county}}" name="county"></td>
+          <td><input type="text" value="{{city}}" name="city"></td>
+          <td><input type="text" value="{{street}}" name="street"></td>
+          <td><input type="text" value="{{desoffer}}" name="desoffer"></td>
+          <td><input type="text" value="{{category}}" name="category"></td>
+          <td><input type="text" value="{{buslinks}}" name="buslinks"></td>
+          <td><input type="hidden" value="{{created}}" name="created">{{created}}</td>
+          <td><input type="hidden" value="{{expiration}}" name="expiration">{{expiration}}</td>
+          <td><input type="text" value="{{cname}}" name="cname"></td>
+          <td><input type="text" value="{{busmail}}" name="busmail"></td>
+          <td><input type="text" value="{{cphone}}" name="cphone"></td>
+          <td><input type="text" value="{{notes}}" name="notes"></td>          
+          <td>
+              <button type="submit" name="action" value="Delete">Delete</button>
+          </td>
+          <td>
+              <button type="submit" name="action" value="Update">Update</button>
+          </td>
+      </tr>
+      </form>
+        {{/live_discounts}}
+      </table>
+
+    <!-- close section one -->
+    </div>
+<!-- ************************ END OF LIVE DISCOUNTS **************** -->
 
 <!-- ************************ START OF VETERANS HOLDING **************** -->
     <div id= "sectionOne">

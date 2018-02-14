@@ -7,17 +7,21 @@ var veterans = require('../models/veterans.js');
 //admin home page
 router.get('/', function(req, res) {
   var adminDisplay = {}
-  var holdingDiscounts = discounts.returnAllHolding();
+  var holdingDiscounts = discounts.returnAllHoldingDiscounts();
   holdingDiscounts.then(function(result) {
     adminDisplay.holdingDiscounts = result
-    var holdingVeterans = veterans.returnAllHolding();
-    holdingVeterans.then(function(result) {
-      adminDisplay.holdingVeterans = result
-      res.render('admin', { 
-        holding_discounts: adminDisplay.holdingDiscounts,
-        holding_veterans: adminDisplay.holdingVeterans });  
-    }) 
-    
+    var liveDiscounts = discounts.returnAllDiscounts();
+    liveDiscounts.then(function(result) {
+      adminDisplay.liveDiscounts = result
+      var holdingVeterans = veterans.returnAllHolding();
+      holdingVeterans.then(function(result) {
+        adminDisplay.holdingVeterans = result
+        res.render('admin', { 
+          holding_discounts: adminDisplay.holdingDiscounts,
+          live_discounts: adminDisplay.liveDiscounts,
+          holding_veterans: adminDisplay.holdingVeterans });  
+      }) 
+    })
   })
 });
 
@@ -41,6 +45,17 @@ router.post('/holding_discounts', function(req, res) {
       })
     })
   }
+});
+
+//live_discounts update, delete, and validate function
+router.post('/live_discounts', function(req, res) {
+  if (req.body.action === "Delete") {
+    discounts.deleteDiscount(req.body.id)
+    res.redirect('/admin')
+  } else if (req.body.action === "Update") {
+    discounts.updateDiscount(req.body)
+    res.redirect('/admin')
+  } 
 });
 
 //holding_veterans update, delete, and validate function
