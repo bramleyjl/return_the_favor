@@ -371,6 +371,18 @@ input[type=text] {
     min-width: 200px;
     margin: 5px;
 }
+input[type=email] {
+    width: 25%;
+    height: 35px;
+    margin: 0 0 0 0;
+    background-color: #f2f2f2;
+    border: 1px solid #C3960D;
+}
+input[type=number] {
+    background-color: #f2f2f2;
+    border: 1px solid #C3960D;
+    height: 30px;
+}
 select {
     width: auto;
     overflow:visible;

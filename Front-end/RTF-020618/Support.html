@@ -81,13 +81,18 @@
 			<!-- <form action="#"> -->
 
   			<div class="container">
-  				
+
   				<form method="post" action="/signups/discount">
 
   					<div>
   						<label for="busname"> Business Name </label>
     					<input type="text" placeholder="  Business Name as you want it to appear" name="busname" required>
-    		
+
+						<label for="state">State</label>
+    					<select id="county" name="state">
+      					<option value="Albany">NY</option>
+    					</select>
+
 						<label for="county">County</label>
     					<select id="county" name="county">
 	  					<option disabled selected value>Choose one or more</option>
@@ -96,18 +101,11 @@
       					<option value="All">All</option>
     					</select>
     				</div>
-    			
+
     				<div>
-						<label for="city">City</label>
-    					<select id="city" name="city">
-						<option disabled selected value>Choose one or more</option>
-  						<option value="all">All</option>
-  						<option value="Albany">Albany</option>
-  						<option value="Latham">Latham</option>
-  						<option value="Rensselaer">Rensselaer</option>
-  						<option value="Albany">Troy</option>
-    					</select>
-    		  
+						<label for="zipcode"> Zip Code </label>
+    					<input type="number" placeholder="  5 Digit Zip Code" name="zipcode" maxlength="5" required>
+
     					<label for="category">Category</label>
     					<select id="category" name="category">
 						<option disabled selected value>Choose one</option>
@@ -120,7 +118,7 @@
     				</div>
 
 					<br>
-				
+
 					<div>
 						<label for="street">Street</label>
 						<input type="text" placeholder=" House# + Street/ Ignore for Multiple Locations" name="street">
@@ -133,9 +131,9 @@
 					<h3>Your Offer</h3>
 
 					<textarea name="desoffer" placeholder= "Describe your Offer exactly as you want it to appear. Be sure to be specific and to include any limitations. Example- '20% off for a tune-ups and/or brake service, once per service, not valid in conjuction with any other discounts'"></textarea>
-				
+
 					<div>
-				
+
 						<label for="expiration">Expiration</label>
     					<select id="expiration" name="expiration">
 						<option disabled selected value>Choose one</option>
@@ -150,7 +148,7 @@
 
 					<input type="text" placeholder="  Contact Name 'First_Last' Not Displayed" name="cname" required>
 
-    				<input type="text" placeholder="  Contact Email Address Not Displayed" name="busmail" required>
+    				<input type="email" placeholder="  Contact Email Address Not Displayed" name="email" required>
 
 					<input type="text" placeholder="  Contact Phone Not Displayed" name="cphone" required>
 
@@ -158,8 +156,8 @@
     				<input type="submit" value="Submit Your Offer">
     				</div>
 
-    			</form>	
-  			
+    			</form>
+
   			<!-- div closing of container -->
   			</div>
   		<!-- div closing section one -->
