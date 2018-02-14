@@ -6,9 +6,18 @@ var veterans = require('../models/veterans.js');
 
 //admin home page
 router.get('/', function(req, res) {
-  var holdingTable = discounts.returnAllHolding()
-  holdingTable.then(function(result) {
-    res.render('admin', { holding: result });
+  var adminDisplay = {}
+  var holdingDiscounts = discounts.returnAllHolding();
+  holdingDiscounts.then(function(result) {
+    adminDisplay.holdingDiscounts = result
+    var holdingVeterans = veterans.returnAllHolding();
+    holdingVeterans.then(function(result) {
+      adminDisplay.holdingVeterans = result
+      res.render('admin', { 
+        holding_discounts: adminDisplay.holdingDiscounts,
+        holding_veterans: adminDisplay.holdingVeterans });  
+    }) 
+    
   })
 });
 
@@ -27,6 +36,28 @@ router.post('/holding_discounts', function(req, res) {
     var validateHolding = discounts.validateHoldingDiscount(req.body)
     validateHolding.then( (result) => {
       var deleteHolding = discounts.deleteHoldingDiscount(holdingId) 
+      deleteHolding.then( (result) => {
+        res.redirect('/admin')
+      })
+    })
+  }
+});
+
+//holding_veterans update, delete, and validate function
+router.post('/holding_veterans', function(req, res) {
+  if (req.body.action === "Delete") {
+    veterans.deleteHoldingDiscount(req.body.id)
+    res.redirect('/admin')
+  } else if (req.body.action === "Update") {
+    veterans.updateHoldingDiscount(req.body)
+    res.redirect('/admin')
+  } else if (req.body.action === "Validate") {
+    var holdingId = req.body.id
+    delete req.body.id
+    delete req.body.action
+    var validateHolding = veterans.validateHoldingDiscount(req.body)
+    validateHolding.then( (result) => {
+      var deleteHolding = veterans.deleteHoldingDiscount(holdingId) 
       deleteHolding.then( (result) => {
         res.redirect('/admin')
       })

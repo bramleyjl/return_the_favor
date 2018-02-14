@@ -96,7 +96,6 @@ exports.updateHoldingDiscount = function(params) {
 
 //creates new row in discount table and removes identical holding table row
 exports.validateHoldingDiscount = function(params) {
-
   //turn Handlebars' parsed timestamps back into SQL-ready timestamps
   params.created = (params.created).substring(4, 24)
   params.created = moment(params.created, "MMM-DD-YYYY HH:mm:ss").format("YYYY-MM-DD HH:mm:ss")

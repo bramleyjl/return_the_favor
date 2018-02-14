@@ -57,9 +57,9 @@
 
 <!-- ************************ END OF NAVBAR AREA**************** -->
 
-<!-- ************************ START OF SECTION ONE **************** -->
+<!-- ************************ START OF DISCOUNTS HOLDING **************** -->
     <div id= "sectionOne">
-      <h2><span class= "accent">Adm</span>in</h2>
+      <h2><span class= "accent">Holding</span>Discounts</h2>
       <img class= "dogtags" src= "images/icon-ID_tags.svg">
       <img class= "building" src= "images/icon-shop.svg">
 
@@ -87,7 +87,7 @@
             <td>Validate Entry</td>
         </tr>
       </thead>
-        {{#holding}}
+        {{#holding_discounts}}
       <form method="POST" action="/admin/holding_discounts">
       <tr>
           <td><input type="hidden" name="id" value={{id}}>{{id}}</td>
@@ -116,12 +116,61 @@
           </td>
       </tr>
       </form>
-        {{/holding}}
+        {{/holding_discounts}}
       </table>
 
     <!-- close section one -->
     </div>
-<!-- ************************ END OF SECTION ONE **************** -->
+<!-- ************************ END OF DISCOUNTS HOLDING **************** -->
+
+<!-- ************************ START OF VETERANS HOLDING **************** -->
+    <div id= "sectionOne">
+      <h2><span class= "accent">Holding</span>Veterans</h2>
+      <img class= "dogtags" src= "images/icon-ID_tags.svg">
+      <img class= "building" src= "images/icon-shop.svg">
+
+      <table class="recent-threads">
+      <h2>Holding Table</h2>
+      <thead>
+        <tr>
+            <td>Veteran Id</td>
+            <td>Veteran Name</td>
+            <td>Email</td>
+            <td>County</td>
+        </tr>
+      </thead>
+        {{#holding_veterans}}
+      <form method="POST" action="/admin/holding_veterans">
+      <tr>
+          <td><input type="hidden" name="id" value={{id}}>{{id}}</td>
+          <td><input type="text" value="{{name}}" name="name"></td>
+          <td><input type="text" value="{{email}}" name="email"></td>
+          <td>
+            <select name="county">
+              <option selected value="{{county}}">{{county}}</option>
+              <option value="1">Rensselaer</option>
+              <option value="2">Albany</option>
+              <option value="3">Schenectady</option>
+              <option value="4">Saratoga</option>
+            </select>
+          </td>
+          <td>
+              <button type="submit" name="action" value="Delete">Delete</button>
+          </td>
+          <td>
+              <button type="submit" name="action" value="Update">Update</button>
+          </td>
+          <td>
+              <button type="submit" name="action" value="Validate">Validate</button>
+          </td>
+      </tr>
+      </form>
+        {{/holding_veterans}}
+      </table>
+
+    <!-- close section one -->
+    </div>
+<!-- ************************ END OF VETERANS HOLDING **************** -->
 
 <!-- ************************ START OF SECTION TWO **************** -->
     <div id= "sectionTwo">

@@ -15,7 +15,12 @@ router.post('/veteran', function(req, res, next) {
   if (req.body.name === '' || req.body.email === '' || req.body.county === '') {
     res.redirect('/error')
   }
-  veterans.createVeteran(req.body.name, req.body.email, req.body.county);
+  var newVeteran = {
+    name : req.body.name,
+    email : req.body.email,
+    county : req.body.county   
+  }
+  veterans.createVeteran(newVeteran);
   res.redirect('/discounts');
 });
 
