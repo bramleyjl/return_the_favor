@@ -5,12 +5,30 @@ var discounts = require('../models/discounts.js');
 
 // discounts index listing
 router.get('/', function(req, res) {
-  discounts.returnAllDiscounts().then( function (discounts) {
-    res.render('discount', {discounts : discounts} )
-  }).catch( function ( err ) {
-    throw err
-  });
+  var defaultSearch = {
+    county : 'all',
+    county : 'all',
+    category : 'all',
+    category : 'all',
+    search : '',
+    search : '',
+    recent : '10'
+  }
+  var defaultQuery = discounts.filterDiscounts(defaultSearch);
+  defaultQuery.then(function(result) {
+   console.log(result) //will log results.
+  })
+  res.render('discounts');
 });
+
+// discounts searched/filtered
+router.post('/', function(req, res) {
+  var searchQuery = discounts.filterDiscounts(req.body);
+  searchQuery.then(function(result) {
+   console.log(result) //will log results.
+  })
+  res.render('discounts');
+})
 
 // discounts sorted by category
 router.get('/categories/:id', function (req, res, next) {
@@ -41,11 +59,5 @@ router.get('/view/:id', function(req, res, next) {
     if (err) res.redirect('discounts');
   })  
 });
-
-/* Get discounts by search result */
-router.get('/search/:slug', function(req, res, next) {
-  res.send(`Discounts that match ${req.params.slug} displayed here`);
-});
-
 
 module.exports = router;

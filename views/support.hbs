@@ -5,20 +5,20 @@
 		<meta name="description" content="Return The Favor Program, Discounts for Veterans">
 		<meta name="keywords" content="F.A.V.O.R., DD-214, Discounts, Veterans, NYS, Rensselaer, Troy, Capital Region">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link rel="stylesheet" type="text/css" href="style-rtf.css">
-		<link rel="stylesheet" type="text/css" href="style-rtfres.css">
+		<link rel="stylesheet" type="text/css" href="/stylesheets/style-rtf.css">
+		<link rel="stylesheet" type="text/css" href="/stylesheets/style-rtfres.css">
 		<link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700" rel="stylesheet">
 		<link rel="icon" type="image/png" href="images/favicon.png">
 		<title>Support Return The Favor Offer Discounts</title>
 	</head>
 
-	<body>
+<body>
 <!-- ************************ START OF NAVBAR AREA**************** -->
 <div class="navbar">
 
 	<div class="logo">
 
-		<a href="index.html"><img src="images/logo-circle.png" alt "RTFLogo"></a>
+		<a href="home"><img src="images/logo-circle.png" alt "RTFLogo"></a>
 		<div class = "rtf">
 			<h1><span><u>Ret</u>urn The F.A.V.O.R.</span></h1>
 		</div>
@@ -30,39 +30,39 @@
 
 		<div class="dropdown">
 			<button class="dropbtn">Resources
-			<i class="fa fa-caret-down"></i>
+			 <i class="fa fa-caret-down"></i>
 			</button>
 
-				<div class="dropdown-content">
-					<a href="About.html">About/Contact</a>
-					<a href="Documents.html">Documents</a>
-				</div>
-		</div>
-
+			<div class="dropdown-content">
+				<a href="about">About/Contact</a>
+				<a href="documents">Documents</a>
+			</div>
+    </div>
+	   
 		<div class="dropdown">
-			<button class="dropbtn">Support
-			<i class="fa fa-caret-down"></i>
-			</button>
+		  <button class="dropbtn">Support
+			 <i class="fa fa-caret-down"></i>
+		  </button>
 
-				<div class="dropdown-content">
-					<a href="Support.html">Add a Discount</a>
-					<a href="Support.html#sectionTwo">Add an Event</a>
-				</div>
-		</div>
-
+			<div class="dropdown-content">
+				<a href="support">Add a Discount</a>
+				<a href="support#sectionTwo">Add an Event</a>
+			</div>
+    </div>
+	   
 		<div class="dropdown">
-			<button class="dropbtn">Veterans
-			<i class="fa fa-caret-down"></i>
-			</button>
-
-				<div class="dropdown-content">
-					<a href="Discounts.html">Discounts</a>
-					<a href="Events.html">Events</a>
-				</div>
+  		<button class="dropbtn">Veterans
+    	 <i class="fa fa-caret-down"></i>
+  		</button>
+  
+  		<div class="dropdown-content">
+    		<a href="discounts">Discounts</a>
+    		<a href="events">Events</a>
+  		</div>	
 		</div>
-	<!--closing menu-->
+	<!--closing menu-->	
 	</div>
-<!--closing navbar-->
+<!--closing navbar -->	
 </div>
 
 <!-- ************************ END OF NAVBAR AREA**************** -->
@@ -82,7 +82,7 @@
 
   			<div class="container">
 
-  				<form method="post" action="/signups/discount">
+  				<form method="POST" action="/support/discount">
 
   					<div>
   						<label for="busname"> Business Name </label>
@@ -96,9 +96,11 @@
 						<label for="county">County</label>
     					<select id="county" name="county">
 	  					<option disabled selected value>Choose one or more</option>
-      					<option value="Albany">Albany</option>
-      					<option value="Rensselaer">Rensselaer</option>
-      					<option value="All">All</option>
+                <option value="1">Rensselaer</option>
+                <option value="2">Albany</option>
+                <option value="3">Schenectady</option>
+                <option value="4">Saratoga</option>
+                <option value="All">All</option>
     					</select>
     				</div>
 
@@ -110,10 +112,27 @@
     					<select id="category" name="category">
 						<option disabled selected value>Choose one</option>
   						<option value="all">All</option>
-  						<option value="Automotive">Automotive</option>
-  						<option value="finedining">Fine Dining</option>
-  						<option value="casualdining">Casual Dining</option>
-  						<option value="professional">Professional Services</option>
+              <option value=1>Casual Dining and Take-Out</option>
+              <option value=2>Art and Antiques</option>
+              <option value=3>Banking</option>
+              <option value=4>Books</option>
+              <option value=5>Cleaners</option>
+              <option value=6>Clothing</option>
+              <option value=7>Family and Recreation</option>
+              <option value=8>Flowers</option>
+              <option value=9>Fine Dining and Nightlife</option>
+              <option value=10>Haircare and Spas</option>
+              <option value=11>Jewelry</option>
+              <option value=12>Legal</option>
+              <option value=13>Automotive</option>
+              <option value=14>Home Services</option>
+              <option value=15>Travel</option>
+              <option value=16>Theater and Arts</option>
+              <option value=17>Storage</option>
+              <option value=18>Pets</option>
+              <option value=19>Health and Fitness</option>
+              <option value=20>Other</option>
+              </select>
     					</select>
     				</div>
 
@@ -136,19 +155,19 @@
 
 						<label for="expiration">Expiration</label>
     					<select id="expiration" name="expiration">
-						<option disabled selected value>Choose one</option>
-  						<option value="3mos">3 months</option>
-  						<option value="6mos">6 months</option>
-  						<option value="9mos">9 months</option>
-  						<option value="12mos">12 months</option>
-						</select>
+              <option disabled selected value>Choose one</option>
+                <option value=3>3 months</option>
+                <option value=6>6 months</option>
+                <option value=9>9 months</option>
+                <option value=12>12 months</option>
+              </select>
 			    	</div>
 
 					<h3>Business Contact Info</h3>
 
 					<input type="text" placeholder="  Contact Name 'First_Last' Not Displayed" name="cname" required>
 
-    				<input type="email" placeholder="  Contact Email Address Not Displayed" name="email" required>
+    				<input type="email" placeholder="  Contact Email Address Not Displayed" name="busmail" required>
 
 					<input type="text" placeholder="  Contact Phone Not Displayed" name="cphone" required>
 
@@ -162,7 +181,7 @@
   			</div>
   		<!-- div closing section one -->
 		</div>
-		<!-- </form> -->
+		</form>
 
 <!-- ************************ END OF SECTION ONE **************** -->
 
@@ -198,5 +217,5 @@
 <!-- ______________END THE FOOTER AREA OF THE PAGE_______________ -->
 
 
-	</body>
+</body>
 </html>
