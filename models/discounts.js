@@ -17,16 +17,22 @@ exports.returnAllDiscounts = function() {
 //master filter function, combines multiple filtering/searching options
 exports.filterDiscounts = function(params) {
   params.recent = parseInt(params.recent)
+  console.log(params)
   return new Promise(function (resolve, reject) {
     db.query("SELECT * FROM `discounts` \
       WHERE (`county` = ? OR ? = 'all') \
+      AND (`zip` = ? OR ? = '') \
       AND (`category` = ? OR ? = 'all') \
       AND (MATCH (`busname`, `desoffer`) AGAINST (?) OR ? = '') \
       ORDER BY `created` DESC LIMIT ?",
-      [params.county, params.county, params.category, params.category, params.search, params.search, params.recent], function (err, results) {
-      if (err) return reject(err);
-      return (resolve(results))
-    });
+    [params.county, params.county, 
+      params.zip, params.zip, 
+      params.category, params.category, 
+      params.search, params.search, 
+      params.recent], function (err, results) {
+        if (err) return reject(err);
+        return (resolve(results))
+      });
   });  
 }
 
@@ -46,7 +52,7 @@ exports.updateDiscount = function(params) {
     SET `busname` = ?, \
     `state` = ?, \
     `county` = ?, \
-    `city` = ?, \
+    `zip` = ?, \
     `street` = ?, \
     `desoffer` = ?, \
     `category` = ?, \
@@ -59,7 +65,7 @@ exports.updateDiscount = function(params) {
     params.busname, 
     params.state,
     params.county,
-    params.city,
+    params.zip,
     params.street,
     params.desoffer,
     params.category,
@@ -114,7 +120,7 @@ exports.updateHoldingDiscount = function(params) {
     SET `busname` = ?, \
     `state` = ?, \
     `county` = ?, \
-    `city` = ?, \
+    `zip` = ?, \
     `street` = ?, \
     `desoffer` = ?, \
     `category` = ?, \
@@ -127,7 +133,7 @@ exports.updateHoldingDiscount = function(params) {
     params.busname, 
     params.state,
     params.county,
-    params.city,
+    params.zip,
     params.street,
     params.desoffer,
     params.category,

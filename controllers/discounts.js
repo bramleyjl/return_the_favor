@@ -2,6 +2,7 @@
 var express = require('express');
 var router = express.Router();
 var discounts = require('../models/discounts.js');
+var veterans = require('../models/veterans.js');
 
 // discounts index listing
 router.get('/', function(req, res) {
@@ -23,31 +24,13 @@ router.get('/', function(req, res) {
 
 // discounts searched/filtered
 router.post('/', function(req, res) {
+  console.log(req.body)
   var searchQuery = discounts.filterDiscounts(req.body);
   searchQuery.then(function(result) {
    console.log(result) //will log results.
   })
   res.render('discounts');
 })
-
-// discounts sorted by category
-router.get('/categories/:id', function (req, res, next) {
-  discounts.returnDiscountsByCategory(req.params.id).then( function (discounts) {
-    res.render('discount', {discounts : discounts, category : discounts[0].name});
-  }).catch( function (err) {
-    if (err) res.redirect('/discounts');
-
-  });
-});
-
-// discounts sorted by county
-router.get('/counties/:id', function (req, res, next) {
-  discounts.returnDiscountsByCounty(req.params.id).then( function (discounts) {
-    res.render('discount', {discounts : discounts, county : discounts[0].name});
-  }).catch( function (err) {
-    if (err) res.redirect('/discounts');
-  });
-});
 
 // single discount by id
 router.get('/view/:id', function(req, res, next) {
@@ -58,6 +41,20 @@ router.get('/view/:id', function(req, res, next) {
   }).catch( function (err) {
     if (err) res.redirect('discounts');
   })  
+});
+
+// Submit new veteran form
+router.post('/veteran', function(req, res, next) {
+  if (req.body.name === '' || req.body.email === '' || req.body.county === '') {
+    res.redirect('/error')
+  }
+  var newVeteran = {
+    name : req.body.name,
+    email : req.body.email,
+    county : req.body.county   
+  }
+  veterans.createVeteran(newVeteran);
+  res.redirect('/discounts');
 });
 
 module.exports = router;
