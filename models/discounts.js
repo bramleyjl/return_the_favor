@@ -4,7 +4,7 @@ let moment = require('moment');
 
 ////////beginning of 'live_discounts' functions////////
 
-//inserts submitted discount into the holding table for review
+//inserts submitted discount into the live table
 exports.createDiscount = function(params) {
   var discount = params;
   var currentTime =  moment(new Date());
@@ -57,7 +57,7 @@ exports.returnDiscountsById = function(id) {
   });
 }
 
-//updates discount
+//updates discount in live table
 exports.updateDiscount = function(params) {
   db.query("UPDATE `discounts` \
     SET `busname` = ?, \
@@ -92,7 +92,7 @@ exports.updateDiscount = function(params) {
   })
 }
 
-//deletes discount from holding table by id
+//deletes discount from live table by id
 exports.deleteDiscount = function(id) {
   return new Promise(function (resolve, reject) {
     db.query("DELETE FROM `discounts` WHERE id = ?", [id], function (err, results) {

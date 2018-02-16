@@ -9,6 +9,12 @@ router.get('/', function(req, res, next) {
   res.render('support');
 });
 
+// confirmation after submitting a discount
+router.get('/confirmation', function(req, res, next) {
+  res.send('Thanks for signing up!');
+});
+
+
 // Submit new discount form
 router.post('/discount', function(req, res, next) {
   var newDiscount = {
@@ -25,7 +31,7 @@ router.post('/discount', function(req, res, next) {
     busmail : req.body.busmail,
     cphone : req.body.cphone }
   discounts.createHoldingDiscount(newDiscount);
-  res.redirect('/home');
+  res.redirect('/support/confirmation');
 });
 
 module.exports = router;

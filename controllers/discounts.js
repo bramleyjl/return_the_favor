@@ -53,7 +53,7 @@ router.post('/veteran', function(req, res, next) {
     email : req.body.email,
     county : req.body.county   
   }
-  veterans.createVeteran(newVeteran);
+  veterans.createHoldingVeteran(newVeteran);
   res.redirect('/discounts');
 });
 
