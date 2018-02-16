@@ -14,7 +14,15 @@ exports.createLiveVeteran = function(params) {
 //returns an object with all veterans
 exports.returnAllVeterans = function() {
   return new Promise(function (resolve, reject) {
-    db.query("SELECT * FROM `veterans`", function (err, results, fields) {
+    db.query("SELECT \
+    `veterans`.`id`, \
+    `veterans`.`name`, \
+    `veterans`.`email`, \
+    `veterans`.`county`, \
+    `counties`.`name` AS `county_name` \
+    FROM `veterans` \
+    JOIN `counties` ON `veterans`.`county` = `counties`.`id`", 
+    function (err, results, fields) {
       if (err) return reject(err);
       return resolve(results)
     });
@@ -60,12 +68,20 @@ exports.createHoldingVeteran = function(params) {
 
 //returns the entire veterans holding table
 exports.returnAllHoldingVeterans = function() {
-  return new Promise(function (resolve, reject) {
-    db.query("SELECT * FROM `holding_veterans`", function (err, results, fields) {
+  return new Promise(function(resolve, reject) {
+    db.query("SELECT \
+    `holding_veterans`.`id`, \
+    `holding_veterans`.`name`, \
+    `holding_veterans`.`email`, \
+    `holding_veterans`.`county`, \
+    `counties`.`name` AS `county_name` \
+    FROM `holding_veterans` \
+    JOIN `counties` ON `holding_veterans`.`county` = `counties`.`id`", 
+    function (err, results, fields) {
       if (err) return reject(err);
-      return resolve(results)
+      return resolve(results);
     });
-  });
+  })
 }
 
 //updates veteran in holding table
