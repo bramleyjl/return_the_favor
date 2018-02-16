@@ -4,6 +4,17 @@ let moment = require('moment');
 
 ////////beginning of 'live_discounts' functions////////
 
+//inserts submitted discount into the holding table for review
+exports.createDiscount = function(params) {
+  var discount = params;
+  var currentTime =  moment(new Date());
+  discount.expiration = moment(currentTime).add({months:discount.expiration}).format("YYYY-MM-DD HH:mm:ss");
+  db.query("INSERT INTO `discounts` SET ?", [discount], function (err, results, fields) {
+    if (err) throw err;
+    return results
+  });
+}
+
 //returns an object with all discounts
 exports.returnAllDiscounts = function() {
   return new Promise(function (resolve, reject) {

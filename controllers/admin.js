@@ -27,6 +27,21 @@ router.get('/', function(req, res) {
 
 //holding_discounts update, delete, and validate function
 router.post('/holding_discounts', function(req, res) {
+//new discount variable for when a new live or holding discount is created
+  var newDiscount = {
+  busname : req.body.busname, 
+  county : req.body.county,
+  state : req.body.state,
+  zip : req.body.zip,
+  category : req.body.category,
+  street: req.body.street,
+  buslinks : req.body.buslinks,
+  desoffer : req.body.desoffer,
+  expiration : req.body.expiration,
+  cname : req.body.cname,
+  busmail : req.body.busmail,
+  cphone : req.body.cphone,
+  notes: req.body.notes }
   if (req.body.action === "Delete") {
     discounts.deleteHoldingDiscount(req.body.id)
     res.redirect('/admin')
@@ -44,6 +59,12 @@ router.post('/holding_discounts', function(req, res) {
         res.redirect('/admin')
       })
     })
+  } else if (req.body.action === "Create_Holding") {
+    discounts.createHoldingDiscount(newDiscount);
+    res.redirect('/admin')
+  } else if (req.body.action === "Create_Live") {
+    discounts.createDiscount(newDiscount);
+    res.redirect('/admin')
   }
 });
 
