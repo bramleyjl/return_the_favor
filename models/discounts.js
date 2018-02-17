@@ -37,9 +37,16 @@ exports.returnAllDiscounts = function() {
 //master filter function, combines multiple filtering/searching options
 exports.filterDiscounts = function(params) {
   params.recent = parseInt(params.recent)
-  console.log(params)
   return new Promise(function (resolve, reject) {
-    db.query("SELECT * FROM `discounts` \
+    db.query("SELECT \
+      `discounts`.*, \
+      `counties`.`name` AS `county_name`, \
+      `categories`.`name` AS `category_name`, \
+      `states`.`name` AS `state_name` \
+      FROM `discounts` \
+      JOIN `counties` ON `discounts`.`county` = `counties`.`id` \
+      JOIN `categories` ON `discounts`.`category` = `categories`.`id` \
+      JOIN `states` ON `discounts`.`state` = `states`.`id` \
       WHERE (`county` = ? OR ? = 'all') \
       AND (`zip` = ? OR ? = '') \
       AND (`category` = ? OR ? = 'all') \

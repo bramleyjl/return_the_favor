@@ -8,28 +8,23 @@ var veterans = require('../models/veterans.js');
 router.get('/', function(req, res) {
   var defaultSearch = {
     county : 'all',
-    county : 'all',
+    zip : '',
     category : 'all',
-    category : 'all',
-    search : '',
     search : '',
     recent : '10'
   }
   var defaultQuery = discounts.filterDiscounts(defaultSearch);
-  defaultQuery.then(function(result) {
-   console.log(result) //will log results.
+  defaultQuery.then(function(discounts) {
+    res.render('discounts', {discounts : discounts});
   })
-  res.render('discounts');
 });
 
 // discounts searched/filtered
 router.post('/', function(req, res) {
-  console.log(req.body)
   var searchQuery = discounts.filterDiscounts(req.body);
-  searchQuery.then(function(result) {
-   console.log(result) //will log results.
+  searchQuery.then(function(discounts) {
+   res.render('discounts', {discounts : discounts});
   })
-  res.render('discounts');
 })
 
 // single discount by id
