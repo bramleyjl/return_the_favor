@@ -171,29 +171,53 @@
       <h2>Discounts</h2>
       <thead>
         <tr>
-            <td>Business Name</td>
-            <td>State</td>
-            <td>County</td>
-            <td>ZipCode</td>
-            <td>Street</td>
-            <td>Offer</td>
-            <td>Category</td>
-            <td>Website</td>
+          <td>Business Name</td>
+          <td>State</td>
+          <td>County</td>
+          <td>ZipCode</td>
+          <td>Street</td>
+          <td>Offer</td>
+          <td>Category</td>
+          <td>Website</td>
         </tr>
       </thead>
       {{#discounts}}
       <tr>
-          <td>{{busname}}</td>
-          <td>{{state_name}}</td>
-          <td>{{county_name}}</td>
-          <td>{{zip}}</td>
-          <td>{{street}}</td>
-          <td>{{desoffer}}</td>
-          <td>{{category_name}}</td>
-          <td>{{buslinks}}</td>
+        <td>{{busname}}</td>
+        <td>{{state_name}}</td>
+        <td>{{county_name}}</td>
+        <td>{{zip}}</td>
+        <td>{{street}}</td>
+        <td>{{desoffer}}</td>
+        <td>{{category_name}}</td>
+        <td>{{buslinks}}</td>
       </tr>
       {{/discounts}}
       </table>
+
+    {{#if lastPage}}
+      <form method="POST" action="/discounts/?page={{lastPage}}">
+      <input type="hidden" name="county" value={{searchParams.county}}>
+      <input type="hidden" name="zip" value={{searchParams.zip}}>
+      <input type="hidden" name="category" value={{searchParams.category}}>
+      <input type="hidden" name="recent" value={{searchParams.recent}}>
+      <input type="hidden" name="search" value={{searchParams.search}}>
+      <button type="submit">Last Page</button>
+      </form>
+    {{/if}}
+
+
+    {{#if nextPage}}
+        <form method="POST" action="/discounts/?page={{nextPage}}">
+        <input type="hidden" name="county" value={{searchParams.county}}>
+        <input type="hidden" name="zip" value={{searchParams.zip}}>
+        <input type="hidden" name="category" value={{searchParams.category}}>
+        <input type="hidden" name="recent" value={{searchParams.recent}}>
+        <input type="hidden" name="search" value={{searchParams.search}}>
+        <button type="submit">Next Page</button>
+      </form>
+    {{/if}}
+
 
     </div>
 <!-- ************************ END OF DISCOUNTS **************** -->

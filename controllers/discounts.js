@@ -21,10 +21,42 @@ router.get('/', function(req, res) {
 
 // discounts searched/filtered
 router.post('/', function(req, res) {
-  var searchQuery = discounts.filterDiscounts(req.body);
+  var searchParams = {
+      county : req.body.county,
+      zip : req.body.zip,
+      category : req.body.category,
+      recent : req.body.recent,
+      search : req.body.search
+  }
+  var searchQuery = discounts.filterDiscounts(searchParams);
   searchQuery.then(function(discounts) {
-   res.render('discounts', {discounts : discounts});
-  })
+    //query results pagination
+    var totalDiscounts = discounts.length,
+      pageSize = 2,
+      pageCount = Math.ceil(discounts.length / pageSize),
+      currentPage = 1,
+      discountsArrays = [],
+      discountsPresent = []
+    //splits query results into groups per page
+    while (discounts.length > 0) {
+      discountsArrays.push(discounts.splice(0, pageSize));
+    }
+    //sets current page
+    if (typeof req.query.page !== 'undefined') {
+      currentPage = +parseInt(req.query.page);
+    }
+    //determines whether to show last or next page buttons
+    if (currentPage !== 1) var lastPage = currentPage - 1
+    if (currentPage !== pageCount) var nextPage = currentPage + 1
+    discountsPresent = discountsArrays[+currentPage -1]; 
+    res.render('discounts', {
+      discounts : discountsPresent,
+      searchParams : searchParams,
+      currentPage : currentPage,
+      lastPage : lastPage,
+      nextPage : nextPage
+    });
+  }) 
 })
 
 // single discount by id
