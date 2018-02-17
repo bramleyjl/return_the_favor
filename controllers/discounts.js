@@ -32,7 +32,7 @@ router.post('/', function(req, res) {
   searchQuery.then(function(discounts) {
     //query results pagination
     var totalDiscounts = discounts.length,
-      pageSize = 2,
+      pageSize = 5,
       pageCount = Math.ceil(discounts.length / pageSize),
       currentPage = 1,
       discountsArrays = [],
