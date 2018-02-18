@@ -416,6 +416,26 @@ form div + div {
 }
 
 
+input.error, #city.error, #category.error  #county.error {
+  
+   border-style: solid;
+    border-color: red;
+    border-width: 3px;
+}
+
+#please-complete {
+
+    width: 50%;
+    height: 40px;
+    margin: 0px;
+    color: #000;
+    text-align: justify;
+    background-color: tan;
+    display:none;
+}
+
+
+
 /* START OF FOOTER */
 
 #footer {

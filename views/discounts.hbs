@@ -78,7 +78,7 @@
 			<h3><i>Veterans Subscribe to our Newsletter</i></h3>
 			<p>Veterans should subscribe to our newsletter to be notified about the latest Discounts and Events. All fields are required</p>
 
-			<form method="POST" action="/support/veteran">
+			<form method="POST" action="/discounts/veteran">
  			<div class="container">
     			<input type="text" placeholder="   'First_Last'" name="name" required>
 				<label for="county">County</label>
@@ -120,7 +120,7 @@
   				</select>
 
 				<label for="zipcode"> Zip Code </label>
-				<input type="number" placeholder="  5 Digit Zip Code" name="zipcode" maxlength="5" required>
+				<input type="number" placeholder="  5 Digit Zip Code" name="zip" maxlength="5">
 
   				<label for="category">Category</label>
   				<select id="category" name="category">
@@ -160,17 +160,67 @@
 			</div>
 			</form>
 
-
-			<div id= "outerdiv" class= "wide-discounts">
-
-				<iframe id="inneriframe" class= "wider" name="discounts" width=500px height= 1000px src="https://rtrnthefvr.blogspot.com/?view=flipcard" scrolling=no>
-				 <p> If you’re seeing this , your settings do not allow iframes </p>
-				</iframe>
-
-			</div>
 		<!-- close the div "section two" -->
 		</div>
 <!-- ************************ END OF SECTION TWO AREA**************** -->
+
+<!-- ************************ START OF DISCOUNTS **************** -->
+    <div id= "sectionTwo">
+
+      <table class="recent-threads">
+      <h2>Discounts</h2>
+      <thead>
+        <tr>
+          <td>Business Name</td>
+          <td>State</td>
+          <td>County</td>
+          <td>ZipCode</td>
+          <td>Street</td>
+          <td>Offer</td>
+          <td>Category</td>
+          <td>Website</td>
+        </tr>
+      </thead>
+      {{#discounts}}
+      <tr>
+        <td>{{busname}}</td>
+        <td>{{state_name}}</td>
+        <td>{{county_name}}</td>
+        <td>{{zip}}</td>
+        <td>{{street}}</td>
+        <td>{{desoffer}}</td>
+        <td>{{category_name}}</td>
+        <td>{{buslinks}}</td>
+      </tr>
+      {{/discounts}}
+      </table>
+
+    {{#if lastPage}}
+      <form method="POST" action="/discounts/?page={{lastPage}}">
+      <input type="hidden" name="county" value={{searchParams.county}}>
+      <input type="hidden" name="zip" value={{searchParams.zip}}>
+      <input type="hidden" name="category" value={{searchParams.category}}>
+      <input type="hidden" name="recent" value={{searchParams.recent}}>
+      <input type="hidden" name="search" value={{searchParams.search}}>
+      <button type="submit">Last Page</button>
+      </form>
+    {{/if}}
+
+
+    {{#if nextPage}}
+        <form method="POST" action="/discounts/?page={{nextPage}}">
+        <input type="hidden" name="county" value={{searchParams.county}}>
+        <input type="hidden" name="zip" value={{searchParams.zip}}>
+        <input type="hidden" name="category" value={{searchParams.category}}>
+        <input type="hidden" name="recent" value={{searchParams.recent}}>
+        <input type="hidden" name="search" value={{searchParams.search}}>
+        <button type="submit">Next Page</button>
+      </form>
+    {{/if}}
+
+
+    </div>
+<!-- ************************ END OF DISCOUNTS **************** -->
 
 <!-- ______________START OF THE FOOTER AREA OF THE PAGE_______________ -->
 

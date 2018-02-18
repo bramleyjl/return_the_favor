@@ -2,52 +2,62 @@
 var express = require('express');
 var router = express.Router();
 var discounts = require('../models/discounts.js');
+var veterans = require('../models/veterans.js');
 
 // discounts index listing
 router.get('/', function(req, res) {
   var defaultSearch = {
     county : 'all',
-    county : 'all',
+    zip : '',
     category : 'all',
-    category : 'all',
-    search : '',
     search : '',
     recent : '10'
   }
   var defaultQuery = discounts.filterDiscounts(defaultSearch);
-  defaultQuery.then(function(result) {
-   console.log(result) //will log results.
+  defaultQuery.then(function(discounts) {
+    res.render('discounts', {discounts : discounts});
   })
-  res.render('discounts');
 });
 
 // discounts searched/filtered
 router.post('/', function(req, res) {
-  var searchQuery = discounts.filterDiscounts(req.body);
-  searchQuery.then(function(result) {
-   console.log(result) //will log results.
-  })
-  res.render('discounts');
+  var searchParams = {
+      county : req.body.county,
+      zip : req.body.zip,
+      category : req.body.category,
+      recent : req.body.recent,
+      search : req.body.search
+  }
+  var searchQuery = discounts.filterDiscounts(searchParams);
+  searchQuery.then(function(discounts) {
+    //query results pagination
+    var totalDiscounts = discounts.length,
+      pageSize = 5,
+      pageCount = Math.ceil(discounts.length / pageSize),
+      currentPage = 1,
+      discountsArrays = [],
+      discountsPresent = []
+    //splits query results into groups per page
+    while (discounts.length > 0) {
+      discountsArrays.push(discounts.splice(0, pageSize));
+    }
+    //sets current page
+    if (typeof req.query.page !== 'undefined') {
+      currentPage = +parseInt(req.query.page);
+    }
+    //determines whether to show last or next page buttons
+    if (currentPage !== 1) var lastPage = currentPage - 1
+    if (currentPage !== pageCount) var nextPage = currentPage + 1
+    discountsPresent = discountsArrays[+currentPage -1]; 
+    res.render('discounts', {
+      discounts : discountsPresent,
+      searchParams : searchParams,
+      currentPage : currentPage,
+      lastPage : lastPage,
+      nextPage : nextPage
+    });
+  }) 
 })
-
-// discounts sorted by category
-router.get('/categories/:id', function (req, res, next) {
-  discounts.returnDiscountsByCategory(req.params.id).then( function (discounts) {
-    res.render('discount', {discounts : discounts, category : discounts[0].name});
-  }).catch( function (err) {
-    if (err) res.redirect('/discounts');
-
-  });
-});
-
-// discounts sorted by county
-router.get('/counties/:id', function (req, res, next) {
-  discounts.returnDiscountsByCounty(req.params.id).then( function (discounts) {
-    res.render('discount', {discounts : discounts, county : discounts[0].name});
-  }).catch( function (err) {
-    if (err) res.redirect('/discounts');
-  });
-});
 
 // single discount by id
 router.get('/view/:id', function(req, res, next) {
@@ -58,6 +68,20 @@ router.get('/view/:id', function(req, res, next) {
   }).catch( function (err) {
     if (err) res.redirect('discounts');
   })  
+});
+
+// Submit new veteran form
+router.post('/veteran', function(req, res, next) {
+  if (req.body.name === '' || req.body.email === '' || req.body.county === '') {
+    res.redirect('/error')
+  }
+  var newVeteran = {
+    name : req.body.name,
+    email : req.body.email,
+    county : req.body.county   
+  }
+  veterans.createHoldingVeteran(newVeteran);
+  res.redirect('/discounts');
 });
 
 module.exports = router;

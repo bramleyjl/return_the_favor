@@ -4,10 +4,30 @@ let moment = require('moment');
 
 ////////beginning of 'live_discounts' functions////////
 
+//inserts submitted discount into the live table
+exports.createDiscount = function(params) {
+  var discount = params;
+  var currentTime =  moment(new Date());
+  discount.expiration = moment(currentTime).add({months:discount.expiration}).format("YYYY-MM-DD HH:mm:ss");
+  db.query("INSERT INTO `discounts` SET ?", [discount], function (err, results, fields) {
+    if (err) throw err;
+    return results
+  });
+}
+
 //returns an object with all discounts
 exports.returnAllDiscounts = function() {
   return new Promise(function (resolve, reject) {
-    db.query("SELECT * FROM `discounts`", function (err, results, fields) {
+    db.query("SELECT \
+      `discounts`.*, \
+      `counties`.`name` AS `county_name`, \
+      `categories`.`name` AS `category_name`, \
+      `states`.`name` AS `state_name` \
+      FROM `discounts`\
+      JOIN `counties` ON `discounts`.`county` = `counties`.`id` \
+      JOIN `categories` ON `discounts`.`category` = `categories`.`id` \
+      JOIN `states` ON `discounts`.`state` = `states`.`id`",  
+    function (err, results, fields) {
       if (err) return reject(err);
       return resolve(results)
     });
@@ -18,15 +38,28 @@ exports.returnAllDiscounts = function() {
 exports.filterDiscounts = function(params) {
   params.recent = parseInt(params.recent)
   return new Promise(function (resolve, reject) {
-    db.query("SELECT * FROM `discounts` \
+    db.query("SELECT \
+      `discounts`.*, \
+      `counties`.`name` AS `county_name`, \
+      `categories`.`name` AS `category_name`, \
+      `states`.`name` AS `state_name` \
+      FROM `discounts` \
+      JOIN `counties` ON `discounts`.`county` = `counties`.`id` \
+      JOIN `categories` ON `discounts`.`category` = `categories`.`id` \
+      JOIN `states` ON `discounts`.`state` = `states`.`id` \
       WHERE (`county` = ? OR ? = 'all') \
+      AND (`zip` = ? OR ? = '') \
       AND (`category` = ? OR ? = 'all') \
       AND (MATCH (`busname`, `desoffer`) AGAINST (?) OR ? = '') \
       ORDER BY `created` DESC LIMIT ?",
-      [params.county, params.county, params.category, params.category, params.search, params.search, params.recent], function (err, results) {
-      if (err) return reject(err);
-      return (resolve(results))
-    });
+    [params.county, params.county, 
+      params.zip, params.zip, 
+      params.category, params.category, 
+      params.search, params.search, 
+      params.recent], function (err, results) {
+        if (err) return reject(err);
+        return (resolve(results))
+      });
   });  
 }
 
@@ -40,13 +73,13 @@ exports.returnDiscountsById = function(id) {
   });
 }
 
-//updates discount
+//updates discount in live table
 exports.updateDiscount = function(params) {
   db.query("UPDATE `discounts` \
     SET `busname` = ?, \
     `state` = ?, \
     `county` = ?, \
-    `city` = ?, \
+    `zip` = ?, \
     `street` = ?, \
     `desoffer` = ?, \
     `category` = ?, \
@@ -59,7 +92,7 @@ exports.updateDiscount = function(params) {
     params.busname, 
     params.state,
     params.county,
-    params.city,
+    params.zip,
     params.street,
     params.desoffer,
     params.category,
@@ -75,7 +108,7 @@ exports.updateDiscount = function(params) {
   })
 }
 
-//deletes discount from holding table by id
+//deletes discount from live table by id
 exports.deleteDiscount = function(id) {
   return new Promise(function (resolve, reject) {
     db.query("DELETE FROM `discounts` WHERE id = ?", [id], function (err, results) {
@@ -101,7 +134,16 @@ exports.createHoldingDiscount = function(params) {
 //returns the entire discounts holding table
 exports.returnAllHoldingDiscounts = function() {
   return new Promise(function (resolve, reject) {
-    db.query("SELECT * FROM `holding_discounts`", function (err, results, fields) {
+    db.query("SELECT \
+      `holding_discounts`.*, \
+      `counties`.`name` AS `county_name`, \
+      `categories`.`name` AS `category_name`, \
+      `states`.`name` AS `state_name` \
+      FROM `holding_discounts`\
+      JOIN `counties` ON `holding_discounts`.`county` = `counties`.`id` \
+      JOIN `categories` ON `holding_discounts`.`category` = `categories`.`id` \
+      JOIN `states` ON `holding_discounts`.`state` = `states`.`id`", 
+    function (err, results, fields) {
       if (err) return reject(err);
       return resolve(results)
     });
@@ -114,7 +156,7 @@ exports.updateHoldingDiscount = function(params) {
     SET `busname` = ?, \
     `state` = ?, \
     `county` = ?, \
-    `city` = ?, \
+    `zip` = ?, \
     `street` = ?, \
     `desoffer` = ?, \
     `category` = ?, \
@@ -127,7 +169,7 @@ exports.updateHoldingDiscount = function(params) {
     params.busname, 
     params.state,
     params.county,
-    params.city,
+    params.zip,
     params.street,
     params.desoffer,
     params.category,
