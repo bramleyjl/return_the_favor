@@ -6,23 +6,10 @@ var veterans = require('../models/veterans.js');
 
 //admin index page
 router.get('/', function(req, res) {
-  res.send('Admin!')
+  res.send('AdminHolding -> /admin/holding, AdminLookup -> /admin/lookup')
 });
 
-/*
-var liveDiscounts = discounts.returnAllDiscounts();
-liveDiscounts.then(function(result) {
-  adminDisplay.liveDiscounts = result
-
-var liveVeterans = veterans.returnAllVeterans();
-liveVeterans.then(function(result) {
-  adminDisplay.liveVeterans = result
-
-live_discounts: adminDisplay.liveDiscounts,
-live_veterans: adminDisplay.liveVeterans
-*/
-
-//admin holding page initial loading
+//admin holding page
 router.get('/holding', function(req, res) {  
   var adminDisplay = {}
   var holdingDiscounts = discounts.returnAllHoldingDiscounts();
@@ -30,9 +17,8 @@ router.get('/holding', function(req, res) {
     if (result.length > 0) adminDisplay.holdingDiscounts = result
     var holdingVeterans = veterans.returnAllHoldingVeterans();
     holdingVeterans.then(function(result) {
-      adminDisplay.holdingVeterans = result
-      console.log(adminDisplay.holdingDiscounts)
-      res.render('admin', { 
+      if (result.length > 0) adminDisplay.holdingVeterans = result
+      res.render('adminHolding', { 
         holding_discounts: adminDisplay.holdingDiscounts,
         holding_veterans: adminDisplay.holdingVeterans
       });
@@ -40,7 +26,22 @@ router.get('/holding', function(req, res) {
   });
 });
 
-
+//admin live page
+router.get('/lookup', function(req, res) {
+  var adminDisplay = {}  
+  var liveDiscounts = discounts.returnAllDiscounts();
+  liveDiscounts.then(function(result) {
+    adminDisplay.liveDiscounts = result
+    var liveVeterans = veterans.returnAllVeterans();
+    liveVeterans.then(function(result) {
+      adminDisplay.liveVeterans = result
+      res.render('adminLookup', {
+        live_discounts: adminDisplay.liveDiscounts,
+        live_veterans: adminDisplay.liveVeterans
+      });
+    });
+  });
+});
 
 //holding_discounts update, delete, and validate function
 router.post('/holding_discounts', function(req, res) {

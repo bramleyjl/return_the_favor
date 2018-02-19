@@ -172,6 +172,7 @@
     <div id= "sectionOne">
       <h1>Veterans</h1>
       <h2>Holding Table</h2>
+      {{#if holding_veterans}}
       {{#holding_veterans}}
       <form method="POST" action="/admin/holding_veterans">
       <table class="recent-threads">
@@ -205,6 +206,9 @@
       </table>
       </form>
       {{/holding_veterans}}
+      {{else}}
+      <p>No Holding Veterans!</p>
+      {{/if}}
 
     <!-- close section one -->
     </div>
