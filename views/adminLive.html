@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style-rtf.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style-rtfres.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700" rel="stylesheet">
+  </head>
+
+  <body>
+<!-- ************************ START OF NAVBAR AREA**************** -->
+    <div class="navbar">
+
+      <div class="logo">
+        <a href="home"><img src="images/logo-circle.png" alt "RTFLogo"></a>
+      </div>
+
+        <div class = "rtf">
+          <span><u>Ret</u>urn The F.A.V.O.R.</span>
+        </div>
+
+      <div class= "menu">
+
+        <div class="dropdown">
+            <button class="dropbtn"><a href="about">About/Contact</a>
+            </button>
+          </div>
+
+          <div class="dropdown">
+            <button class="dropbtn">Support
+              <i class="fa fa-caret-down"></i>
+            </button>
+
+              <div class="dropdown-content">
+                  <a href="support">Add a Discount</a>
+                  <a href="support#sectionTwo">Add an Event</a>
+              </div>
+
+          </div>
+
+
+          <div class="dropdown">
+            <button class="dropbtn">Veterans
+              <i class="fa fa-caret-down"></i>
+            </button>
+
+              <div class="dropdown-content">
+                  <a href="discounts">Discounts</a>
+                  <a href="events">Events</a>
+              </div>
+          </div>
+      <!--closing menu-->
+      </div>
+    <!--closing navbar -->
+    </div>
+
+<!-- ************************ END OF NAVBAR AREA**************** -->
+
+<!-- ************************ START OF LIVE DISCOUNTS  **************** -->
+    <div id= "sectionOne">
+      <h2><span class= "accent">Live</span> Discounts</h2>
+      <img class= "dogtags" src= "images/icon-ID_tags.svg">
+      <img class= "building" src= "images/icon-shop.svg">
+
+      <table class="recent-threads">
+      <h2>Live Table</h2>
+      <thead>
+        <tr>
+            <td>Business Id</td>
+            <td>Business Name</td>
+            <td>State</td>
+            <td>County</td>
+            <td>ZipCode</td>
+            <td>Street</td>
+            <td>Offer</td>
+            <td>Category</td>
+            <td>Website</td>
+            <td>Creation Date</td>
+            <td>Expiration Date</td>
+            <td>Contact Name</td>
+            <td>Email</td>
+            <td>Phone</td>
+            <td>Notes</td>
+            <td>Delete Entry</td>
+            <td>Edit Entry</td>
+        </tr>
+      </thead>
+      {{#live_discounts}}
+      <form method="POST" action="/admin/live_discounts">
+      <tr>
+          <td><input type="hidden" name="id" value={{id}}>{{id}}</td>
+          <td><input type="text" value="{{busname}}" name="busname"></td>
+          <td>
+            <select name="state">
+              <option selected value="{{state}}">{{state_name}}</option>
+            </select>
+          </td>
+          <td>
+            <select name="county">
+              <option selected value="{{county}}">{{county_name}}</option>
+              <option value="1">Rensselaer</option>
+              <option value="2">Albany</option>
+              <option value="3">Schenectady</option>
+              <option value="4">Saratoga</option>
+            </select>
+          </td>
+          <td><input type="number" value="{{zip}}" name="zip"></td>
+          <td><input type="text" value="{{street}}" name="street"></td>
+          <td><input type="text" value="{{desoffer}}" name="desoffer"></td>
+          <td>
+            <select id="category" name="category">
+            <option value="{{category}}">{{category_name}}</option>
+            <option value=1>Casual Dining and Take-Out</option>
+            <option value=2>Art and Antiques</option>
+            <option value=3>Banking</option>
+            <option value=4>Books</option>
+            <option value=5>Cleaners</option>
+            <option value=6>Clothing</option>
+            <option value=7>Family and Recreation</option>
+            <option value=8>Flowers</option>
+            <option value=9>Fine Dining and Nightlife</option>
+            <option value=10>Haircare and Spas</option>
+            <option value=11>Jewelry</option>
+            <option value=12>Legal</option>
+            <option value=13>Automotive</option>
+            <option value=14>Home Services</option>
+            <option value=15>Travel</option>
+            <option value=16>Theater and Arts</option>
+            <option value=17>Storage</option>
+            <option value=18>Pets</option>
+            <option value=19>Health and Fitness</option>
+            <option value=20>Other</option>
+            </select>
+          </td>
+          <td><input type="text" value="{{buslinks}}" name="buslinks"></td>
+          <td><input type="hidden" value="{{created}}" name="created">{{created}}</td>
+          <td><input type="hidden" value="{{expiration}}" name="expiration">{{expiration}}</td>
+          <td><input type="text" value="{{cname}}" name="cname"></td>
+          <td><input type="text" value="{{busmail}}" name="busmail"></td>
+          <td><input type="text" value="{{cphone}}" name="cphone"></td>
+          <td><input type="text" value="{{notes}}" name="notes"></td>          
+          <td>
+              <button type="submit" name="action" value="Delete">Delete</button>
+          </td>
+          <td>
+              <button type="submit" name="action" value="Update">Update</button>
+          </td>
+      </tr>
+      </form>
+      {{/live_discounts}}
+      </table>
+
+    <!-- close section one -->
+    </div>
+<!-- ************************ END OF LIVE DISCOUNTS **************** -->
+
+
+<!-- ************************ START OF LIVE VETERANS **************** -->
+    <div id= "sectionOne">
+      <h2><span class= "accent">Live</span> Veterans</h2>
+      <img class= "dogtags" src= "images/icon-ID_tags.svg">
+      <img class= "building" src= "images/icon-shop.svg">
+
+      <table class="recent-threads">
+      <h2>Live Table</h2>
+      <thead>
+        <tr>
+            <td>Veteran Id</td>
+            <td>Veteran Name</td>
+            <td>Email</td>
+            <td>County</td>
+        </tr>
+      </thead>
+      {{#live_veterans}}
+      <form method="POST" action="/admin/live_veterans">
+      <tr>
+          <td><input type="hidden" name="id" value={{id}}>{{id}}</td>
+          <td><input type="text" value="{{name}}" name="name"></td>
+          <td><input type="text" value="{{email}}" name="email"></td>
+          <td>
+            <select name="county">
+              <option selected value="{{county}}">{{county_name}}</option>
+              <option value="1">Rensselaer</option>
+              <option value="2">Albany</option>
+              <option value="3">Schenectady</option>
+              <option value="4">Saratoga</option>
+            </select>
+          </td>
+          <td>
+              <button type="submit" name="action" value="Delete">Delete</button>
+          </td>
+          <td>
+              <button type="submit" name="action" value="Update">Update</button>
+          </td>
+      </tr>
+      </form>
+      {{/live_veterans}}
+      </table>
+
+    <!-- close section one -->
+    </div>
+<!-- ************************ END OF LIVE VETERANS **************** -->
+
+
+<!-- ************************ START OF SECTION TWO **************** -->
+    <div id= "sectionTwo">
+      <h2><u>Con</u>tact</h2>
+      <img class= "dogtags" src= "images/icon-ID_tags.svg">
+      <img class= "building" src= "images/icon-shop.svg">
+      <br>
+
+      <span><b>Return The F.A.V.O.R.</b>
+      </span>
+
+      <br>
+
+      <span><b>Jason Lebrecht</b>
+      </span>
+
+      <br>
+
+      <span><b>1234 Main St</b>
+      </span>
+
+      <br>
+
+      <span><b>Troy, NY 12345  </b>
+      </span>
+
+      <br>
+
+      <br>
+
+      <span><a href= "mailto:RTF@gmail.com"<b>RTF@gmail.com</b></a>
+      </span>
+
+      <i class="fa fa-envelope fa-2x"></i>
+    </div>
+
+<!-- ************************ END OF SECTION TWO **************** -->
+
+<!-- ______________START OF THE FOOTER AREA OF THE PAGE_______________ -->
+
+    <div id= "footer">
+      <div class="social">
+        <i class="fa fa-instagram fa-3x"></i>
+        <i class="fa fa-facebook-square fa-3x"></i>
+        <i class="fa fa-twitter-square fa-3x"></i>
+      </div>
+      <h3>Copyright 2018 <i>Return The Favor</i></h3>
+
+    </div>
+
+<!-- ______________END THE FOOTER AREA OF THE PAGE_______________ -->
+
+</body>
+</html>

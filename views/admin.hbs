@@ -59,10 +59,12 @@
 
 <!-- ************************ START OF DISCOUNTS HOLDING **************** -->
     <div id= "sectionOne">
-      <table class="recent-threads">
       <h1>Discounts</h1>
       <h2>Holding Table</h2>
       {{#holding_discounts}}
+      <form method="POST" action="/admin/holding_discounts">
+      <table class="recent-threads">
+      <input type="hidden" value="{{id}}" name="id">
       <thead>
         <tr>
           <td>Business Name</td>
@@ -74,7 +76,6 @@
           <td>Website</td>
         </tr>
       </thead>
-      <form method="POST" action="/admin/holding_discounts">
       <tr>
         <td><input type="text" value="{{busname}}" name="busname"></td>
         <td>
@@ -154,156 +155,32 @@
         <td><input type="hidden" value="{{created}}" name="created">{{dateFormat created "YYYY-MM-DD"}}</td>
         <td><input type="test" value="{{dateFormat expiration "YYYY-MM-DD"}}" name="expiration"></td>
       </tr>
+      </table>
       </form>
       {{/holding_discounts}}
-      </table>
 
     <!-- close section one -->
     </div>
 <!-- ************************ END OF DISCOUNTS HOLDING **************** -->
 
-<!-- ************************ START OF LIVE DISCOUNTS  **************** -->
-    <div id= "sectionOne">
-      <h2><span class= "accent">Live</span> Discounts</h2>
-      <img class= "dogtags" src= "images/icon-ID_tags.svg">
-      <img class= "building" src= "images/icon-shop.svg">
 
-      <table class="recent-threads">
-      <h2>Live Table</h2>
-      <thead>
-        <tr>
-            <td>Business Id</td>
-            <td>Business Name</td>
-            <td>State</td>
-            <td>County</td>
-            <td>ZipCode</td>
-            <td>Street</td>
-            <td>Offer</td>
-            <td>Category</td>
-            <td>Website</td>
-            <td>Creation Date</td>
-            <td>Expiration Date</td>
-            <td>Contact Name</td>
-            <td>Email</td>
-            <td>Phone</td>
-            <td>Notes</td>
-            <td>Delete Entry</td>
-            <td>Edit Entry</td>
-        </tr>
-      </thead>
-      {{#live_discounts}}
-      <form method="POST" action="/admin/live_discounts">
-      <tr>
-          <td><input type="hidden" name="id" value={{id}}>{{id}}</td>
-          <td><input type="text" value="{{busname}}" name="busname"></td>
-          <td>
-            <select name="state">
-              <option selected value="{{state}}">{{state_name}}</option>
-            </select>
-          </td>
-          <td>
-            <select name="county">
-              <option selected value="{{county}}">{{county_name}}</option>
-              <option value="1">Rensselaer</option>
-              <option value="2">Albany</option>
-              <option value="3">Schenectady</option>
-              <option value="4">Saratoga</option>
-            </select>
-          </td>
-          <td><input type="number" value="{{zip}}" name="zip"></td>
-          <td><input type="text" value="{{street}}" name="street"></td>
-          <td><input type="text" value="{{desoffer}}" name="desoffer"></td>
-          <td>
-            <select id="category" name="category">
-            <option value="{{category}}">{{category_name}}</option>
-            <option value=1>Casual Dining and Take-Out</option>
-            <option value=2>Art and Antiques</option>
-            <option value=3>Banking</option>
-            <option value=4>Books</option>
-            <option value=5>Cleaners</option>
-            <option value=6>Clothing</option>
-            <option value=7>Family and Recreation</option>
-            <option value=8>Flowers</option>
-            <option value=9>Fine Dining and Nightlife</option>
-            <option value=10>Haircare and Spas</option>
-            <option value=11>Jewelry</option>
-            <option value=12>Legal</option>
-            <option value=13>Automotive</option>
-            <option value=14>Home Services</option>
-            <option value=15>Travel</option>
-            <option value=16>Theater and Arts</option>
-            <option value=17>Storage</option>
-            <option value=18>Pets</option>
-            <option value=19>Health and Fitness</option>
-            <option value=20>Other</option>
-            </select>
-          </td>
-          <td><input type="text" value="{{buslinks}}" name="buslinks"></td>
-          <td><input type="hidden" value="{{created}}" name="created">{{created}}</td>
-          <td><input type="hidden" value="{{expiration}}" name="expiration">{{expiration}}</td>
-          <td><input type="text" value="{{cname}}" name="cname"></td>
-          <td><input type="text" value="{{busmail}}" name="busmail"></td>
-          <td><input type="text" value="{{cphone}}" name="cphone"></td>
-          <td><input type="text" value="{{notes}}" name="notes"></td>          
-          <td>
-              <button type="submit" name="action" value="Delete">Delete</button>
-          </td>
-          <td>
-              <button type="submit" name="action" value="Update">Update</button>
-          </td>
-      </tr>
-      </form>
-      {{/live_discounts}}
-      </table>
-
-    <!-- close section one -->
-    </div>
-<!-- ************************ END OF LIVE DISCOUNTS **************** -->
 <!-- ************************ START OF VETERANS HOLDING **************** -->
     <div id= "sectionOne">
-      <h2><span class= "accent">Holding</span> Veterans</h2>
-      <img class= "dogtags" src= "images/icon-ID_tags.svg">
-      <img class= "building" src= "images/icon-shop.svg">
-
-      <table class="recent-threads">
+      <h1>Veterans</h1>
       <h2>Holding Table</h2>
-      <thead>
-        <tr>
-            <td>Veteran Id</td>
-            <td>Veteran Name</td>
-            <td>Email</td>
-            <td>County</td>
-        </tr>
-      </thead>
-      <form method="POST" action="/admin/holding_veterans">
-      <tr>
-          <td>New Veteran</td>
-          <td><input type="text" placeholder="Name" name="name"></td>
-          <td><input type="text" placeholder="Email" name="email"></td>
-          <td>
-            <select id="county" name="county">
-            <option disabled selected value>Choose one or more</option>
-              <option value="1">Rensselaer</option>
-              <option value="2">Albany</option>
-              <option value="3">Schenectady</option>
-              <option value="4">Saratoga</option>
-              <option value="All">All</option>
-            </select>
-          </td>
-          <td>
-              <button type="submit" name="action" value="Create_Holding">Create (Holding)</button>
-          </td>
-          <td>
-              <button type="submit" name="action" value="Create_Live">Create (Live)</button>
-          </td>
-      </tr>
-      </form>
       {{#holding_veterans}}
       <form method="POST" action="/admin/holding_veterans">
+      <table class="recent-threads">
+      <input type="hidden" value="{{id}}" name="id">
+      <thead>
+        <tr>
+            <td>Contact Name</td>
+            <td>County</td>
+            <td>Email</td>
+        </tr>
+      </thead>
       <tr>
-          <td><input type="hidden" name="id" value={{id}}>{{id}}</td>
           <td><input type="text" value="{{name}}" name="name"></td>
-          <td><input type="text" value="{{email}}" name="email"></td>
           <td>
             <select name="county">
               <option selected value="{{county}}">{{county_name}}</option>
@@ -313,69 +190,21 @@
               <option value="4">Saratoga</option>
             </select>
           </td>
+          <td><input type="text" value="{{email}}" name="email"></td>
           <td>
               <button type="submit" name="action" value="Delete">Delete</button>
-          </td>
-          <td>
-              <button type="submit" name="action" value="Update">Update</button>
           </td>
           <td>
               <button type="submit" name="action" value="Validate">Validate</button>
           </td>
       </tr>
+      </table>
       </form>
       {{/holding_veterans}}
-      </table>
 
     <!-- close section one -->
     </div>
 <!-- ************************ END OF VETERANS HOLDING **************** -->
-
-<!-- ************************ START OF LIVE VETERANS **************** -->
-    <div id= "sectionOne">
-      <h2><span class= "accent">Live</span> Veterans</h2>
-      <img class= "dogtags" src= "images/icon-ID_tags.svg">
-      <img class= "building" src= "images/icon-shop.svg">
-
-      <table class="recent-threads">
-      <h2>Live Table</h2>
-      <thead>
-        <tr>
-            <td>Veteran Id</td>
-            <td>Veteran Name</td>
-            <td>Email</td>
-            <td>County</td>
-        </tr>
-      </thead>
-      {{#live_veterans}}
-      <form method="POST" action="/admin/live_veterans">
-      <tr>
-          <td><input type="hidden" name="id" value={{id}}>{{id}}</td>
-          <td><input type="text" value="{{name}}" name="name"></td>
-          <td><input type="text" value="{{email}}" name="email"></td>
-          <td>
-            <select name="county">
-              <option selected value="{{county}}">{{county_name}}</option>
-              <option value="1">Rensselaer</option>
-              <option value="2">Albany</option>
-              <option value="3">Schenectady</option>
-              <option value="4">Saratoga</option>
-            </select>
-          </td>
-          <td>
-              <button type="submit" name="action" value="Delete">Delete</button>
-          </td>
-          <td>
-              <button type="submit" name="action" value="Update">Update</button>
-          </td>
-      </tr>
-      </form>
-      {{/live_veterans}}
-      </table>
-
-    <!-- close section one -->
-    </div>
-<!-- ************************ END OF LIVE VETERANS **************** -->
 
 
 <!-- ************************ START OF SECTION TWO **************** -->
