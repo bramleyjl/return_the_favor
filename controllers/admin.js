@@ -4,31 +4,43 @@ var router = express.Router();
 var discounts = require('../models/discounts.js');
 var veterans = require('../models/veterans.js');
 
-//admin home page
+//admin index page
 router.get('/', function(req, res) {
+  res.send('Admin!')
+});
+
+/*
+var liveDiscounts = discounts.returnAllDiscounts();
+liveDiscounts.then(function(result) {
+  adminDisplay.liveDiscounts = result
+
+var liveVeterans = veterans.returnAllVeterans();
+liveVeterans.then(function(result) {
+  adminDisplay.liveVeterans = result
+
+live_discounts: adminDisplay.liveDiscounts,
+live_veterans: adminDisplay.liveVeterans
+*/
+
+//admin holding page initial loading
+router.get('/holding', function(req, res) {  
   var adminDisplay = {}
   var holdingDiscounts = discounts.returnAllHoldingDiscounts();
   holdingDiscounts.then(function(result) {
-    adminDisplay.holdingDiscounts = result
-    var liveDiscounts = discounts.returnAllDiscounts();
-    liveDiscounts.then(function(result) {
-      adminDisplay.liveDiscounts = result
-      var holdingVeterans = veterans.returnAllHoldingVeterans();
-      holdingVeterans.then(function(result) {
-        adminDisplay.holdingVeterans = result
-        var liveVeterans = veterans.returnAllVeterans();
-        liveVeterans.then(function(result) {
-          adminDisplay.liveVeterans = result
-          res.render('admin', { 
-          holding_discounts: adminDisplay.holdingDiscounts,
-          live_discounts: adminDisplay.liveDiscounts,
-          holding_veterans: adminDisplay.holdingVeterans,
-          live_veterans: adminDisplay.liveVeterans });
-        });
+    if (result.length > 0) adminDisplay.holdingDiscounts = result
+    var holdingVeterans = veterans.returnAllHoldingVeterans();
+    holdingVeterans.then(function(result) {
+      adminDisplay.holdingVeterans = result
+      console.log(adminDisplay.holdingDiscounts)
+      res.render('admin', { 
+        holding_discounts: adminDisplay.holdingDiscounts,
+        holding_veterans: adminDisplay.holdingVeterans
       });
     });
   });
 });
+
+
 
 //holding_discounts update, delete, and validate function
 router.post('/holding_discounts', function(req, res) {
@@ -50,9 +62,6 @@ router.post('/holding_discounts', function(req, res) {
   if (req.body.action === "Delete") {
     discounts.deleteHoldingDiscount(req.body.id)
     res.redirect('/admin')
-  } else if (req.body.action === "Update") {
-    discounts.updateHoldingDiscount(req.body)
-    res.redirect('/admin')
   } else if (req.body.action === "Validate") {
     var holdingId = req.body.id
     delete req.body.id
@@ -64,12 +73,6 @@ router.post('/holding_discounts', function(req, res) {
         res.redirect('/admin')
       })
     })
-  } else if (req.body.action === "Create_Holding") {
-    discounts.createHoldingDiscount(newDiscount);
-    res.redirect('/admin')
-  } else if (req.body.action === "Create_Live") {
-    discounts.createDiscount(newDiscount);
-    res.redirect('/admin')
   }
 });
 
@@ -95,9 +98,6 @@ router.post('/holding_veterans', function(req, res) {
   if (req.body.action === "Delete") {
     veterans.deleteHoldingVeteran(req.body.id)
     res.redirect('/admin')
-  } else if (req.body.action === "Update") {
-    veterans.updateHoldingVeteran(req.body)
-    res.redirect('/admin')
   } else if (req.body.action === "Validate") {
     var holdingId = req.body.id
     delete req.body.id
@@ -109,12 +109,6 @@ router.post('/holding_veterans', function(req, res) {
         res.redirect('/admin')
       })
     })
-  } else if (req.body.action === "Create_Holding") {
-    veterans.createHoldingVeteran(newVeteran);
-    res.redirect('/admin')
-  } else if (req.body.action === "Create_Live") {
-    veterans.createLiveVeteran(newVeteran);
-    res.redirect('/admin')
   }
 });
 

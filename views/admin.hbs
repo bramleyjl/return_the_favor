@@ -61,6 +61,7 @@
     <div id= "sectionOne">
       <h1>Discounts</h1>
       <h2>Holding Table</h2>
+      {{#if holding_discounts}}
       {{#holding_discounts}}
       <form method="POST" action="/admin/holding_discounts">
       <table class="recent-threads">
@@ -158,6 +159,9 @@
       </table>
       </form>
       {{/holding_discounts}}
+      {{else}}
+      <p>No Holding Discounts!</p>
+      {{/if}}
 
     <!-- close section one -->
     </div>
