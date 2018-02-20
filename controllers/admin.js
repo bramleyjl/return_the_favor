@@ -9,22 +9,7 @@ router.get('/', function(req, res) {
   res.send('AdminHolding -> /admin/holding, AdminLookup -> /admin/lookup')
 });
 
-//admin holding page
-router.get('/holding', function(req, res) {  
-  var adminDisplay = {}
-  var holdingDiscounts = discounts.returnAllHoldingDiscounts();
-  holdingDiscounts.then(function(result) {
-    if (result.length > 0) adminDisplay.holdingDiscounts = result
-    var holdingVeterans = veterans.returnAllHoldingVeterans();
-    holdingVeterans.then(function(result) {
-      if (result.length > 0) adminDisplay.holdingVeterans = result
-      res.render('adminHolding', { 
-        holding_discounts: adminDisplay.holdingDiscounts,
-        holding_veterans: adminDisplay.holdingVeterans
-      });
-    });
-  });
-});
+/////////lookup page functions/////////
 
 //admin live page
 router.get('/lookup', function(req, res) {
@@ -38,6 +23,47 @@ router.get('/lookup', function(req, res) {
       res.render('adminLookup', {
         live_discounts: adminDisplay.liveDiscounts,
         live_veterans: adminDisplay.liveVeterans
+      });
+    });
+  });
+});
+
+//live_discounts update, delete, and validate function
+router.post('/live_discounts', function(req, res) {
+  if (req.body.action === "Delete") {
+    discounts.deleteDiscount(req.body.id)
+    res.redirect('/admin/lookup')
+  } else if (req.body.action === "Update") {
+    discounts.updateDiscount(req.body)
+    res.redirect('/admin/lookup')
+  } 
+});
+
+//live_veterans update, delete, and validate function
+router.post('/live_veterans', function(req, res) {
+  if (req.body.action === "Delete") {
+    veterans.deleteLiveVeteran(req.body.id)
+    res.redirect('/admin')
+  } else if (req.body.action === "Update") {
+    veterans.updateLiveVeteran(req.body)
+    res.redirect('/admin')
+  } 
+});
+
+/////////holding page functions/////////
+
+//admin holding page
+router.get('/holding', function(req, res) {  
+  var adminDisplay = {}
+  var holdingDiscounts = discounts.returnAllHoldingDiscounts();
+  holdingDiscounts.then(function(result) {
+    if (result.length > 0) adminDisplay.holdingDiscounts = result
+    var holdingVeterans = veterans.returnAllHoldingVeterans();
+    holdingVeterans.then(function(result) {
+      if (result.length > 0) adminDisplay.holdingVeterans = result
+      res.render('adminHolding', { 
+        holding_discounts: adminDisplay.holdingDiscounts,
+        holding_veterans: adminDisplay.holdingVeterans
       });
     });
   });
@@ -60,17 +86,6 @@ router.post('/holding_discounts', function(req, res) {
       })
     })
   }
-});
-
-//live_discounts update, delete, and validate function
-router.post('/live_discounts', function(req, res) {
-  if (req.body.action === "Delete") {
-    discounts.deleteDiscount(req.body.id)
-    res.redirect('/admin')
-  } else if (req.body.action === "Update") {
-    discounts.updateDiscount(req.body)
-    res.redirect('/admin')
-  } 
 });
 
 //holding_veterans update, delete, and validate function
@@ -98,15 +113,5 @@ router.post('/holding_veterans', function(req, res) {
   }
 });
 
-//live_veterans update, delete, and validate function
-router.post('/live_veterans', function(req, res) {
-  if (req.body.action === "Delete") {
-    veterans.deleteLiveVeteran(req.body.id)
-    res.redirect('/admin')
-  } else if (req.body.action === "Update") {
-    veterans.updateLiveVeteran(req.body)
-    res.redirect('/admin')
-  } 
-});
 
 module.exports = router;

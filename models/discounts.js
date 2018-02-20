@@ -75,32 +75,36 @@ exports.returnDiscountsById = function(id) {
 
 //updates discount in live table
 exports.updateDiscount = function(params) {
+  //turn Handlebars' parsed timestamps back into SQL-ready timestamps
+  params.expiration = moment(params.expiration, "MM-DD-YYYY").format("YYYY-MM-DD HH:mm:ss")
   db.query("UPDATE `discounts` \
     SET `busname` = ?, \
     `state` = ?, \
     `county` = ?, \
     `zip` = ?, \
     `street` = ?, \
-    `desoffer` = ?, \
-    `category` = ?, \
     `buslinks` = ?, \
+    `category` = ?, \
+    `desoffer` = ?, \
     `cname` = ?, \
-    `busmail` = ?, \
     `cphone` = ?, \
-    `notes` = ? \
+    `busmail` = ?, \
+    `notes` = ?, \
+    `expiration` = ? \
     WHERE `id` = ?", [
     params.busname, 
     params.state,
     params.county,
     params.zip,
     params.street,
-    params.desoffer,
-    params.category,
     params.buslinks,
+    params.category,
+    params.desoffer,
     params.cname,
-    params.busmail,
     params.cphone,
+    params.busmail,
     params.notes,
+    params.expiration,
     params.id
     ], function (err, results) {
       if (err) throw err
@@ -148,41 +152,6 @@ exports.returnAllHoldingDiscounts = function() {
       return resolve(results)
     });
   });
-}
-
-//updates discount in holding table
-exports.updateHoldingDiscount = function(params) {
-  db.query("UPDATE `holding_discounts` \
-    SET `busname` = ?, \
-    `state` = ?, \
-    `county` = ?, \
-    `zip` = ?, \
-    `street` = ?, \
-    `desoffer` = ?, \
-    `category` = ?, \
-    `buslinks` = ?, \
-    `cname` = ?, \
-    `busmail` = ?, \
-    `cphone` = ?, \
-    `notes` = ? \
-    WHERE `id` = ?", [
-    params.busname, 
-    params.state,
-    params.county,
-    params.zip,
-    params.street,
-    params.desoffer,
-    params.category,
-    params.buslinks,
-    params.cname,
-    params.busmail,
-    params.cphone,
-    params.notes,
-    params.id
-    ], function (err, results) {
-      if (err) throw err
-      console.log(results)
-  })
 }
 
 //deletes discount from holding table by id
