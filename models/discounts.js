@@ -200,8 +200,7 @@ exports.validateHoldingDiscount = function(params) {
   //turn Handlebars' parsed timestamps back into SQL-ready timestamps
   params.created = (params.created).substring(4, 24)
   params.created = moment(params.created, "MMM-DD-YYYY HH:mm:ss").format("YYYY-MM-DD HH:mm:ss")
-  params.expiration = (params.expiration).substring(4,24)
-  params.expiration = moment(params.expiration, "MMM-DD-YYYY HH:mm:ss").format("YYYY-MM-DD HH:mm:ss")
+  params.expiration = moment(params.expiration, "YYYY-MM-DD").format("YYYY-MM-DD HH:mm:ss")
   return new Promise(function (resolve, reject) {
     db.query("INSERT INTO `discounts` SET ?", [params], function (err, results, fields) {
       if (err) return reject(err);
