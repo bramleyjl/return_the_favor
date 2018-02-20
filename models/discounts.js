@@ -34,7 +34,46 @@ exports.returnAllDiscounts = function() {
   });
 }
 
-//master filter function, combines multiple filtering/searching options
+//admin filter function, combines multiple filter options
+exports.adminFilterDiscounts = function(params) {
+  return new Promise(function (resolve, reject) {
+    db.query("SELECT \
+      `discounts`.*, \
+      `counties`.`name` AS `county_name`, \
+      `categories`.`name` AS `category_name`, \
+      `states`.`name` AS `state_name` \
+      FROM `discounts` \
+      JOIN `counties` ON `discounts`.`county` = `counties`.`id` \
+      JOIN `categories` ON `discounts`.`category` = `categories`.`id` \
+      JOIN `states` ON `discounts`.`state` = `states`.`id` \
+      WHERE (`county` = ? OR ? = 'all') \
+      AND (`category` = ? OR ? = 'all') \
+      AND (`discounts`.`state` = ?)",
+      [params.county, params.county,
+      params.category, params.category,
+      params.state], 
+      function(err, results) {
+        if (err) return reject(err);
+        return (resolve(results))
+      }
+    );
+  })
+}
+
+//sorting function for live discounts by expiration date
+exports.sortDiscounts = function(discounts, order) {
+  if (order === "ascending") {
+    return discounts.sort(function(a, b){
+      return a.expiration > b.expiration
+    })
+  } else if (order === "descending") {
+    return discounts.sort(function(a, b) {
+      return a.expiration < b.expiration
+    })
+  }
+}
+
+//public filter function, combines multiple filtering/searching options
 exports.filterDiscounts = function(params) {
   params.recent = parseInt(params.recent)
   return new Promise(function (resolve, reject) {
@@ -59,7 +98,8 @@ exports.filterDiscounts = function(params) {
       params.recent], function (err, results) {
         if (err) return reject(err);
         return (resolve(results))
-      });
+      }
+    );
   });  
 }
 
