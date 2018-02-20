@@ -13,9 +13,9 @@
         height:650px;
     }
 }
+/* things that should appear on mobile*/
+@media only screen and (max-width: 850px) {
 
-@media only screen and (max-width: 1105px) {
- /* things that should appear on mobile*/
 
            .rtf h1 {
 
@@ -41,16 +41,7 @@
                 padding: 0 0 0 0;
                 max-height: 40%;
             }
-            .logo img{
-                height: 60px;
-                width: 60px;
-            }
-            .menu {
-                float: left;
-                max-height: 30%;
-                margin: 0 0 0 0;
-                padding: 0 0 0 0;
-            }
+
 }
 /* over this width is 2 postings wide */
 @media only screen and (min-width: 750px) {
