@@ -37,9 +37,9 @@ router.get('/live_discounts', function(req, res) {
   }
   var searchQuery = discounts.adminFilterDiscounts(searchParams);
   searchQuery.then(function(results) {
-    var sortedResults = discounts.sortDiscounts(results, req.query.order)
+    if (req.query.order === 'descending') results = results.reverse()
     res.render('adminLookup', {
-      live_discounts: sortedResults
+      live_discounts: results
     })
   })
 })

@@ -48,7 +48,8 @@ exports.adminFilterDiscounts = function(params) {
       JOIN `states` ON `discounts`.`state` = `states`.`id` \
       WHERE (`county` = ? OR ? = 'all') \
       AND (`category` = ? OR ? = 'all') \
-      AND (`discounts`.`state` = ?)",
+      AND (`discounts`.`state` = ?) \
+      ORDER BY `expiration` ASC",
       [params.county, params.county,
       params.category, params.category,
       params.state], 
