@@ -153,8 +153,8 @@
         <td><input type="text" value="{{cphone}}" name="cphone"></td>
         <td><input type="text" value="{{busmail}}" name="busmail"></td>
         <td><input type="text" value="{{notes}}" name="notes"></td>          
-        <td><input type="hidden" value="{{created}}" name="created">{{dateFormat created "YYYY-MM-DD"}}</td>
-        <td><input type="test" value="{{dateFormat expiration "YYYY-MM-DD"}}" name="expiration"></td>
+        <td><input type="hidden" value="{{created}}" name="created">{{dateFormat created "MM-DD-YYYY"}}</td>
+        <td><input type="test" value="{{dateFormat expiration "MM-DD-YYYY"}}" name="expiration"></td>
       </tr>
       </table>
       </form>
@@ -207,7 +207,7 @@
       </form>
       {{/holding_veterans}}
       {{else}}
-      <p>No Holding Veterans!</p>
+      <p>No New Emails Submitted!</p>
       {{/if}}
 
     <!-- close section one -->
