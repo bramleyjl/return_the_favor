@@ -61,19 +61,6 @@ exports.adminFilterDiscounts = function(params) {
   })
 }
 
-//sorting function for live discounts by expiration date
-exports.sortDiscounts = function(discounts, order) {
-  if (order === "ascending") {
-    return discounts.sort(function(a, b){
-      return a.expiration > b.expiration
-    })
-  } else if (order === "descending") {
-    return discounts.sort(function(a, b) {
-      return a.expiration < b.expiration
-    })
-  }
-}
-
 //public filter function, combines multiple filtering/searching options
 exports.filterDiscounts = function(params) {
   params.recent = parseInt(params.recent)
@@ -105,7 +92,7 @@ exports.filterDiscounts = function(params) {
 }
 
 //returns single discount by querying its id
-exports.returnDiscountsById = function(id) {
+exports.returnDiscountById = function(id) {
   return new Promise(function (resolve, reject) {
     db.query("SELECT * FROM `discounts` WHERE `id` = ?", [id], function (err, results) {
       if (err) return reject(err);

@@ -23,19 +23,24 @@ router.get('/lookup', function(req, res) {
 
 //live_discounts filtered page
 router.get('/live_discounts', function(req, res) {
-  var searchParams = {
-    county : req.query.county,
-    category : req.query.category,
-    state : req.query.state
-  }
-  var searchQuery = discounts.adminFilterDiscounts(searchParams);
-  searchQuery.then(function(results) {
-    if (req.query.order === 'descending') results = results.reverse()
-    res.render('adminLookup', {
-      live_discounts: results
+  if (req.query.action === "idLookup") {
+    var searchQuery = discounts.returnDiscountById(req.query.id);
+    searchQuery.then(function(result) {
+      res.render('adminLookup', {live_discounts: result})
     })
-  })
-})
+  } else {
+    var searchParams = {
+      county : req.query.county,
+      category : req.query.category,
+      state : req.query.state
+    }
+    var searchQuery = discounts.adminFilterDiscounts(searchParams);
+    searchQuery.then(function(results) {
+      if (req.query.order === 'descending') results = results.reverse()
+      res.render('adminLookup', {live_discounts: results});
+    });
+  };
+});
 
 //live_discounts update and delete function
 router.post('/live_discounts', function(req, res) {

@@ -114,6 +114,11 @@
           </select>
         <button type="submit">Filter</button>
       </form>
+      <form method="GET" action="/admin/live_discounts">
+        <label for="id">ID</label>
+          <input type="number" name="id">
+        <button type="submit" name="action" value="idLookup">Find ID</button>
+      </form>
       </div>
 
       {{#live_discounts}}
