@@ -13,12 +13,7 @@ router.get('/', function(req, res) {
 
 //admin lookup page
 router.get('/lookup', function(req, res) {
-  var adminDisplay = {}  
-  var liveVeterans = veterans.returnAllVeterans();
-  liveVeterans.then(function(result) {
-    adminDisplay.liveVeterans = result
-    res.render('adminLookup', {live_veterans: adminDisplay.liveVeterans});
-  });
+    res.render('adminLookup');
 });
 
 //live_discounts filtered page

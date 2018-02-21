@@ -57,8 +57,7 @@ exports.deleteLiveVeteran = function(id) {
 }
 
 //search for veteran by email (admin function)
-exports.veteranLookup = function(query) {
-  query = query.split('@')[0]
+exports.veteranLookup = function(email) {
   return new Promise(function (resolve, reject) {
     db.query("SELECT \
       `veterans`.`id`, \
@@ -68,7 +67,7 @@ exports.veteranLookup = function(query) {
       `counties`.`name` AS `county_name` \
       FROM `veterans` \
       JOIN `counties` ON `veterans`.`county` = `counties`.`id` \
-      WHERE MATCH `email` AGAINST (?)", [query], function (err, results) {
+      WHERE `email` = ?", [email], function (err, results) {
         if (err) return reject(err);
         return (resolve(results))
       }
