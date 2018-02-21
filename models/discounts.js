@@ -150,6 +150,25 @@ exports.deleteDiscount = function(id) {
   });
 }
 
+//checks if discounts are expired and either returns their status or drops them from the object
+exports.checkExpiration = function(discounts, caller) {
+  for (var i = discounts.length - 1; i >= 0; i--) {
+    if (discounts[i].expiration <= moment()) {
+      //for admin use, flags discount as expired
+      if (caller === "admin") {
+        discounts[i].active = "Expired"
+      //for user use, filters out discount from query results
+      } else if (caller === "user") {
+        discounts.splice(i, 1);
+      }
+    //for admin use, flags discount as active (no need to do anything for users)
+    } else {
+      discounts[i].active = "Active"
+    }
+  }
+  return discounts
+}
+
 ////////beginning of 'holding_discounts' functions////////
 
 //inserts submitted discount into the holding table for review

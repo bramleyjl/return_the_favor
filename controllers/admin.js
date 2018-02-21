@@ -26,6 +26,7 @@ router.get('/live_discounts', function(req, res) {
   if (req.query.action === "idLookup") {
     var searchQuery = discounts.returnDiscountById(req.query.id);
     searchQuery.then(function(result) {
+      result = discounts.checkExpiration(result, "admin")
       res.render('adminLookup', {live_discounts: result})
     })
   } else {
@@ -36,6 +37,7 @@ router.get('/live_discounts', function(req, res) {
     }
     var searchQuery = discounts.adminFilterDiscounts(searchParams);
     searchQuery.then(function(results) {
+      results = discounts.checkExpiration(results, "admin")
       if (req.query.order === 'descending') results = results.reverse()
       res.render('adminLookup', {live_discounts: results});
     });
