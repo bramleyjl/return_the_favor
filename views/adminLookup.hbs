@@ -65,7 +65,7 @@
 
 <!-- ************************ END OF NAVBAR AREA**************** -->
 
-<!-- ************************ START OF LIVE DISCOUNTS  **************** -->
+<!-- ************************ START OF LIVE DISCOUNTS SEC 1 **************** -->
     <div id= "sectionOne">
       <h1>Discounts (Lookup)</h1>
 
@@ -227,8 +227,40 @@
 
     <!-- close section one -->
     </div>
-<!-- ************************ END OF LIVE DISCOUNTS **************** -->
+<!-- ************************ END OF LIVE DISCOUNTS SEC 1 **************** -->
 
+<!-- ************************ START OF LIVE DISCOUNTS SEC 2 **************** -->
+    <div id= "sectionOne">
+      <h1>Discounts (Business Search)</h1>
+
+      <div class="container">      
+      <form method="GET" action="/admin/business_search">
+        <input type="text" name="busname" placeholder="Search business name here" required>
+        <button type="submit">Search</button>
+      </form>
+      </div>
+
+      {{#if business_search}}    
+      <table class="recent-threads">
+      <thead>
+        <tr>
+            <td>Business Name</td>
+            <td>County</td>
+            <td>ID</td>
+        </tr>
+      </thead>
+      {{#business_search}}
+      <tr>
+        <td>{{busname}}</td>
+        <td>{{county_name}}</td>
+        <td>{{id}}</td>
+      </tr>
+      {{/business_search}}
+      </table>
+      {{/if}}
+    </div>
+
+<!-- ************************ END OF LIVE DISCOUNTS SEC 1 **************** -->
 
 <!-- ************************ START OF LIVE VETERANS **************** -->
     <div id= "sectionOne">
