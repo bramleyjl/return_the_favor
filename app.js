@@ -17,6 +17,7 @@ var app = express();
 // view engine setup
 var handlebars = require('hbs');
 handlebars.registerHelper('dateFormat', require('handlebars-dateformat'));
+handlebars.registerPartials(__dirname + '/views/partials');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
