@@ -61,6 +61,24 @@ exports.adminFilterDiscounts = function(params) {
   })
 }
 
+//search for business by name (admin function)
+exports.businessLookup = function(name) {
+  console.log(name)
+  return new Promise(function (resolve, reject) {
+    db.query("SELECT \
+      `discounts`.`id`, \
+      `discounts`.`busname`, \
+      `counties`.`name` AS `county_name` \
+      FROM `discounts` \
+      JOIN `counties` ON `discounts`.`county` = `counties`.`id` \
+      WHERE MATCH `busname` AGAINST (?)", [name], function (err, results) {
+        if (err) return reject(err);
+        return (resolve(results))
+      }
+    );
+  });
+}
+
 //public filter function, combines multiple filtering/searching options
 exports.filterDiscounts = function(params) {
   params.recent = parseInt(params.recent)

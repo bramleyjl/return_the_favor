@@ -56,6 +56,14 @@ router.post('/live_discounts', function(req, res) {
   }
 });
 
+//live_discounts business name search
+router.get('/business_search', function(req, res) {
+  var searchResults = discounts.businessLookup(req.query.busname)
+  searchResults.then(function(results) {
+    res.render('adminLookup', {business_search: results})
+  })
+})
+
 //live_veterans update, delete, and validate function
 router.post('/live_veterans', function(req, res) {
   if (req.body.action === "Delete") {
