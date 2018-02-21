@@ -165,13 +165,13 @@
 			</form>
 
 		<!-- close the div "section two" -->
-		</div>
+		{{!-- </div> --}}
 <!-- ************************ END OF SECTION TWO AREA**************** -->
 
 <!-- ************************ START OF DISCOUNTS **************** -->
-    <div id= "sectionTwo">
+    {{!-- <div id= "sectionTwo"> --}}
 
-      <table class="recent-threads">
+      {{!-- <table class="recent-threads">
       <h2>Discounts</h2>
       <thead>
         <tr>
@@ -197,7 +197,43 @@
         <td>{{buslinks}}</td>
       </tr>
       {{/discounts}}
-      </table>
+      </table> --}}
+
+	  <div class="container">
+		  {{#discounts}}
+	  				<div class="discontainer">
+
+	  					<ul class="topline">
+	  						<li class= "busname">{{busname}}</li>
+	  						<li class ="buslinks"><a href="buslinks">{{buslinks}}</a></li>
+	  					</ul>
+	  				</br>
+	  					<p class="desoffer"><b>Discount Offered:</b> {{desoffer}}
+
+	  				<ul class="bottomline">
+	  					<li class="category">
+	  						<b>Category:</b> {{category_name}}
+	  					</li>
+	  					<li class="county">
+	  						<b>County:</b> {{county_name}}
+	  					</li>
+	  					<li class="zipcode">
+	  						<b>Zip:</b> {{zip}}
+	  					</li>
+	  					<li class="created">
+	  						<b>Added:</b> {{dateFormat created "MM-DD-YYYY"}}
+	  					</li>
+	  					<li class="expiration">
+	  						<b>Expires:</b> {{dateFormat expiration "MM-DD-YYYY"}}
+	  					</li>
+
+	  				</ul>
+
+	  				</div>
+				{{/discounts}}	
+	  			</div>
+	  		</div>
+
 
     {{#if lastPage}}
       <form method="POST" action="/discounts/?page={{lastPage}}">

@@ -347,14 +347,73 @@ padding: 0 0 0 0;
 
 
 } /* END OF HOMEPAGE IFRAME AREA STYLES */
-
-
-
+/* displayDisc CSS */
+.resnotify {
+    margin: 0 auto;
+    text-align: center;
+}
  .container {
-     padding: 0px;
+     padding: 0 0 0 0;
+     margin: 0 0 0 0;
      background-color: inherit;
      font-family: 'Lato', sans-serif;
  }
+ .discontainer {
+     display: block;
+     box-sizing: border-box;
+     width: 98%;
+     /* height: 150px; */
+     margin:10px auto;
+     padding: 0 10px;
+     background-color: #f9f9f9;
+     border: 2px solid black;
+
+ }
+ .topline{
+     display: block;
+     height: 25%;
+     margin: 0 0 0 0;
+     padding:  0 0 0;
+
+ }
+ .topline li {
+     display: inline;
+ }
+ .topline >.busname{
+     font-size: 20px;
+     font-family: 'Lato',sans-serif;
+     font-weight: normal;
+     letter-spacing: 1.2px;
+     text-transform: uppercase;
+     margin: 0 0 0 0;
+     padding: 0 0 0 0;
+     float: left;
+ }
+ .topline >.buslinks {
+     float: right;
+     margin: 0 20px 0 0;
+ }
+ .desoffer {
+     width: 90%;
+     margin: 0 auto;
+     padding: 5px 0 5px 0;
+     text-align: left;
+     text-justify: inter-word;
+ }
+ .bottomline {
+     display: block;
+     margin: 0 0 0 0;
+     padding: 0 0 0 0;
+     text-align: left;
+ }
+.bottomline > li {
+    display: inline;
+    margin: 0 0 0 0;
+    padding: 0 5px 0 0;
+
+}
+/* End of dispdisc css */
+
  input[type=text], select {
      background-color: #f2f2f2;
      width: auto;
