@@ -41,7 +41,7 @@ exports.adminFilterDiscounts = function(params) {
       `discounts`.*, \
       `counties`.`name` AS `county_name`, \
       `categories`.`name` AS `category_name`, \
-      `states`.`name` AS `state_name` \
+      `states`.`abbreviation` AS `state_abv` \
       FROM `discounts` \
       JOIN `counties` ON `discounts`.`county` = `counties`.`id` \
       JOIN `categories` ON `discounts`.`category` = `categories`.`id` \

@@ -76,8 +76,8 @@
             <option value="1">NY</option>
           </select>
         <label for="county">County</label>
-          <select id="county" name="county">
-            <option value="all">All</option>
+          <select id="county" name="county" required>
+            <option value="">Choose a County</option>
             <option value=1>Rensselaer</option>
             <option value=2>Albany</option>
             <option value=3>Schenectady</option>
@@ -140,7 +140,7 @@
           <td><input type="hidden" name="id" value={{id}}>{{id}}</td>
           <td>
             <select name="state">
-              <option selected value="{{state}}">{{state_name}}</option>
+              <option selected value="{{state}}">{{state_abv}}</option>
             </select>
           </td>
           <td>
