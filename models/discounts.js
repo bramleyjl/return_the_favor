@@ -94,7 +94,16 @@ exports.filterDiscounts = function(params) {
 //returns single discount by querying its id
 exports.returnDiscountById = function(id) {
   return new Promise(function (resolve, reject) {
-    db.query("SELECT * FROM `discounts` WHERE `id` = ?", [id], function (err, results) {
+    db.query("SELECT \
+      `discounts`.*, \
+      `counties`.`name` AS `county_name`, \
+      `categories`.`name` AS `category_name`, \
+      `states`.`abbreviation` AS `state_abv` \
+      FROM `discounts` \
+      JOIN `counties` ON `discounts`.`county` = `counties`.`id` \
+      JOIN `categories` ON `discounts`.`category` = `categories`.`id` \
+      JOIN `states` ON `discounts`.`state` = `states`.`id` \
+      WHERE `discounts`.`id` = ?", [id], function (err, results) {
       if (err) return reject(err);
       return (resolve(results))
     });
@@ -189,7 +198,7 @@ exports.returnAllHoldingDiscounts = function() {
       `holding_discounts`.*, \
       `counties`.`name` AS `county_name`, \
       `categories`.`name` AS `category_name`, \
-      `states`.`name` AS `state_name` \
+      `states`.`abbreviation` AS `state_abv` \
       FROM `holding_discounts`\
       JOIN `counties` ON `holding_discounts`.`county` = `counties`.`id` \
       JOIN `categories` ON `holding_discounts`.`category` = `categories`.`id` \

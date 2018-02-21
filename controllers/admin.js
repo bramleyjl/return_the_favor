@@ -26,6 +26,7 @@ router.get('/live_discounts', function(req, res) {
   if (req.query.action === "idLookup") {
     var searchQuery = discounts.returnDiscountById(req.query.id);
     searchQuery.then(function(result) {
+      console.log(result)
       result = discounts.checkExpiration(result, "admin")
       res.render('adminLookup', {live_discounts: result})
     })

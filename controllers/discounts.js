@@ -14,8 +14,9 @@ router.get('/', function(req, res) {
     recent : '10'
   }
   var defaultQuery = discounts.filterDiscounts(defaultSearch);
-  defaultQuery.then(function(discounts) {
-    res.render('discounts', {discounts : discounts});
+  defaultQuery.then(function(results) {
+    results = discounts.checkExpiration(results, "user")
+    res.render('discounts', {discounts : results});
   })
 });
 
@@ -29,17 +30,18 @@ router.post('/', function(req, res) {
       search : req.body.search
   }
   var searchQuery = discounts.filterDiscounts(searchParams);
-  searchQuery.then(function(discounts) {
+  searchQuery.then(function(results) {
+    results = discounts.checkExpiration(results, "user");
     //query results pagination
-    var totalDiscounts = discounts.length,
+    var totalDiscounts = results.length,
       pageSize = 5,
-      pageCount = Math.ceil(discounts.length / pageSize),
+      pageCount = Math.ceil(results.length / pageSize),
       currentPage = 1,
       discountsArrays = [],
       discountsPresent = []
     //splits query results into groups per page
-    while (discounts.length > 0) {
-      discountsArrays.push(discounts.splice(0, pageSize));
+    while (results.length > 0) {
+      discountsArrays.push(results.splice(0, pageSize));
     }
     //sets current page
     if (typeof req.query.page !== 'undefined') {
