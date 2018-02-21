@@ -124,8 +124,6 @@
       {{#live_discounts}}
       <form method="POST" action="/admin/live_discounts">
       <table class="recent-threads">
-
-      <table class="recent-threads">
       <h2>{{busname}}</h2>
       <thead>
         <tr>
@@ -260,30 +258,33 @@
       {{/if}}
     </div>
 
-<!-- ************************ END OF LIVE DISCOUNTS SEC 1 **************** -->
+<!-- ************************ END OF LIVE DISCOUNTS SEC 2 **************** -->
 
 <!-- ************************ START OF LIVE VETERANS **************** -->
     <div id= "sectionOne">
-      <h2><span class= "accent">Live</span> Veterans</h2>
-      <img class= "dogtags" src= "images/icon-ID_tags.svg">
-      <img class= "building" src= "images/icon-shop.svg">
+      <h1>Veterans Email</h1>
 
+      <div class="container">      
+      <form method="GET" action="/admin/veteran_search">
+        <input type="text" name="email" placeholder="Search email here" required>
+        <button type="submit">Search</button>
+      </form>
+      </div>
+
+      {{#if live_veterans}}    
       <table class="recent-threads">
-      <h2>Live Table</h2>
       <thead>
         <tr>
-            <td>Veteran Id</td>
-            <td>Veteran Name</td>
-            <td>Email</td>
+            <td>Contact Name</td>
             <td>County</td>
+            <td>Email</td>
+            <td>ID</td>
         </tr>
       </thead>
       {{#live_veterans}}
       <form method="POST" action="/admin/live_veterans">
       <tr>
-          <td><input type="hidden" name="id" value={{id}}>{{id}}</td>
           <td><input type="text" value="{{name}}" name="name"></td>
-          <td><input type="text" value="{{email}}" name="email"></td>
           <td>
             <select name="county">
               <option selected value="{{county}}">{{county_name}}</option>
@@ -293,6 +294,8 @@
               <option value="4">Saratoga</option>
             </select>
           </td>
+          <td><input type="text" value="{{email}}" name="email"></td>
+          <td><input type="hidden" name="id" value={{id}}>{{id}}</td>
           <td>
               <button type="submit" name="action" value="Delete">Delete</button>
           </td>
@@ -303,6 +306,7 @@
       </form>
       {{/live_veterans}}
       </table>
+      {{/if}}
 
     <!-- close section one -->
     </div>

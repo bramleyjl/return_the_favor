@@ -63,7 +63,6 @@ exports.adminFilterDiscounts = function(params) {
 
 //search for business by name (admin function)
 exports.businessLookup = function(name) {
-  console.log(name)
   return new Promise(function (resolve, reject) {
     db.query("SELECT \
       `discounts`.`id`, \

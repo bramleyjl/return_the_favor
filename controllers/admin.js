@@ -62,7 +62,7 @@ router.get('/business_search', function(req, res) {
   searchResults.then(function(results) {
     res.render('adminLookup', {business_search: results})
   })
-})
+});
 
 //live_veterans update, delete, and validate function
 router.post('/live_veterans', function(req, res) {
@@ -73,6 +73,14 @@ router.post('/live_veterans', function(req, res) {
     veterans.updateLiveVeteran(req.body)
     res.redirect('/admin')
   } 
+});
+
+//live_veterans email search
+router.get('/veteran_search', function(req, res) {
+  var searchResults = veterans.veteranLookup(req.query.email)
+  searchResults.then(function(results) {
+    res.render('adminLookup', {live_veterans: results})
+  })
 });
 
 /////////holding page functions/////////

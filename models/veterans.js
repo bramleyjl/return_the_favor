@@ -56,6 +56,26 @@ exports.deleteLiveVeteran = function(id) {
   });
 }
 
+//search for veteran by email (admin function)
+exports.veteranLookup = function(query) {
+  query = query.split('@')[0]
+  return new Promise(function (resolve, reject) {
+    db.query("SELECT \
+      `veterans`.`id`, \
+      `veterans`.`name`, \
+      `veterans`.`county`, \
+      `veterans`.`email`, \
+      `counties`.`name` AS `county_name` \
+      FROM `veterans` \
+      JOIN `counties` ON `veterans`.`county` = `counties`.`id` \
+      WHERE MATCH `email` AGAINST (?)", [query], function (err, results) {
+        if (err) return reject(err);
+        return (resolve(results))
+      }
+    );
+  });
+}
+
 ////////beginning of 'holding_veterans' functions////////
 
 //inserts a new veteran into holding table
