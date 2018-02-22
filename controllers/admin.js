@@ -46,8 +46,17 @@ router.post('/live_discounts', function(req, res) {
     discounts.deleteDiscount(req.body.id)
     res.redirect('/admin/lookup')
   } else if (req.body.action === "Update") {
-    discounts.updateDiscount(req.body)
-    res.redirect('/admin/lookup')
+    console.log(req.body)
+    var updatedDiscount = discounts.updateDiscount(req.body)
+    updatedDiscount.then(function(result) {
+      //checks to see if expiration was updated and bumps discount to top visibility if so
+      if (req.body.originalExpiration !== req.body.expiration) {
+        discounts.bumpToRecent(req.body.id)
+        res.redirect('/admin/lookup')
+      } else {
+        res.redirect('/admin/lookup')        
+      }
+    });
   }
 });
 
@@ -59,7 +68,7 @@ router.get('/business_search', function(req, res) {
   })
 });
 
-//live_veterans update, delete, and validate function
+//live_veterans update and delete function
 router.post('/live_veterans', function(req, res) {
   if (req.body.action === "Delete") {
     veterans.deleteLiveVeteran(req.body.id)
@@ -85,7 +94,9 @@ router.get('/holding', function(req, res) {
   var adminDisplay = {}
   var holdingDiscounts = discounts.returnAllHoldingDiscounts();
   holdingDiscounts.then(function(result) {
+    console.log(result)
     if (result.length > 0) adminDisplay.holdingDiscounts = result
+    console.log(adminDisplay.holdingDiscounts)
     var holdingVeterans = veterans.returnAllHoldingVeterans();
     holdingVeterans.then(function(result) {
       if (result.length > 0) adminDisplay.holdingVeterans = result

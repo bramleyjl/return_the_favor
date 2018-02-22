@@ -55,7 +55,8 @@
             <option value=17>Storage</option>
             <option value=18>Pets</option>
             <option value=19>Health and Fitness</option>
-            <option value=20>Other</option>
+            <option value=20>Electronics</option>
+            <option value=21>Other</option>
           </select>
         <label for="order">Expiration Date</label>
           <select id="order" name="order">
@@ -142,7 +143,8 @@
             <option value=17>Storage</option>
             <option value=18>Pets</option>
             <option value=19>Health and Fitness</option>
-            <option value=20>Other</option>
+            <option value=20>Electronics</option>
+            <option value=21>Other</option>
             </select>
           </td>
           <td><input type="text" value="{{desoffer}}" name="desoffer"></td>
@@ -167,6 +169,7 @@
           <td><input type="text" value="{{busmail}}" name="busmail"></td>
           <td><input type="text" value="{{notes}}" name="notes"></td>
           <td><input type="hidden" value="{{created}}" name="created">{{dateFormat created "MM-DD-YYYY"}}</td>
+          <input type="hidden" value="{{dateFormat expiration "MM-DD-YYYY"}}" name="originalExpiration">
           <td><input type="text" value="{{dateFormat expiration "MM-DD-YYYY"}}" name="expiration"></td>
         </tr>
       </table>
