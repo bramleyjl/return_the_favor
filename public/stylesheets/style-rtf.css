@@ -414,13 +414,16 @@ padding: 0 0 0 0;
 }
 /* End of dispdisc css */
 
- input[type=text], select {
+input[type=text], [type=number],[type=email], select {
      background-color: #f2f2f2;
+     height: 25px;
      width: auto;
-     padding-top: 12px;
+     margin: 0 0 0 0;
+     padding: 0 0 0 0;
      border: 1px solid #C3960D;
+     vertical-align: baseline;
  }
- input[type=submit] {
+ /* input[type=submit] {
      width: auto;
      background-color: #eb4c4f;
      color: white;
@@ -430,56 +433,92 @@ padding: 0 0 0 0;
  }
  input[type=submit]:hover {
      background-color: #C3960D;
- }
-input[type=text] {
-    width:30%;
-    min-width: 200px;
-    margin: 5px;
-}
-input[type=email] {
-    width: 25%;
-    height: 35px;
-    margin: 0 0 0 0;
-    background-color: #f2f2f2;
-    border: 1px solid #C3960D;
-}
-input[type=number] {
-    background-color: #f2f2f2;
-    border: 1px solid #C3960D;
-    height: 30px;
-}
-select {
-    width: auto;
-    overflow:visible;
-    margin: 5px;
-}
+ } */
+
 input[class=search] {
-    float: center;
-    margin: 5px 0 0 30%;
+    width: 175px;
 }
-textarea[name=buslinks] {
-    background-color: #f2f2f2;
-    width: 75%;
-    height: auto;
+textarea[name=buslinks], [name=notes] {
+width: 20%;
+height: 50px;
+margin: 5px 0 0 0;
+padding: 0 0 0 0;
+overflow: visible;
+background-color: #f2f2f2;;
+}
+textarea[name=desoffer], [name=postEvent] {
+    width: 45%;
+    height: 50px;
+    margin: 5px 0 0 0;
+    padding: 0 0 0 0;
     overflow: visible;
-}
-textarea[name=desoffer] {
     background-color: #f2f2f2;
-    width: 75%;
-    height: auto;
-    overflow: visible;
-}
-textarea[name=postEvent] {
-    background-color: #f2f2f2;
-    width: 75%;
-    height: auto;
-    overflow: visible
 }
 
 form div + div {
   margin-top: 1em;
 }
+/* Begin CSS for Admin Pages */
+#adminSectionOne {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    height: auto;
+    border-bottom: 3px solid #C3960D;
+    padding: 160px 2% 40px 2%;
+    background-color: #BCE5f7;
+    text-align: justify;
+    text-justify: inter-word;
+    overflow-x: auto;
+}
+#adminSectionTwo {
+    display: block;
+    box-sizing: border-box;
+    width: inherit;
+    height: auto;
+    padding: 40px 2% 40px 2%;/*new*/
+    text-align: justify;
+    text-justify: inter-word;
+}
+.adminhold{
+    display: block;
+    margin: 5px auto;
+    padding: 5px 0;
+    border: 2px dotted black;
+}
+.adminhold ul {
+    display: block;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    width: 100%;
+}
+.adminhold  li {
+    display: inline;
+}
+/* End CSS for Admin Sections */
+/* start table css */
+table {
+    margin: 0 auto;
+    padding: 0 0 0 0;
+    width: 100%;
+    /* float: left; */
+}
+th {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    /* vertical-align: baseline; */
+}
+tr {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+td {
+    /* width: auto; */
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
 
+/* end table css */
 
 /* START OF FOOTER */
 
