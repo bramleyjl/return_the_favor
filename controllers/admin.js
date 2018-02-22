@@ -3,6 +3,7 @@ var express = require('express');
 var router = express.Router();
 var discounts = require('../models/discounts.js');
 var veterans = require('../models/veterans.js');
+let json2csv = require('json2csv').parse;
 
 //admin index page
 router.get('/', function(req, res) {
@@ -39,6 +40,22 @@ router.get('/live_discounts', function(req, res) {
     });
   };
 });
+
+//live_discounts export funtion
+router.post('/live_discounts/export', function(req, res) {
+
+  var data = req.body.discounts
+  console.log(data)
+
+  var fields = ['busname', 'desoffer', 'category_name', 'county_name'];
+  var csv = json2csv({ data: data, fields });
+  console.log(csv);
+
+  res.setHeader('Content-disposition', 'attachment; filename=testing.csv');
+  res.set('Content-Type', 'text/csv');
+  res.status(200).send(csv);
+
+})
 
 //live_discounts update and delete function
 router.post('/live_discounts', function(req, res) {

@@ -208,6 +208,12 @@ exports.checkExpiration = function(discounts, caller) {
   return discounts
 }
 
+//csv export function
+exports.exportDiscounts = function(objects) {
+
+
+}
+
 ////////beginning of 'holding_discounts' functions////////
 
 //inserts submitted discount into the holding table for review

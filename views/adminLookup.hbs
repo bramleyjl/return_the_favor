@@ -19,6 +19,11 @@
     <div id= "sectionOne">
       <h1>Discounts (Lookup)</h1>
 
+      <form method="POST" action="/admin/live_discounts/export">
+        <input type="hidden" name="discounts" value="{{json live_discounts}}">
+        <button type="submit">Export Results</button>
+      </form>
+
       <div class="container">      
       <form method="GET" action="/admin/live_discounts">
         <label for="state">State</label>
