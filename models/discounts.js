@@ -95,7 +95,7 @@ exports.filterDiscounts = function(params) {
       AND (`zip` = ? OR ? = '') \
       AND (`category` = ? OR ? = 'all') \
       AND (MATCH (`busname`, `desoffer`) AGAINST (?) OR ? = '') \
-      ORDER BY `created` DESC LIMIT ?",
+      ORDER BY `recent_display` DESC LIMIT ?",
     [params.county, params.county, 
       params.zip, params.zip, 
       params.category, params.category, 
@@ -131,39 +131,52 @@ exports.returnDiscountById = function(id) {
 exports.updateDiscount = function(params) {
   //turn Handlebars' parsed timestamps back into SQL-ready timestamps
   params.expiration = moment(params.expiration, "MM-DD-YYYY").format("YYYY-MM-DD HH:mm:ss")
+  return new Promise(function (resolve, reject) {
+      db.query("UPDATE `discounts` \
+      SET `busname` = ?, \
+      `state` = ?, \
+      `county` = ?, \
+      `zip` = ?, \
+      `street` = ?, \
+      `buslinks` = ?, \
+      `category` = ?, \
+      `desoffer` = ?, \
+      `cname` = ?, \
+      `cphone` = ?, \
+      `busmail` = ?, \
+      `notes` = ?, \
+      `expiration` = ? \
+      WHERE `id` = ?", [
+      params.busname, 
+      params.state,
+      params.county,
+      params.zip,
+      params.street,
+      params.buslinks,
+      params.category,
+      params.desoffer,
+      params.cname,
+      params.cphone,
+      params.busmail,
+      params.notes,
+      params.expiration,
+      params.id
+      ], function (err, results) {
+        if (err) return reject(err);
+        return resolve(results)
+      })
+  });
+}
+
+//makes discount most visibile on discounts page
+exports.bumpToRecent = function(id) {
+  var now = moment.utc().format("YYYY-MM-DD HH:mm:ss")
   db.query("UPDATE `discounts` \
-    SET `busname` = ?, \
-    `state` = ?, \
-    `county` = ?, \
-    `zip` = ?, \
-    `street` = ?, \
-    `buslinks` = ?, \
-    `category` = ?, \
-    `desoffer` = ?, \
-    `cname` = ?, \
-    `cphone` = ?, \
-    `busmail` = ?, \
-    `notes` = ?, \
-    `expiration` = ? \
-    WHERE `id` = ?", [
-    params.busname, 
-    params.state,
-    params.county,
-    params.zip,
-    params.street,
-    params.buslinks,
-    params.category,
-    params.desoffer,
-    params.cname,
-    params.cphone,
-    params.busmail,
-    params.notes,
-    params.expiration,
-    params.id
-    ], function (err, results) {
-      if (err) throw err
-      console.log(results)
-  })
+  SET `discounts`.`recent_display` = ? \
+  WHERE `id` = ?", [now, id], function (err, results) {
+    if (err) throw err;
+    return results
+  });
 }
 
 //deletes discount from live table by id
@@ -202,6 +215,7 @@ exports.createHoldingDiscount = function(params) {
   var discount = params;
   var currentTime =  moment(new Date());
   discount.expiration = moment(currentTime).add({months:discount.expiration}).format("YYYY-MM-DD HH:mm:ss");
+  console.log(discount)
   db.query("INSERT INTO `holding_discounts` SET ?", [discount], function (err, results, fields) {
     if (err) throw err;
     return results
@@ -226,6 +240,7 @@ exports.returnAllHoldingDiscounts = function() {
     });
   });
 }
+
 
 //deletes discount from holding table by id
 exports.deleteHoldingDiscount = function(id) {
