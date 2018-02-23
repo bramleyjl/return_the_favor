@@ -29,7 +29,6 @@ router.get('/filter', function(req, res) {
       recent : req.query.recent,
       search : req.query.search
   }
-  console.log(searchParams)
   var searchQuery = discounts.filterDiscounts(searchParams);
   searchQuery.then(function(results) {
     results = discounts.checkExpiration(results, "user");
@@ -52,6 +51,7 @@ router.get('/filter', function(req, res) {
     if (currentPage !== 1) var lastPage = currentPage - 1
     if (currentPage !== pageCount) var nextPage = currentPage + 1
     discountsPresent = discountsArrays[+currentPage -1]; 
+  console.log(discountsPresent)
     res.render('discounts', {
       discounts : discountsPresent,
       searchParams : searchParams,
