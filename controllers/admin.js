@@ -176,7 +176,7 @@ router.get('/holding', function(req, res) {
 router.post('/holding_discounts', function(req, res) {
   if (req.body.action === "Delete") {
     discounts.deleteHoldingDiscount(req.body.id)
-    res.redirect('/admin')
+    res.redirect('/admin/holding')
   } else if (req.body.action === "Validate") {
     var holdingId = req.body.id
     delete req.body.id
@@ -185,7 +185,7 @@ router.post('/holding_discounts', function(req, res) {
     validateHolding.then( (result) => {
       var deleteHolding = discounts.deleteHoldingDiscount(holdingId) 
       deleteHolding.then( (result) => {
-        res.redirect('/admin')
+        res.redirect('/admin/holding')
       })
     })
   }
@@ -201,7 +201,7 @@ router.post('/holding_veterans', function(req, res) {
   }
   if (req.body.action === "Delete") {
     veterans.deleteHoldingVeteran(req.body.id)
-    res.redirect('/admin')
+    res.redirect('/admin/holding')
   } else if (req.body.action === "Validate") {
     var holdingId = req.body.id
     delete req.body.id
@@ -210,7 +210,7 @@ router.post('/holding_veterans', function(req, res) {
     validateHolding.then( (result) => {
       var deleteHolding = veterans.deleteHoldingVeteran(holdingId) 
       deleteHolding.then( (result) => {
-        res.redirect('/admin')
+        res.redirect('/admin/holding')
       })
     })
   }
