@@ -17,15 +17,12 @@
 
 <!-- ************************ START OF LIVE DISCOUNTS SEC 1 **************** -->
 <div id= "adminSectionOne">
-  {{!-- <h1>Discounts (Lookup)</h1>
 
-<<<<<<< HEAD
+
+  {{!-- <h1>Discounts (Lookup)</h1>
   <div class="container">
-=======
-  <form method="POST" action="/admin/live_discounts/export">
-    <input type="hidden" name="discounts" value="{{json live_discounts}}">
-    <button type="submit">Export Results</button>
-  </form>
+
+
 
   <div class="container">
 >>>>>>> 5e85b03d476049fac0cd722c197eee6a151311bf
@@ -82,6 +79,10 @@
   </div> --}}
   <div class="fixedFilter">
       <h2>Discounts (Lookup)</h2>
+      <form method="POST" action="/admin/live_discounts/export">
+        <input type="hidden" name="discounts" value="{{live_discounts}}">
+        <button type="submit">Export Results</button>
+      </form>
       <form method="GET" action="/admin/live_discounts">
           <table>
               <tr>
@@ -145,7 +146,7 @@
   </div>
 
 
-  {{#live_discounts}}
+
   {{!-- <form method="POST" action="/admin/live_discounts">
   <table class="recent-threads">
   <h2>{{busname}}</h2>
@@ -247,7 +248,7 @@
     </tr>
   </table>
   </form> --}}
-
+  {{#live_discounts}}
   <div class="adminhold">
         <form method="POST" action="/admin/live_discounts">
             <table class="recent-threads">

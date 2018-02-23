@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 var discounts = require('../models/discounts.js');
 var veterans = require('../models/veterans.js');
-let json2csv = require('json2csv').parse;
+var json2csv = require('json2csv').parse;
 
 //admin index page
 router.get('/', function(req, res) {
@@ -22,7 +22,6 @@ router.get('/live_discounts', function(req, res) {
   if (req.query.action === "idLookup") {
     var searchQuery = discounts.returnDiscountById(req.query.id);
     searchQuery.then(function(result) {
-      console.log(result)
       result = discounts.checkExpiration(result, "admin")
       res.render('adminLookup', {live_discounts: result})
     })
@@ -36,6 +35,12 @@ router.get('/live_discounts', function(req, res) {
     searchQuery.then(function(results) {
       results = discounts.checkExpiration(results, "admin")
       if (req.query.order === 'descending') results = results.reverse()
+      //creation of csv export file
+      var data = JSON.stringify(results)
+      console.log("Stringified Object ---- " +  data)
+      var fields = ['id', 'busname', 'desoffer']
+      const csv = json2csv({ data: data, fields });
+      console.log("CSV ---- " + csv)
       res.render('adminLookup', {live_discounts: results});
     });
   };
@@ -43,13 +48,32 @@ router.get('/live_discounts', function(req, res) {
 
 //live_discounts export funtion
 router.post('/live_discounts/export', function(req, res) {
-
-  var data = req.body.discounts
+  
+  const data = req.body.discounts
+  const myFields = ['id', 'busname', 'desoffer'];
   console.log(data)
 
-  var fields = ['busname', 'desoffer', 'category_name', 'county_name'];
-  var csv = json2csv({ data: data, fields });
+  const fields = ['car', 'price', 'color']
+  const myCars = [
+    {
+      "car": "Audi",
+      "price": 40000,
+      "color": "blue"
+    }, {
+      "car": "BMW",
+      "price": 35000,
+      "color": "black"
+    }, {
+      "car": "Porsche",
+      "price": 60000,
+      "color": "green"
+    }
+  ];
+  console.log(myCars)
+  const csv = json2csv(myCars, { fields });
+
   console.log(csv);
+
 
   res.setHeader('Content-disposition', 'attachment; filename=testing.csv');
   res.set('Content-Type', 'text/csv');
