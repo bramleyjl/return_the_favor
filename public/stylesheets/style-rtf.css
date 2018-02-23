@@ -464,8 +464,9 @@ form div + div {
     box-sizing: border-box;
     width: 100%;
     height: auto;
+    min-height: 600px;
     border-bottom: 3px solid #C3960D;
-    padding: 160px 2% 40px 2%;
+    padding: 130px 2% 40px 2%;
     background-color: #BCE5f7;
     text-align: justify;
     text-justify: inter-word;
@@ -479,6 +480,24 @@ form div + div {
     padding: 40px 2% 40px 2%;/*new*/
     text-align: justify;
     text-justify: inter-word;
+    border-bottom: 3px solid #C3960D;
+}
+#adminSectionThree {
+    display: block;
+    box-sizing: border-box;
+    width: inherit;
+    height: auto;
+    padding: 40px 2% 40px 2%;/*new*/
+    text-align: justify;
+    text-justify: inter-word;
+    background-color: #BCE5f7;
+    border-bottom: 3px solid #C3960D;
+}
+#fixedFilter{
+    margin: 0 auto;
+    padding: 0 0 0 0;
+    /* position: fixed; */
+    border-bottom: 1px solid black;
 }
 .adminhold{
     display: block;
@@ -501,21 +520,22 @@ table {
     margin: 0 auto;
     padding: 0 0 0 0;
     width: 100%;
-    /* float: left; */
 }
 th {
     margin: 0 0 0 0;
     padding: 0 0 0 0;
-    /* vertical-align: baseline; */
 }
 tr {
     margin: 0 0 0 0;
     padding: 0 0 0 0;
 }
 td {
-    /* width: auto; */
     margin: 0 0 0 0;
     padding: 0 0 0 0;
+}
+.active, .id {
+    float: right;
+    padding: 0 20px 0 0;
 }
 
 /* end table css */
