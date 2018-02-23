@@ -35,17 +35,12 @@ router.get('/live_discounts', function(req, res) {
     searchQuery.then(function(results) {
       results = discounts.checkExpiration(results, "admin")
       if (req.query.order === 'descending') results = results.reverse()
-      //creation of csv export file
-      var data = JSON.stringify(results)
-      console.log("Stringified Object ---- " +  data)
-      var fields = ['id', 'busname', 'desoffer']
-      const csv = json2csv({ data: data, fields });
-      console.log("CSV ---- " + csv)
       res.render('adminLookup', {live_discounts: results});
     });
   };
 });
 
+/*
 //live_discounts export funtion
 router.post('/live_discounts/export', function(req, res) {
   
@@ -74,12 +69,20 @@ router.post('/live_discounts/export', function(req, res) {
 
   console.log(csv);
 
+        //creation of csv export file
+      var data = JSON.stringify(results)
+      console.log("Stringified Object ---- " +  data)
+      var fields = ['id', 'busname', 'desoffer']
+      const csv = json2csv({ data: data, fields });
+      console.log("CSV ---- " + csv)
+
 
   res.setHeader('Content-disposition', 'attachment; filename=testing.csv');
   res.set('Content-Type', 'text/csv');
   res.status(200).send(csv);
 
 })
+*/
 
 //live_discounts update and delete function
 router.post('/live_discounts', function(req, res) {

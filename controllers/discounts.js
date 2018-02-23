@@ -21,14 +21,15 @@ router.get('/', function(req, res) {
 });
 
 // discounts searched/filtered
-router.post('/', function(req, res) {
+router.get('/filter', function(req, res) {
   var searchParams = {
-      county : req.body.county,
-      zip : req.body.zip,
-      category : req.body.category,
-      recent : req.body.recent,
-      search : req.body.search
+      county : req.query.county,
+      zip : req.query.zip,
+      category : req.query.category,
+      recent : req.query.recent,
+      search : req.query.search
   }
+  console.log(searchParams)
   var searchQuery = discounts.filterDiscounts(searchParams);
   searchQuery.then(function(results) {
     results = discounts.checkExpiration(results, "user");
