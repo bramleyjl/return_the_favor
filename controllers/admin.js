@@ -133,10 +133,13 @@ router.get('/business_search', function(req, res) {
 router.post('/live_veterans', function(req, res) {
   if (req.body.action === "Delete") {
     veterans.deleteLiveVeteran(req.body.id)
-    res.redirect('/admin')
+    res.redirect('/admin/lookup')
   } else if (req.body.action === "Update") {
     veterans.updateLiveVeteran(req.body)
-    res.redirect('/admin')
+    var searchResults = veterans.veteranLookup(req.body.email)
+    searchResults.then(function(results) {
+      res.render('adminLookup', {live_veterans: results})
+    })
   } 
 });
 
