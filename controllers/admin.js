@@ -35,6 +35,14 @@ router.get('/live_discounts', function(req, res) {
     searchQuery.then(function(results) {
       results = discounts.checkExpiration(results, "admin")
       if (req.query.order === 'descending') results = results.reverse()
+      var discountIDs = [];
+      for (var i = results.length - 1; i >= 0; i--) {
+        discountIDs.unshift(results[i].id);
+      }
+      for (var j = results.length - 1; j >= 0; j--) {
+        results[j].discountIDs = discountIDs
+      }
+      console.log(discountIDs)      
       res.render('adminLookup', {live_discounts: results});
     });
   };
@@ -86,22 +94,31 @@ router.post('/live_discounts/export', function(req, res) {
 
 //live_discounts update and delete function
 router.post('/live_discounts', function(req, res) {
+  var discountIDs = req.body.discountIDs.split(',').map(Number);
   if (req.body.action === "Delete") {
+    var removeID = discountIDs.indexOf(parseInt(req.body.id))
+    discountIDs.splice(removeID, 1);
     discounts.deleteDiscount(req.body.id)
-    res.redirect('/admin/lookup')
   } else if (req.body.action === "Update") {
-    console.log(req.body)
     var updatedDiscount = discounts.updateDiscount(req.body)
     updatedDiscount.then(function(result) {
       //checks to see if expiration was updated and bumps discount to top visibility if so
-      if (req.body.originalExpiration !== req.body.expiration) {
-        discounts.bumpToRecent(req.body.id)
-        res.redirect('/admin/lookup')
-      } else {
-        res.redirect('/admin/lookup')        
-      }
+      if (req.body.originalExpiration !== req.body.expiration) discounts.bumpToRecent(req.body.id)
     });
   }
+  //fetches previous page's discounts and passes them to template for viewing
+  discounts.returnDiscountsByIdArray(discountIDs, function(results){
+    results = discounts.checkExpiration(results, "admin")
+    //gives each discount an array with all discounts to be viewed to maintain state
+    var discountIDs = [];
+      for (var i = results.length - 1; i >= 0; i--) {
+        discountIDs.unshift(results[i].id);
+      }
+      for (var j = results.length - 1; j >= 0; j--) {
+        results[j].discountIDs = discountIDs
+      }
+    res.render('adminLookup', {live_discounts: results})        
+  });
 });
 
 //live_discounts business name search

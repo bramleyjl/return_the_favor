@@ -127,6 +127,29 @@ exports.returnDiscountById = function(id) {
   });
 }
 
+//returns multiple discounts by an array of ids
+exports.returnDiscountsByIdArray = function(ids, callback) {
+  var discounts = [];
+  var pending = ids.length; 
+  for(var i in ids) {
+    db.query("SELECT \
+      `discounts`.*, \
+      `counties`.`name` AS `county_name`, \
+      `categories`.`name` AS `category_name`, \
+      `states`.`abbreviation` AS `state_abv` \
+      FROM `discounts` \
+      JOIN `counties` ON `discounts`.`county` = `counties`.`id` \
+      JOIN `categories` ON `discounts`.`category` = `categories`.`id` \
+      JOIN `states` ON `discounts`.`state` = `states`.`id` \
+      WHERE `discounts`.`id` = ?", [ ids[i] ], function(err, dis){
+      discounts.push(dis.pop());
+      if( 0 === --pending ) {
+        callback(discounts); //callback if all queries are processed
+      }
+    });
+  }  
+}
+
 //updates discount in live table
 exports.updateDiscount = function(params) {
   //turn Handlebars' parsed timestamps back into SQL-ready timestamps

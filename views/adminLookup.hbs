@@ -251,6 +251,7 @@
   {{#live_discounts}}
   <div class="adminhold">
         <form method="POST" action="/admin/live_discounts">
+        <input type="hidden" name="discountIDs" value={{discountIDs}}>
             <table class="recent-threads">
                 <ul class="topline">
                             <li class="busname">{{busname}}</li>
