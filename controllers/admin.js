@@ -7,7 +7,7 @@ var json2csv = require('json2csv').parse;
 
 //admin index page
 router.get('/', function(req, res) {
-  res.send('AdminHolding -> /admin/holding, AdminLookup -> /admin/lookup')
+  res.render('admin');
 });
 
 /////////lookup page functions/////////
