@@ -70,7 +70,7 @@ exports.businessLookup = function(name) {
       `counties`.`name` AS `county_name` \
       FROM `discounts` \
       JOIN `counties` ON `discounts`.`county` = `counties`.`id` \
-      WHERE MATCH `busname` AGAINST (?)", [name], function (err, results) {
+      WHERE `busname` LIKE "+ db.escape('%'+name+'%'), function (err, results) {
         if (err) return reject(err);
         return (resolve(results))
       }
@@ -94,13 +94,13 @@ exports.filterDiscounts = function(params) {
       WHERE (`county` = ? OR ? = 'all') \
       AND (`zip` = ? OR ? = '') \
       AND (`category` = ? OR ? = 'all') \
-      AND (MATCH (`busname`, `desoffer`) AGAINST (?) OR ? = '') \
-      ORDER BY `recent_display` DESC LIMIT ?",
+      AND (((`busname`) LIKE "+ db.escape('%'+params.search+'%') + " OR (`desoffer`) LIKE " + db.escape('%'+params.search+'%') + ") OR ? = '') \
+       ORDER BY `recent_display` DESC LIMIT ?",
     [params.county, params.county, 
       params.zip, params.zip, 
-      params.category, params.category, 
-      params.search, params.search, 
-      params.recent], function (err, results) {
+      params.category, params.category,
+      params.search, params.recent], 
+      function (err, results) {
         if (err) return reject(err);
         return (resolve(results))
       }
