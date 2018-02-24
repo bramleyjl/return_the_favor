@@ -246,20 +246,10 @@ ul {
 
  /* START OF HOME PAGE NEW CARD AREA STYLES */
 
- #outerdiv.wide-discounts {
-overflow:hidden;     
-position:relative;
-z-index:1; 
-margin: 0 auto;
-padding: 0px 0 0 0;
-}
-
-
- .wrapper {
-
+.wrapper {
 margin: 0 auto;
 display: block;
-max-width: 1400px;
+max-width: 1200px;
 
 
 
@@ -271,14 +261,13 @@ max-width: 1400px;
 }
 
 .testbox {
-  overflow:hidden;   
-  width: 99%;
+  width: 95%;
+  height: 300px;
+  /*max-width: 1200px;*/
   margin: 0 auto;
   display: block;
  
-
 }
-
 
 
 .card {
@@ -293,31 +282,67 @@ max-width: 1400px;
 .card .front {
     
    background-color: #335579;
-   padding: 2px 16px;
    border-radius: 5px;
    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-   transition: 0.3s;
+   transition: 1s;
     
+}
 
+.front-card-description {
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.front-card-description h3{
+    color:#fff;
+    margin-top:20px;
+    padding-left:12px;
+    padding-right:10px;
+    font-size: .9em;
+    text-transform: uppercase;
 }
 
 
 .card .back {
     
    background-color: #444444;
-   padding: 2px 16px;
    border-radius: 5px;
    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-   transition: 0.3s;
+   transition: 1s;
+}
+
+.back-card-description {
+    /*margin-top:7px;*/
+    border-radius: 5px;
+    padding-left:12px;
+    padding-right:10px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    max-height:92px;
+   
 
 }
 
 
-  /* END OF HOME PAGE NEW CARD AREA STYLES */
+.back-card-description h4 {
+    color:#fff;
+    font-size: 12px;
 
+}
+
+.seemorelink {
+    position: absolute;
+     bottom: 10px;
+    left: 50px;
+}
+
+.seemorelink a {
+    color:#fff;
+    font-size: 12px;
+} /* END OF HOME PAGE NEW CARD AREA STYLES */
+
+ 
  /* START OF OLD HOME PAGE IFRAME AREA STYLES */
-
-
 
 #discount-title {
     padding: 0px 0px 0px 0px;

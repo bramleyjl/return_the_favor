@@ -63,7 +63,7 @@
 
 <!-- ______________END OF RIGHT SIDEBAR_______________ -->
 
-<!-- ______________START OF THE DISCOUNTS AREA OF THE PAGE_______________ -->
+<!-- ______________START OF THE DISCOUNTS TITLE AREA OF THE PAGE_______________ -->
 
 
     <div id= "discount-heading-wrapper">
@@ -82,211 +82,47 @@
       <!-- close discount-heading-wrapper -->
     </div>
 
-<!-- ______________START OF THE DISCOUNTS AREA OF THE PAGE_______________ -->
+<!-- ______________START OF THE DISCOUNTS SECTION TWO AREA OF THE PAGE_______________ -->
 
-      
-  <div id= "outerdiv" class= "wide-discounts">    
-    
-      <div class = "wrapper">
+ {{!-- <div id= "sectionTwo"> --}}
 
-        <div class = "testbox"> 
+          <div class = "wrapper">
 
-            <div class="card">
-                <div class="front">
-                  <h5>Other</h5>
-                </div>
-                <div class="back">
-                  <h5>Discount information</h5>
-                </div>
-            </div> 
+            <div class = "testbox">  
+                  
+               {{#discounts}}
 
-            <div class="card">
-                <div class="front">
-                  <h5>Hospitality</h5>
-                </div>
-                <div class="back">
-                  <h5>Discount information</h5>
-                </div>
-            </div> 
+                  <div class="card">
+                    
+                    <div class="front">
+                        <div class="front-card-description">
+                          <h3>{{busname}}</h3>
+                        </div>
+                    </div>
+                          
+                    <div class="back">
+                      <div class="back-card-description">
+                        <h4> {{desoffer}} </h4>
+                      </div> 
+                      <div class= "seemorelink"> 
+                        <a href="/discounts#sectionTwo"> See Discount</a>
+                      </div>  
+                    </div>
+                          
+                  </div> <!-- close card div-->
 
-            <div class="card">
-                <div class="front">
-                  <h5>Casual Dining and Take-Out</h5>
-                </div>
-                <div class="back">
-                  <h5>Hospitality</h5>
-                </div>
-            </div> 
+                        
+               {{/discounts}} 
 
-            <div class="card">
-                <div class="front">
-                  <h5>Art/ Antiques</h5>
-                </div>
-                <div class="back">
-                  <h5>Discount information</h5>
-                </div>
-            </div> 
 
-            <div class="card">
-                <div class="front">
-                  <h5>Books</h5>
-                </div>
-                <div class="back">
-                  <h5>Discount information</h5>
-                </div>
-            </div> 
-
-            <div class="card">
-                <div class="front">
-                  <h5>Banks</h5>
-                </div>
-                <div class="back">
-                  <h5>Discount information</h5>
-                </div>
-            </div> 
-
-            <div class="card">
-                <div class="front">
-                  <h5>Cleaners</h5>
-                </div>
-                <div class="back">
-                  <h5>Discount information</h5>
-                </div>
-            </div> 
-
-            <div class="card">
-                <div class="front">
-                  <h5>Clothing</h5>
-                </div>
-                <div class="back">
-                  <h5>Discount information</h5>
-                </div>
-            </div> 
-
-            <div class="card">
-                <div class="front">
-                  <h5>Family/ Recreation</h5>
-                </div>
-                <div class="back">
-                  <h5>Discount information</h5>
-                </div>
-            </div> 
-
-            <div class="card">
-                <div class="front">
-                  <h5>Flowers</h5>
-                </div>
-                <div class="back">
-                  <h5>Discount information</h5>
-                </div>
-            </div> 
-
-            <div class="card">
-                <div class="front">
-                  <h5>Fine Dining & Nightlife</h5>
-                </div>
-                <div class="back">
-                  <h5>Discount information</h5>
-                </div>
-            </div> 
-
-            <div class="card">
-                <div class="front">
-                  <h5>Haircare/ Spa</h5>
-                </div>
-                <div class="back">
-                  <h5>Discount information</h5>
-                </div>
-            </div> 
-
-            <div class="card">
-                <div class="front">
-                  <h5>Jewelry</h5>
-                </div>
-                <div class="back">
-                  <h5>Discount information</h5>
-                </div>
-            </div> 
-
-            <div class="card">
-                <div class="front">
-                  <h5>Professional Services</h5>
-                </div>
-                <div class="back">
-                  <h5>Discount information</h5>
-                </div>
-            </div> 
-
-            <div class="card">
-                <div class="front">
-                  <h5>Automotive Discounts</h5>
-                </div>
-                <div class="back">
-                  <h5>Discount information</h5>
-                </div>
-            </div> 
-
-              <div class="card">
-                <div class="front">
-                  <h5>Other</h5>
-                </div>
-                <div class="back">
-                  <h5>Hospitality</h5>
-                </div>
-            </div> 
-
-            <div class="card">
-                <div class="front">
-                  <h5>Home Services</h5>
-                </div>
-                <div class="back">
-                  <h5>Discount information</h5>
-                </div>
-            </div> 
-
-            <div class="card">
-                <div class="front">
-                  <h5>Travel</h5>
-                </div>
-                <div class="back">
-                  <h5>Discount information</h5>
-                </div>
-            </div> 
-
-            <div class="card">
-                <div class="front">
-                  <h5>Theater / Arts</h5>
-                </div>
-                <div class="back">
-                  <h5>Discount information</h5>
-                </div>
-            </div> 
-
-            <div class="card">
-                <div class="front">
-                  <h5>Storage</h5>
-                </div>
-                <div class="back">
-                  <h5>Discount information</h5>
-                </div>
-            </div> 
-
-            <div class="card">
-                <div class="front">
-                  <h5>Pets</h5>
-                </div>
-                <div class="back">
-                  <h5>Discount information</h5>
-                </div>
-            </div> 
-
-        </div> <!-- end of testbox-->  
+              </div> <!-- end of testbox-->  
           
 
-        <div class = "clearfix"> </div> 
+              <div class = "clearfix"> </div> 
 
-      </div>  <!-- end of wrapper-->   
-  </div> <!-- end of wide discounts--> 
+            </div>  <!-- end of wrapper-->  
+        
+        </div>  <!-- end of section two--> 
 
 <!-- ______________END OF THE DISCOUNTS AREA OF THE PAGE_______________ -->
 
