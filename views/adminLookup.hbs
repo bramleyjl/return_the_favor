@@ -360,6 +360,11 @@
         </form>
     </div>
   {{/live_discounts}}
+  {{#if no_discounts}}
+  <div>
+    <p>No discounts with those paramters/ID found.</p>
+  </div>
+  {{/if}}
 
 <!-- close section one -->
 </div>
@@ -393,6 +398,11 @@
   </tr>
   {{/business_search}}
   </table>
+  {{/if}}
+  {{#if no_business}}
+  <div>
+    <p>No business with that name found.</p>
+  </div>
   {{/if}}
 </div>
 
@@ -444,6 +454,11 @@
   </form>
   {{/live_veterans}}
   </table>
+  {{/if}}
+  {{#if no_veteran}}
+  <div>
+    <p>No veteran with that email found.</p>
+  </div>
   {{/if}}
 
 <!-- close section one -->

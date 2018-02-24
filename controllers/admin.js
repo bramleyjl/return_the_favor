@@ -22,8 +22,14 @@ router.get('/live_discounts', function(req, res) {
   if (req.query.action === "idLookup") {
     var searchQuery = discounts.returnDiscountById(req.query.id);
     searchQuery.then(function(result) {
+      if (result.length === 0) {
+        var noDiscounts = "true"
+        res.render('adminLookup', {no_discounts: noDiscounts})
+      } else {
       result = discounts.checkExpiration(result, "admin")
+      result[0].discountIDs = result[0].id
       res.render('adminLookup', {live_discounts: result})
+      }
     })
   } else {
     var searchParams = {
@@ -33,6 +39,10 @@ router.get('/live_discounts', function(req, res) {
     }
     var searchQuery = discounts.adminFilterDiscounts(searchParams);
     searchQuery.then(function(results) {
+      if (results.length === 0) {
+        var noDiscounts = true
+        res.render('adminLookup', {no_discounts: noDiscounts})
+      } else {
       results = discounts.checkExpiration(results, "admin")
       if (req.query.order === 'descending') results = results.reverse()
       var discountIDs = [];
@@ -44,6 +54,7 @@ router.get('/live_discounts', function(req, res) {
       }
       console.log(discountIDs)      
       res.render('adminLookup', {live_discounts: results});
+      }
     });
   };
 });
@@ -99,6 +110,8 @@ router.post('/live_discounts', function(req, res) {
     var removeID = discountIDs.indexOf(parseInt(req.body.id))
     discountIDs.splice(removeID, 1);
     discounts.deleteDiscount(req.body.id)
+    //skips discount lookup if there was only one discount (that was just deleted)
+    if (discountIDs.length === 0) res.render('adminLookup')
   } else if (req.body.action === "Update") {
     var updatedDiscount = discounts.updateDiscount(req.body)
     updatedDiscount.then(function(result) {
@@ -125,7 +138,12 @@ router.post('/live_discounts', function(req, res) {
 router.get('/business_search', function(req, res) {
   var searchResults = discounts.businessLookup(req.query.busname)
   searchResults.then(function(results) {
+    if (results.length === 0) {
+      var noBusiness = true
+      res.render('adminLookup', {no_business: noBusiness})
+    } else {
     res.render('adminLookup', {business_search: results})
+    }
   })
 });
 
@@ -147,7 +165,12 @@ router.post('/live_veterans', function(req, res) {
 router.get('/veteran_search', function(req, res) {
   var searchResults = veterans.veteranLookup(req.query.email)
   searchResults.then(function(results) {
+  if (results.length === 0) {
+    var noVeteran = true
+    res.render('adminLookup', {no_veteran: noVeteran})
+  } else {
     res.render('adminLookup', {live_veterans: results})
+  }
   })
 });
 
