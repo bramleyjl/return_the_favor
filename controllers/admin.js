@@ -181,9 +181,7 @@ router.get('/holding', function(req, res) {
   var adminDisplay = {}
   var holdingDiscounts = discounts.returnAllHoldingDiscounts();
   holdingDiscounts.then(function(result) {
-    console.log(result)
     if (result.length > 0) adminDisplay.holdingDiscounts = result
-    console.log(adminDisplay.holdingDiscounts)
     var holdingVeterans = veterans.returnAllHoldingVeterans();
     holdingVeterans.then(function(result) {
       if (result.length > 0) adminDisplay.holdingVeterans = result

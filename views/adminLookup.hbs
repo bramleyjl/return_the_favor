@@ -18,67 +18,11 @@
 <!-- ************************ START OF LIVE DISCOUNTS SEC 1 **************** -->
 <div id= "adminSectionOne">
 
-
-  {{!-- <h1>Discounts (Lookup)</h1>
-  <div class="container">
-
-
-
-  <div class="container">
->>>>>>> 5e85b03d476049fac0cd722c197eee6a151311bf
-  <form method="GET" action="/admin/live_discounts">
-    <label for="state">State</label>
-      <select id="state" name="state">
-        <option value="1">NY</option>
-      </select>
-    <label for="county">County</label>
-      <select id="county" name="county" required>
-        <option value="">Choose a County</option>
-        <option value=1>Rensselaer</option>
-        <option value=2>Albany</option>
-        <option value=3>Schenectady</option>
-        <option value=4>Saratoga</option>
-      </select>
-    <label for="category">Category</label>
-      <select id="category" name="category">
-        <option value="all">All</option>
-        <option value=1>Casual Dining and Take-Out</option>
-        <option value=2>Art and Antiques</option>
-        <option value=3>Banking</option>
-        <option value=4>Books</option>
-        <option value=5>Cleaners</option>
-        <option value=6>Clothing</option>
-        <option value=7>Family and Recreation</option>
-        <option value=8>Flowers</option>
-        <option value=9>Fine Dining and Nightlife</option>
-        <option value=10>Haircare and Spas</option>
-        <option value=11>Jewelry</option>
-        <option value=12>Legal</option>
-        <option value=13>Automotive</option>
-        <option value=14>Home Services</option>
-        <option value=15>Travel</option>
-        <option value=16>Theater and Arts</option>
-        <option value=17>Storage</option>
-        <option value=18>Pets</option>
-        <option value=19>Health and Fitness</option>
-        <option value=20>Electronics</option>
-        <option value=21>Other</option>
-      </select>
-    <label for="order">Expiration Date</label>
-      <select id="order" name="order">
-        <option value="ascending">Ascending</option>
-        <option value="descending">Descending</option>
-      </select>
-    <button type="submit">Filter</button>
-  </form>
-  <form method="GET" action="/admin/live_discounts">
-    <label for="id">ID</label>
-      <input type="number" name="id">
-    <button type="submit" name="action" value="idLookup">Find ID</button>
-  </form>
-  </div> --}}
   <div class="fixedFilter">
       <h2>Discounts (Lookup)</h2>
+      <form action="/admin/holding" method="GET">
+        <input type="submit" value="Holding Page">
+      </form>
       <form method="POST" action="/admin/live_discounts/export">
         <input type="hidden" name="discounts" value="{{live_discounts}}">
         <button type="submit">Export Results</button>
