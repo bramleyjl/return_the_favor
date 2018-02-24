@@ -1,6 +1,6 @@
 'use strict'
 var mysql = require('mysql');
-var settings = require('./config.json')
+var settings = require('./config/config.json')
 
 var connection = mysql.createConnection({
     host     : settings.db.host,

@@ -11,7 +11,7 @@ router.get('/', function(req, res) {
     zip : '',
     category : 'all',
     search : '',
-    recent : '10'
+    recent : '21'
   }
   var defaultQuery = discounts.filterDiscounts(defaultSearch);
   defaultQuery.then(function(results) {

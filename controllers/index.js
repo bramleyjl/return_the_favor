@@ -1,15 +1,28 @@
 'use strict';
 var express = require('express');
 var router = express.Router();
+var discounts = require('../models/discounts.js');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('home.hbs');
+router.get('/', function(req, res) {
+  var defaultSearch = {
+    county : 'all',
+    zip : '',
+    category : 'all',
+    search : '',
+    recent : '21'
+  }
+  var defaultQuery = discounts.filterDiscounts(defaultSearch);
+  defaultQuery.then(function(results) {
+    results = discounts.checkExpiration(results, "user")
+    console.log("results!!!")
+    res.render('home', {discounts : results});
+  })
 });
 
 // alternate home page route
 router.get('/home', function(req, res, next) {
-  res.render('home.hbs');
+  res.redirect('/');
 });
 
 //GET about page
