@@ -246,18 +246,21 @@ ul {
 
  /* START OF HOME PAGE NEW CARD AREA STYLES */
 
- #one {
-  float: left;
-  width: 100%;
-  display: block;
-  background-color: #fff;
+ #outerdiv.wide-discounts {
+overflow:hidden;     
+position:relative;
+z-index:1; 
+margin: 0 auto;
+padding: 0px 0 0 0;
+}
 
- }
 
  .wrapper {
+
 margin: 0 auto;
 display: block;
-max-width: 1200px;
+max-width: 1400px;
+
 
 
  }
@@ -268,13 +271,14 @@ max-width: 1200px;
 }
 
 .testbox {
-  width: 90%;
-  height: 500px;
-  max-width: 1200px;
-  background-color: #fff;
+  overflow:hidden;   
+  width: 99%;
   margin: 0 auto;
   display: block;
+ 
+
 }
+
 
 
 .card {
@@ -311,32 +315,7 @@ max-width: 1200px;
 
   /* END OF HOME PAGE NEW CARD AREA STYLES */
 
- /* START OF HOME PAGE IFRAME AREA STYLES */
-
-#outerdiv {
-overflow:hidden;
-position:relative;
-z-index:1;
-border: 0px;
-margin-left: 130px;
-}
-
-
-#outerdiv.wide-discounts {
-overflow:hidden;
-position:relative;
-z-index:1;
-margin: 0 auto;
-padding: 40px 0 0 0;
-}
-
-#inneriframe {
-position:absolute;
-top:-150px;
-right: -20px;
-width:100%;
-border: 0px;
-}
+ /* START OF OLD HOME PAGE IFRAME AREA STYLES */
 
 
 
@@ -352,16 +331,16 @@ border: 0px;
 
 background-color: none;
 height: 50px;
-width: 70%;
+width: 85%;
 margin: 0 auto;
 padding: 0 0 0 0;
 
 }
 
-.black-heading {
+.red-heading {
 
-    color: #000;
-    text-decoration: none;
+    color: #EB4C4F;
+    text-decoration: underline;
     max-width: 200px;
 
 }
