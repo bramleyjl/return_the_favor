@@ -391,6 +391,22 @@ padding: 0 0 0 0;
 
 
 } /* END OF HOMEPAGE IFRAME AREA STYLES */
+
+/* ABOUT PAGE STYLES */
+
+ul.about-list {
+  list-style-type:circle;
+
+}
+
+span.indent {
+
+  padding-left:8px;
+}
+
+
+/* END ABOUT PAGE STYLES */
+
 /* displayDisc CSS */
 .resnotify {
     margin: 0 auto;
