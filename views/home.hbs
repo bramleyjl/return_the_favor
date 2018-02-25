@@ -9,9 +9,6 @@
     <link rel="stylesheet" type="text/css" href="/stylesheets/style-rtfres.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700" rel="stylesheet">
     <link rel="icon" type="image/png" href="/images/favicon.png">
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="javascript/jquery.flip.min.js"></script>
-    <script src="javascript/script.js"></script>
     <title>Home Return The Favor Discounts for Veterans DD-214</title>
   </head>
 
@@ -63,66 +60,45 @@
 
 <!-- ______________END OF RIGHT SIDEBAR_______________ -->
 
-<!-- ______________START OF THE DISCOUNTS TITLE AREA OF THE PAGE_______________ -->
+<!-- ______________START OF THE DISCOUNTS AREA OF THE PAGE_______________ -->
 
 
     <div id= "discount-heading-wrapper">
 
       <div id=filter class="dropdown">
 
-          <a class="red-heading" href= "/discounts" >SEE ALL DISCOUNTS</a>
+          <button id="home-filter" class="dropbtn">FILTER
+              <i class="fa fa-caret-down"></i>
+          </button>
 
+            <div class="dropdown-content">
+                <a href="https://rtrnthefvr.blogspot.com/search/label/Rensselaer?view=flipcard" target="discounts">Rensselaer Discounts</a>
+
+                <a href="https://rtrnthefvr.blogspot.com/search/label/Troy?view=flipcard" target="discounts">Troy Discounts</a>
+
+                <a href="https://rtrnthefvr.blogspot.com/search/label/Berlin?view=flipcard" target="discounts">Berlin Discounts</a>
+
+                <a href="https://rtrnthefvr.blogspot.com/?view=flipcard" target="discounts" >See All Discounts</a>
+
+
+            </div>
 
       </div>
 
       <div id="discount-title">
-           <h2><u>LAT</u>EST VETERAN DISCOUNTS </h2> </a>
+           <a class="black-heading" href="https://rtrnthefvr.blogspot.com/?view=flipcard" target="discounts"><h2><u>LAT</u>EST DISCOUNTS </h2> </a>
       </div>
 
       <!-- close discount-heading-wrapper -->
     </div>
 
-<!-- ______________START OF THE DISCOUNTS SECTION TWO AREA OF THE PAGE_______________ -->
+    <div id= "outerdiv" class= "wide-discounts">
 
- <div id= "sectionTwo">
+			<iframe id="inneriframe" name="discounts" width= "500px" height=  "1000px" src="https://rtrnthefvr.blogspot.com/?view=flipcard" scrolling=no>
+ 			<p> If you’re seeing this , your settings do not allow iframes </p>
+			</iframe>
 
-          <div class = "wrapper">
-
-            <div class = "testbox">  
-                  
-               {{#discounts}}
-
-                  <div class="card">
-                    
-                    <div class="front">
-                        <div class="front-card-description">
-                          <h3>{{busname}}</h3>
-                        </div>
-                    </div>
-                          
-                    <div class="back">
-                      <div class="back-card-description">
-                        <h4> {{desoffer}} </h4>
-                      </div> 
-                      <div class= "seemorelink"> 
-                        <a href="/discounts/view/{{id}}"> See Discount</a>
-                      </div>  
-                    </div>
-                          
-                  </div> <!-- close card div-->
-
-                        
-               {{/discounts}} 
-
-
-              </div> <!-- end of testbox-->  
-          
-
-              <div class = "clearfix"> </div> 
-
-            </div>  <!-- end of wrapper-->  
-        
-        </div>  <!-- end of section two--> 
+		</div>
 
 <!-- ______________END OF THE DISCOUNTS AREA OF THE PAGE_______________ -->
 
@@ -132,5 +108,5 @@
 
 
 </body>
-
+<script src="javascript/script.js"></script>
 </html>

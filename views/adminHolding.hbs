@@ -18,13 +18,103 @@
 <!-- ************************ START OF DISCOUNTS HOLDING **************** -->
     <div id= "adminSectionOne">
       <h2>Discounts (Holding)</h2>
-      <form action="/admin/lookup" method="GET">
-        <input type="submit" value="Lookup Page">
-      </form>
       {{#if holding_discounts}}
       {{#holding_discounts}}
       <form method="POST" action="/admin/holding_discounts">
-      
+      {{!-- <table class="recent-threads">
+      <input type="hidden" value="{{id}}" name="id">
+      <thead>
+        <tr>
+          <td>Business Name</td>
+          <td>State</td>
+          <td>County</td>
+          <td>ZipCode</td>
+          <td>Street</td>
+          <td>Category</td>
+          <td>Website</td>
+        </tr>
+      </thead>
+      <tr>
+        <td><input type="text" value="{{busname}}" name="busname"></td>
+        <td>
+          <select name="state">
+            <option selected value="{{state}}">{{state_abv}}</option>
+          </select>
+        </td>
+        <td>
+          <select name="county">
+            <option selected value="{{county}}">{{county_name}}</option>
+            <option value="1">Rensselaer</option>
+            <option value="2">Albany</option>
+            <option value="3">Schenectady</option>
+            <option value="4">Saratoga</option>
+          </select>
+        </td>
+        <td><input type="number" value="{{zip}}" name="zip"></td>
+        <td><input type="text" value="{{street}}" name="street"></td>
+        <td>
+          <select id="category" name="category">
+          <option value="{{category}}">{{category_name}}</option>
+          <option value=1>Casual Dining and Take-Out</option>
+          <option value=2>Art and Antiques</option>
+          <option value=3>Banking</option>
+          <option value=4>Books</option>
+          <option value=5>Cleaners</option>
+          <option value=6>Clothing</option>
+          <option value=7>Family and Recreation</option>
+          <option value=8>Flowers</option>
+          <option value=9>Fine Dining and Nightlife</option>
+          <option value=10>Haircare and Spas</option>
+          <option value=11>Jewelry</option>
+          <option value=12>Legal</option>
+          <option value=13>Automotive</option>
+          <option value=14>Home Services</option>
+          <option value=15>Travel</option>
+          <option value=16>Theater and Arts</option>
+          <option value=17>Storage</option>
+          <option value=18>Pets</option>
+          <option value=19>Health and Fitness</option>
+          <option value=20>Electronics</option>
+          <option value=21>Other</option>
+          </select>
+        </td>
+        <td><input type="text" value="{{buslinks}}" name="buslinks"></td>
+      </tr>
+      <thead>
+        <tr>
+          <td></td>
+          <td>Offer</td>
+        </tr>
+      </thead>
+      <tr>
+        <td>
+            <button type="submit" name="action" value="Delete">Delete</button>
+        </td>
+        <td><input type="text" value="{{desoffer}}" name="desoffer"></td>
+      </tr>
+      <thead>
+        <tr>
+          <td></td>
+          <td>Contact Name</td>
+          <td>Phone</td>
+          <td>Email</td>
+          <td>Notes</td>
+          <td>Created</td>
+          <td>Expiration (YYYY-MM-DD)</td>
+        </tr>
+      </thead>
+      <tr>
+        <td>
+            <button type="submit" name="action" value="Validate">Validate</button>
+        </td>
+        <td><input type="text" value="{{cname}}" name="cname"></td>
+        <td><input type="text" value="{{cphone}}" name="cphone"></td>
+        <td><input type="text" value="{{busmail}}" name="busmail"></td>
+        <td><input type="text" value="{{notes}}" name="notes"></td>
+        <td><input type="hidden" value="{{created}}" name="created">{{dateFormat created "MM-DD-YYYY"}}</td>
+        <td><input type="text" value="{{dateFormat expiration "MM-DD-YYYY"}}" name="expiration"></td>
+      </tr>
+      </table> --}}
       <div class="adminhold">
       <table class="recent-threads">
       <input type="hidden" value="{{id}}" name="id">

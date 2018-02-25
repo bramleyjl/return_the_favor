@@ -12,9 +12,3 @@ inputs.forEach(input => {
   );
 });
 
-	
-$(function(){
- 	$(".card").flip ({
-        trigger: 'hover'
-   		});
-			});	

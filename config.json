@@ -1,0 +1,10 @@
+{
+  "port" : 8080,
+  "db" : {
+    "host"     : "165.227.193.154",
+    "port"     : "3306",
+    "user"     : "john",
+    "password" : "devpass",
+    "database" : "return_the_favor"
+  }
+}

@@ -5,8 +5,7 @@ var nodemon = require('nodemon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var passport = require('passport');
-var config = require( './config/config.json' );
+var config = require( './config.json' );
 var indexController = require('./controllers/index');
 var discountsController = require('./controllers/discounts');
 var supportController = require('./controllers/support');
@@ -23,7 +22,6 @@ handlebars.registerHelper('json', function(context) {return JSON.stringify(conte
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-
 
 app.use(favicon(path.join(__dirname, 'public/images', 'favicon.png')));
 app.use(logger('dev'));

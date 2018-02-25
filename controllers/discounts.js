@@ -11,7 +11,7 @@ router.get('/', function(req, res) {
     zip : '',
     category : 'all',
     search : '',
-    recent : '21'
+    recent : '10'
   }
   var defaultQuery = discounts.filterDiscounts(defaultSearch);
   defaultQuery.then(function(results) {
@@ -21,13 +21,13 @@ router.get('/', function(req, res) {
 });
 
 // discounts searched/filtered
-router.get('/filter', function(req, res) {
+router.post('/', function(req, res) {
   var searchParams = {
-      county : req.query.county,
-      zip : req.query.zip,
-      category : req.query.category,
-      recent : req.query.recent,
-      search : req.query.search
+      county : req.body.county,
+      zip : req.body.zip,
+      category : req.body.category,
+      recent : req.body.recent,
+      search : req.body.search
   }
   var searchQuery = discounts.filterDiscounts(searchParams);
   searchQuery.then(function(results) {
@@ -62,11 +62,13 @@ router.get('/filter', function(req, res) {
 })
 
 // single discount by id
-router.get('/view/:id', function(req, res) {
- discounts.returnDiscountById(req.params.id).then( function (discount) {
-    res.render('discounts', {discounts : discount})
+router.get('/view/:id', function(req, res, next) {
+ console.log(req.params.id)
+ discounts.returnDiscountsById(req.params.id).then( function (discounts) {
+    console.log(discounts)
+    res.render('discount', {discounts : discounts})
   }).catch( function (err) {
-    if (err) res.redirect('/discounts');
+    if (err) res.redirect('discounts');
   })  
 });
 
