@@ -80,6 +80,8 @@
     <button type="submit" name="action" value="idLookup">Find ID</button>
   </form>
   </div> --}}
+  <form method="POST" action="/admin/live_discounts/export">
+    
   <div class="fixedFilter">
       <h2>Discounts (Lookup)</h2>
       <form method="GET" action="/admin/live_discounts">
@@ -347,7 +349,7 @@
 
                 <td><input type="text" value="{{cname}}" name="cname"></td>
                 <td><input type="text" value="{{cphone}}" name="cphone"></td>
-                <td><input type="text" value="{{busmail}}" name="busmail"></td>
+                <td><input type="email" value="{{busmail}}" name="busmail"></td>
                 <td><input type="hidden" value="{{created}}" name="created">{{dateFormat created "MM-DD-YYYY"}}</td>
                 <td><input type="text" value="{{dateFormat expiration "MM-DD-YYYY"}}" name="expiration"></td>
                 <td>
