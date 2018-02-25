@@ -51,8 +51,6 @@ h3 {
  font-family: 'Lato',sans-serif;
  font-weight: normal;
  letter-spacing: 1.2px;
- margin: 0 0 0 0;
- padding: 0 0 0 0;
 }
 
 
@@ -244,27 +242,7 @@ ul {
  }
 
  /* END OF SECTION TEXT AREA STYLES */
- /* label CSS */
-  .binfo label, .cinfo label, .offerinfo label {
-      display: block;
-  }
-  /* columns on Support page */
-.binfo{
-    display: table-cell;
-    margin: 0 0 0 0;
-    padding: 0 0 20px 0;
-    width: 50%;
-    float: left;
-}
-.cinfo{
-    display: table-cell;
-    margin: 0 0 0 0;
-    padding: 0 0 120px 0;
-    width: 50%;
-    float: right;
-}
 
- /* end columns on Support page */
 
  /* START OF HOME PAGE NEW CARD AREA STYLES */
 
@@ -288,26 +266,26 @@ max-width: 1200px;
   /*max-width: 1200px;*/
   margin: 0 auto;
   display: block;
-
+ 
 }
 
 
 .card {
     margin: 7px;
     width:125px;
-    height: 125px;
+    height: 125px;    
     color: #fff;
     float: left;
 
 }
 
 .card .front {
-
+    
    background-color: #335579;
    border-radius: 5px;
    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
    transition: 1s;
-
+    
 }
 
 .front-card-description {
@@ -326,7 +304,7 @@ max-width: 1200px;
 
 
 .card .back {
-
+    
    background-color: #444444;
    border-radius: 5px;
    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -341,7 +319,7 @@ max-width: 1200px;
     overflow:hidden;
     text-overflow:ellipsis;
     max-height:92px;
-
+   
 
 }
 
@@ -363,7 +341,7 @@ max-width: 1200px;
     font-size: 12px;
 } /* END OF HOME PAGE NEW CARD AREA STYLES */
 
-
+ 
  /* START OF OLD HOME PAGE IFRAME AREA STYLES */
 
 #discount-title {
@@ -536,15 +514,6 @@ textarea[name=desoffer], [name=postEvent] {
     overflow: visible;
     background-color: #f2f2f2;
 }
-.adminhold ul {
-    display: block;
-    margin: 0 0 0 0;
-    padding: 0 0 0 0;
-    width: 100%;
-}
-.adminhold  li {
-    display: inline;
-}
 
 form div + div {
   margin-top: 1em;
@@ -588,7 +557,7 @@ form div + div {
     margin: 0 auto;
     padding: 0 0 0 0;
     /* position: fixed; */
-    /* border-bottom: 1px solid black; */
+    border-bottom: 1px solid black;
 }
 .adminhold{
     display: block;
