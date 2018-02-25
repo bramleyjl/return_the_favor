@@ -5,8 +5,11 @@ var nodemon = require('nodemon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var passport = require('passport');
 var config = require( './config/config.json' );
+const session = require('express-session');
+const passport = require('passport');
+const passportConfig = require('./config/passport');
+
 var indexController = require('./controllers/index');
 var discountsController = require('./controllers/discounts');
 var supportController = require('./controllers/support');
@@ -31,6 +34,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+//passport
+passportConfig(passport)
+  //include secret key for hashing?//
+app.use(passport.initialize());
+app.use(passport.session());
 
 // call controllers
 app.use('/', indexController);
