@@ -42,7 +42,7 @@ exports.updateLiveVeteran = function(params) {
     params.id
     ], function (err, results) {
       if (err) throw err
-      return resolve(results)
+      console.log(results)
   })
 }
 

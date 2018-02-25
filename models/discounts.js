@@ -70,7 +70,7 @@ exports.businessLookup = function(name) {
       `counties`.`name` AS `county_name` \
       FROM `discounts` \
       JOIN `counties` ON `discounts`.`county` = `counties`.`id` \
-      WHERE `busname` LIKE "+ db.escape('%'+name+'%'), function (err, results) {
+      WHERE MATCH `busname` AGAINST (?)", [name], function (err, results) {
         if (err) return reject(err);
         return (resolve(results))
       }
@@ -94,13 +94,13 @@ exports.filterDiscounts = function(params) {
       WHERE (`county` = ? OR ? = 'all') \
       AND (`zip` = ? OR ? = '') \
       AND (`category` = ? OR ? = 'all') \
-      AND (((`busname`) LIKE "+ db.escape('%'+params.search+'%') + " OR (`desoffer`) LIKE " + db.escape('%'+params.search+'%') + ") OR ? = '') \
-       ORDER BY `recent_display` DESC LIMIT ?",
+      AND (MATCH (`busname`, `desoffer`) AGAINST (?) OR ? = '') \
+      ORDER BY `recent_display` DESC LIMIT ?",
     [params.county, params.county, 
       params.zip, params.zip, 
-      params.category, params.category,
-      params.search, params.recent], 
-      function (err, results) {
+      params.category, params.category, 
+      params.search, params.search, 
+      params.recent], function (err, results) {
         if (err) return reject(err);
         return (resolve(results))
       }
@@ -125,29 +125,6 @@ exports.returnDiscountById = function(id) {
       return (resolve(results))
     });
   });
-}
-
-//returns multiple discounts by an array of ids
-exports.returnDiscountsByIdArray = function(ids, callback) {
-  var discounts = [];
-  var pending = ids.length; 
-  for(var i in ids) {
-    db.query("SELECT \
-      `discounts`.*, \
-      `counties`.`name` AS `county_name`, \
-      `categories`.`name` AS `category_name`, \
-      `states`.`abbreviation` AS `state_abv` \
-      FROM `discounts` \
-      JOIN `counties` ON `discounts`.`county` = `counties`.`id` \
-      JOIN `categories` ON `discounts`.`category` = `categories`.`id` \
-      JOIN `states` ON `discounts`.`state` = `states`.`id` \
-      WHERE `discounts`.`id` = ?", [ ids[i] ], function(err, dis){
-      discounts.push(dis.pop());
-      if( 0 === --pending ) {
-        callback(discounts); //callback if all queries are processed
-      }
-    });
-  }  
 }
 
 //updates discount in live table

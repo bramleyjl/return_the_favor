@@ -82,11 +82,14 @@
 
 /* over this width is 4 postings wide */
 @media only screen and (min-width: 1015px) {
-
+    #outerdiv {
+        width: 550px;
+        height:700px;
+    }
 
      #outerdiv.wide-discounts{
-        width: 1000px;
-        height:500px;
+        width: 900px;
+        height:400px;
     }
 }
 
@@ -101,7 +104,7 @@
 
     #outerdiv.wide-discounts{
         width: 1000px;
-        height:500px;
+        height:400px;
     }
 
 }
