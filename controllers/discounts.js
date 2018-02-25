@@ -51,7 +51,6 @@ router.get('/filter', function(req, res) {
     if (currentPage !== 1) var lastPage = currentPage - 1
     if (currentPage !== pageCount) var nextPage = currentPage + 1
     discountsPresent = discountsArrays[+currentPage -1]; 
-  console.log(discountsPresent)
     res.render('discounts', {
       discounts : discountsPresent,
       searchParams : searchParams,
@@ -63,13 +62,11 @@ router.get('/filter', function(req, res) {
 })
 
 // single discount by id
-router.get('/view/:id', function(req, res, next) {
- console.log(req.params.id)
- discounts.returnDiscountsById(req.params.id).then( function (discounts) {
-    console.log(discounts)
-    res.render('discount', {discounts : discounts})
+router.get('/view/:id', function(req, res) {
+ discounts.returnDiscountById(req.params.id).then( function (discount) {
+    res.render('discounts', {discounts : discount})
   }).catch( function (err) {
-    if (err) res.redirect('discounts');
+    if (err) res.redirect('/discounts');
   })  
 });
 
