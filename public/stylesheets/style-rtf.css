@@ -457,7 +457,6 @@ span.indent {
      display: block;
      box-sizing: border-box;
      width: 98%;
-     /* height: 150px; */
      margin:10px auto;
      padding: 0 10px;
      background-color: #f9f9f9;
@@ -508,7 +507,7 @@ span.indent {
 
 }
 /* End of dispdisc css */
-
+/* input type and textarea css */
 input[type=text], [type=number],[type=email], select {
      background-color: #f2f2f2;
      height: 25px;
@@ -521,6 +520,11 @@ input[type=text], [type=number],[type=email], select {
 
 input[class=search] {
     width: 175px;
+}
+input[type=submit] {
+    border-radius: 12px;
+    padding: 5px;
+    border: 1px solid #C3960D;
 }
 textarea[name=buslinks], [name=notes] {
 width: 20%;
@@ -538,15 +542,7 @@ textarea[name=desoffer], [name=postEvent] {
     overflow: visible;
     background-color: #f2f2f2;
 }
-.adminhold ul {
-    display: block;
-    margin: 0 0 0 0;
-    padding: 0 0 0 0;
-    width: 100%;
-}
-.adminhold  li {
-    display: inline;
-}
+/* end input type and textarea css */
 form div + div {
   margin-top: 1em;
 }
@@ -585,11 +581,20 @@ form div + div {
     background-color: #BCE5f7;
     border-bottom: 3px solid #C3960D;
 }
-#fixedFilter{
+.fixedFilter{
     margin: 0 auto;
     padding: 0 0 0 0;
-    /* position: fixed; */
-    /* border-bottom: 1px solid black; */
+}
+.fixedFilter ul {
+    display: block;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    width: 100%;
+}
+.fixedFilter  li {
+    display: inline;
+    float:left;
+    margin-right: 3px;
 }
 .adminhold{
     display: block;
@@ -606,6 +611,7 @@ form div + div {
 .adminhold  li {
     display: inline;
 }
+
 /* End CSS for Admin Sections */
 /* start table css */
 table {
