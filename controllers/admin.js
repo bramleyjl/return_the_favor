@@ -4,7 +4,8 @@ var router = express.Router();
 var passport = require('passport');
 var discounts = require('../models/discounts.js');
 var veterans = require('../models/veterans.js');
-var json2csv = require('json2csv').parse;
+const Json2csvParser = require('json2csv').Parser;
+var moment = require('moment');
 
 //authentication helper function
 function ensureAuthenticated(req, res, next) {
@@ -21,7 +22,7 @@ router.post('/login',
 //logout route
 router.get('/logout', function(req, res){
   req.logout();
-  res.redirect('/admin');
+  res.redirect('/');
 });
 
 //admin index page
@@ -46,8 +47,7 @@ router.get('/live_discounts', ensureAuthenticated, function(req, res) {
         res.render('adminLookup', {no_discounts: noDiscounts})
       } else {
       result = discounts.checkExpiration(result, "admin")
-      result[0].discountIDs = result[0].id
-      res.render('adminLookup', {live_discounts: result})
+      res.render('adminLookup', {live_discounts: result, discountIDs: result[0].id})
       }
     })
   } else {
@@ -64,10 +64,15 @@ router.get('/live_discounts', ensureAuthenticated, function(req, res) {
       } else {
       results = discounts.checkExpiration(results, "admin")
       if (req.query.order === 'descending') results = results.reverse()
+      //creates an array of all ids to be viewed so that they can be
+      //packaged into the page view (for csv export) and each id object (for update/delete functions)
       var discountIDs = [];
       for (var i = results.length - 1; i >= 0; i--) {
         discountIDs.unshift(results[i].id);
-      }  
+      }
+      for (var j = results.length - 1; j >= 0; j--) {
+        results[j].discountIDs = discountIDs
+      }        
       res.render('adminLookup', {live_discounts: results, discountIDs: discountIDs});
       }
     });
@@ -77,26 +82,21 @@ router.get('/live_discounts', ensureAuthenticated, function(req, res) {
 //live_discounts export funtion
 router.post('/live_discounts/export', function(req, res) {
   //turn list of ids to an array of integers
-  var ids = req.body.discounts 
-  ids = ids.split(',')
-  for(var i=0; i<ids.length; i++) { ids[i] = +ids[i]; }
+  var ids = req.body.discounts.split(',').map(Number);
   var exportDiscounts = discounts.returnDiscountsByIdArray(ids)
     exportDiscounts.then(function(results) {
-      console.log(results)
-      var stringResults = JSON.stringify(results)
-      console.log(stringResults)
-    
-    /*
-      var fields = ['id', 'busname', 'desoffer']
-      const csv = json2csv({ data: stringResults, fields });
-      console.log("CSV ---- " + csv)
+      var fields = ['id', 'busname', 'desoffer'];
+      const opts = { fields };
+      const parser = new Json2csvParser(opts);
+      const csv = parser.parse(results);
+      var time = moment().format("MM-DD-YY_HH.MM")
 
-      res.setHeader('Content-disposition', 'attachment; filename=testing.csv');
+      res.setHeader('Content-disposition', `attachment; filename=discounts${time}.csv`);
       res.set('Content-Type', 'text/csv');
       res.status(200).send(csv);
-    */
+      res.render('adminLookup', {live_discounts: results})
     });
-})
+});
 
 //live_discounts update and delete function
 router.post('/live_discounts', ensureAuthenticated, function(req, res) {
@@ -115,17 +115,17 @@ router.post('/live_discounts', ensureAuthenticated, function(req, res) {
     });
   }
   //fetches previous page's discounts and passes them to template for viewing
-  discounts.returnDiscountsByIdArray(discountIDs, function(results){
+  var remainingDiscounts = discounts.returnDiscountsByIdArray(discountIDs)
+  remainingDiscounts.then(function(results){
     results = discounts.checkExpiration(results, "admin")
-    //gives each discount an array with all discounts to be viewed to maintain state
     var discountIDs = [];
-      for (var i = results.length - 1; i >= 0; i--) {
-        discountIDs.unshift(results[i].id);
-      }
-      for (var j = results.length - 1; j >= 0; j--) {
-        results[j].discountIDs = discountIDs
-      }
-    res.render('adminLookup', {live_discounts: results})        
+    for (var i = results.length - 1; i >= 0; i--) {
+      discountIDs.unshift(results[i].id);
+    }
+    for (var j = results.length - 1; j >= 0; j--) {
+      results[j].discountIDs = discountIDs
+    }
+    res.render('adminLookup', {live_discounts: results, discountIDs: discountIDs})        
   });
 });
 

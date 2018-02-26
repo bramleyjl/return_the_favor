@@ -22,7 +22,7 @@ exports.returnAllVeterans = function() {
     `counties`.`name` AS `county_name` \
     FROM `veterans` \
     JOIN `counties` ON `veterans`.`county` = `counties`.`id`", 
-    function (err, results, fields) {
+    function (err, results) {
       if (err) return reject(err);
       return resolve(results)
     });
