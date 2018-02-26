@@ -242,6 +242,23 @@ ul {
  }
 
  /* END OF SECTION TEXT AREA STYLES */
+ /* start of button css */
+ button {
+     border-radius: 12px;
+     padding: 5px;
+     border: 1px solid #C3960D;
+ }
+ button[value=Delete]:hover {
+     background-color: red;
+ }
+ button[value=Update]:hover {
+     background-color: #4CAF50;
+ }
+ button[value=Validate]:hover {
+     background-color: #4CAF50;
+ }
+
+ /* end of button css */
  /* label CSS */
    .binfo label, .cinfo label, .offerinfo label {
        display: block;
@@ -501,17 +518,6 @@ input[type=text], [type=number],[type=email], select {
      border: 1px solid #C3960D;
      vertical-align: baseline;
  }
- /* input[type=submit] {
-     width: auto;
-     background-color: #eb4c4f;
-     color: white;
-     padding-top: 12px;
-     text-align: center;
-     margin: 5px;
- }
- input[type=submit]:hover {
-     background-color: #C3960D;
- } */
 
 input[class=search] {
     width: 175px;
