@@ -23,7 +23,12 @@
      <ul>
       <li><form action="/admin/holding" method="GET">
         <input type="submit" value="Holding Page">
-    </form></li>
+    </form>
+      <form action="/admin/logout" method="get">
+        <div>
+          <input type="submit" value="Log Out"/>
+        </div>
+      </form> </li>
       <li><form method="POST" action="/admin/live_discounts/export">
         <input type="hidden" name="discounts" value="{{live_discounts}}">
         <button type="submit" value="Export">Export Results</button>

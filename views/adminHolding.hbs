@@ -21,6 +21,11 @@
       <form action="/admin/lookup" method="GET">
         <input type="submit" value="Lookup Page">
       </form>
+      <form action="/admin/logout" method="get">
+        <div>
+          <input type="submit" value="Log Out"/>
+        </div>
+      </form>      
       {{#if holding_discounts}}
       {{#holding_discounts}}
       <form method="POST" action="/admin/holding_discounts">

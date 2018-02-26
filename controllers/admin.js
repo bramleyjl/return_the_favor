@@ -12,16 +12,22 @@ function ensureAuthenticated(req, res, next) {
   res.redirect('/admin')
 }
 
-//admin index page
-router.get('/', function(req, res) {
-  res.render('admin');
-});
-
-
+//login route
 router.post('/login',
   passport.authenticate('local', { successRedirect: '/admin',
                                    failureRedirect: '/admin' })
 );
+
+//logout route
+router.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/admin');
+});
+
+//admin index page
+router.get('/', function(req, res) {
+  res.render('admin');
+});
 
 /////////lookup page functions/////////
 
