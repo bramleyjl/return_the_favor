@@ -6,25 +6,32 @@ var discounts = require('../models/discounts.js');
 var veterans = require('../models/veterans.js');
 var json2csv = require('json2csv').parse;
 
+//authentication helper function
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/admin')
+}
+
 //admin index page
 router.get('/', function(req, res) {
   res.render('admin');
 });
 
+
 router.post('/login',
   passport.authenticate('local', { successRedirect: '/admin',
-                                   failureRedirect: '/discounts' })
+                                   failureRedirect: '/admin' })
 );
 
 /////////lookup page functions/////////
 
 //admin lookup page
-router.get('/lookup', function(req, res) {
+router.get('/lookup', ensureAuthenticated, function(req, res) {
     res.render('adminLookup');
 });
 
 //live_discounts filtered page
-router.get('/live_discounts', function(req, res) {
+router.get('/live_discounts', ensureAuthenticated, function(req, res) {
   if (req.query.action === "idLookup") {
     var searchQuery = discounts.returnDiscountById(req.query.id);
     searchQuery.then(function(result) {
@@ -110,7 +117,7 @@ router.post('/live_discounts/export', function(req, res) {
 */
 
 //live_discounts update and delete function
-router.post('/live_discounts', function(req, res) {
+router.post('/live_discounts', ensureAuthenticated, function(req, res) {
   var discountIDs = req.body.discountIDs.split(',').map(Number);
   if (req.body.action === "Delete") {
     var removeID = discountIDs.indexOf(parseInt(req.body.id))
@@ -141,7 +148,7 @@ router.post('/live_discounts', function(req, res) {
 });
 
 //live_discounts business name search
-router.get('/business_search', function(req, res) {
+router.get('/business_search', ensureAuthenticated, function(req, res) {
   var searchResults = discounts.businessLookup(req.query.busname)
   searchResults.then(function(results) {
     if (results.length === 0) {
@@ -154,7 +161,7 @@ router.get('/business_search', function(req, res) {
 });
 
 //live_veterans update and delete function
-router.post('/live_veterans', function(req, res) {
+router.post('/live_veterans', ensureAuthenticated, function(req, res) {
   if (req.body.action === "Delete") {
     veterans.deleteLiveVeteran(req.body.id)
     res.redirect('/admin/lookup')
@@ -168,7 +175,7 @@ router.post('/live_veterans', function(req, res) {
 });
 
 //live_veterans email search
-router.get('/veteran_search', function(req, res) {
+router.get('/veteran_search', ensureAuthenticated, function(req, res) {
   var searchResults = veterans.veteranLookup(req.query.email)
   searchResults.then(function(results) {
   if (results.length === 0) {
@@ -183,7 +190,7 @@ router.get('/veteran_search', function(req, res) {
 /////////holding page functions/////////
 
 //admin holding page
-router.get('/holding', function(req, res) {  
+router.get('/holding', ensureAuthenticated, function(req, res) {  
   var adminDisplay = {}
   var holdingDiscounts = discounts.returnAllHoldingDiscounts();
   holdingDiscounts.then(function(result) {
@@ -200,7 +207,7 @@ router.get('/holding', function(req, res) {
 });
 
 //holding_discounts update, delete, and validate function
-router.post('/holding_discounts', function(req, res) {
+router.post('/holding_discounts', ensureAuthenticated, function(req, res) {
   if (req.body.action === "Delete") {
     discounts.deleteHoldingDiscount(req.body.id)
     res.redirect('/admin/holding')
@@ -219,7 +226,7 @@ router.post('/holding_discounts', function(req, res) {
 });
 
 //holding_veterans update, delete, and validate function
-router.post('/holding_veterans', function(req, res) {
+router.post('/holding_veterans', ensureAuthenticated, function(req, res) {
   //new veteran variable for when a new live or holding veteran is created
   var newVeteran = {
     name : req.body.name,

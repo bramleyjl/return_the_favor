@@ -17,21 +17,18 @@ module.exports = function(passport) {
   });
 
   passport.use(new LocalStrategy(function(username, password, done) { 
-    console.log(username)
-    console.log(password)
     db.query("SELECT * FROM `admins` WHERE `username` = ?", [username], function(err,rows){
-      console.log(rows)
       if (err) {
         console.log("Error!")
         return done(err);
       }
       if (rows.length === 0) {
         console.log("Incorrect Username")
-        return done(null, false, { message: 'Incorrect username.' }); 
+        return done(null, false); 
       } 
       if (rows[0].password !== password) {
         console.log("Incorrect Password!")
-      return done(null, false, { message: 'Incorrect password.' });      
+        return done(null, false);      
       }
       console.log("Success!")
       return done(null, rows[0]);     

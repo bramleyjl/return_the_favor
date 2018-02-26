@@ -37,7 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //passport
 passportConfig(passport)
-  //include secret key for hashing?//
+app.use(session({ secret: "jokerandthethief" }));
 app.use(passport.initialize());
 app.use(passport.session());
 
