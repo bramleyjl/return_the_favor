@@ -24,7 +24,7 @@
       {{#if holding_discounts}}
       {{#holding_discounts}}
       <form method="POST" action="/admin/holding_discounts">
-      
+
       <div class="adminhold">
       <table class="recent-threads">
       <input type="hidden" value="{{id}}" name="id">
@@ -115,7 +115,7 @@
 
               <td><input type="text" value="{{cname}}" name="cname"></td>
               <td><input type="text" value="{{cphone}}" name="cphone"></td>
-              <td><input type="text" value="{{busmail}}" name="busmail"></td>
+              <td><input type="text" value="{{busmail}}" name="busmail" size="35"></td>
               <td><input type="hidden" value="{{created}}" name="created">{{dateFormat created "MM-DD-YYYY"}}</td>
           	<td><input type="text" value="{{dateFormat expiration "MM-DD-YYYY"}}" name="expiration"></td>
       		<td>
@@ -145,7 +145,7 @@
       <table class="recent-threads">
       <input type="hidden" value="{{id}}" name="id">
         <tr>
-            <th>Contact Name</th>
+            <th>Subscriber Name</th>
             <th>County</th>
             <th>Email</th>
         </tr>
@@ -161,7 +161,7 @@
               <option value="4">Saratoga</option>
             </select>
           </td>
-          <td><input type="email" value="{{email}}" name="email"></td>
+          <td><input type="email" value="{{email}}" name="email" size="35"></td>
           <td>
               <button type="submit" name="action" value="Delete">Delete</button>
           </td>

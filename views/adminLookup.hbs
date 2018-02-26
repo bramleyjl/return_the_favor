@@ -320,7 +320,7 @@
 
   <div class="container">
   <form method="GET" action="/admin/business_search">
-    <input type="text" name="busname" placeholder="Search business name here" required>
+    <input type="text" name="busname" placeholder="Search business name here" size="40"required>
     <button type="submit">Search</button>
   </form>
   </div>
@@ -358,7 +358,7 @@
 
   <div class="container">
   <form method="GET" action="/admin/veteran_search">
-    <input type="text" name="email" placeholder="Search email here" required>
+    <input type="text" name="email" placeholder="Search email here" size="40" required>
     <button type="submit">Search</button>
   </form>
   </div>
@@ -367,7 +367,7 @@
   <table class="recent-threads">
   <thead>
     <tr>
-        <td>Contact Name</td>
+        <td>Subscriber Name</td>
         <td>County</td>
         <td>Email</td>
         <td>ID</td>
@@ -376,7 +376,7 @@
   {{#live_veterans}}
   <form method="POST" action="/admin/live_veterans">
   <tr>
-      <td><input type="text" value="{{name}}" name="name"></td>
+      <td><input type="text" value="{{name}}" name="name" size="35"></td>
       <td>
         <select name="county">
           <option selected value="{{county}}">{{county_name}}</option>
@@ -386,7 +386,7 @@
           <option value="4">Saratoga</option>
         </select>
       </td>
-      <td><input type="text" value="{{email}}" name="email"></td>
+      <td><input type="text" value="{{email}}" name="email" size="40"></td>
       <td><input type="hidden" name="id" value={{id}}>{{id}}</td>
       <td>
           <button type="submit" name="action" value="Delete">Delete</button>
