@@ -198,6 +198,7 @@ ul {
     box-sizing: border-box;
     width: inherit;
     height: auto;
+    min-height: 250px;
     padding: 40px 5% 40px 5%;
     text-align: justify;
     text-justify: inter-word;
@@ -263,7 +264,7 @@ ul {
    .binfo label, .cinfo label, .offerinfo label {
        display: block;
    }
-   /* columns on Support page */
+   /* Support page CSS */
  .binfo{
      display: table-cell;
      margin: 0 0 0 0;
@@ -278,7 +279,15 @@ ul {
      width: 50%;
      float: right;
  }
+ .addevent {
+     display: block;
+     margin: 0 0 0 0;
+     padding: 0 0 0 0;
+     width: 100%;
+     float:right;
+ }
 
+/* end Support page CSS */
  /* START OF HOME PAGE NEW CARD AREA STYLES */
 
 .wrapper {
