@@ -128,11 +128,13 @@ exports.returnDiscountById = function(id) {
 }
 
 //returns multiple discounts by an array of ids
-exports.returnDiscountsByIdArray = function(ids, callback) {
-  var discounts = [];
-  var pending = ids.length; 
-  for(var i in ids) {
-    db.query("SELECT \
+exports.returnDiscountsByIdArray = function(ids) {
+  //constructor for sql query to select the right number of results
+  var inList = '?';
+  for (var i = ids.length - 1; i >= 1; i--) {
+    inList += ", ?"
+  }
+  return new Promise(function (resolve, reject){ db.query("SELECT \
       `discounts`.*, \
       `counties`.`name` AS `county_name`, \
       `categories`.`name` AS `category_name`, \
@@ -141,13 +143,11 @@ exports.returnDiscountsByIdArray = function(ids, callback) {
       JOIN `counties` ON `discounts`.`county` = `counties`.`id` \
       JOIN `categories` ON `discounts`.`category` = `categories`.`id` \
       JOIN `states` ON `discounts`.`state` = `states`.`id` \
-      WHERE `discounts`.`id` = ?", [ ids[i] ], function(err, dis){
-      discounts.push(dis.pop());
-      if( 0 === --pending ) {
-        callback(discounts); //callback if all queries are processed
-      }
+      WHERE `discounts`.`id` IN (" + inList + ")", ids, function(err, results) {
+      if (err) return reject(err);
+      return (resolve(results))
     });
-  }  
+  });
 }
 
 //updates discount in live table

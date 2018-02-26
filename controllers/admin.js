@@ -67,60 +67,36 @@ router.get('/live_discounts', ensureAuthenticated, function(req, res) {
       var discountIDs = [];
       for (var i = results.length - 1; i >= 0; i--) {
         discountIDs.unshift(results[i].id);
-      }
-      for (var j = results.length - 1; j >= 0; j--) {
-        results[j].discountIDs = discountIDs
-      }
-      console.log(discountIDs)      
-      res.render('adminLookup', {live_discounts: results});
+      }  
+      res.render('adminLookup', {live_discounts: results, discountIDs: discountIDs});
       }
     });
   };
 });
 
-/*
 //live_discounts export funtion
 router.post('/live_discounts/export', function(req, res) {
-  
-  const data = req.body.discounts
-  const myFields = ['id', 'busname', 'desoffer'];
-  console.log(data)
-
-  const fields = ['car', 'price', 'color']
-  const myCars = [
-    {
-      "car": "Audi",
-      "price": 40000,
-      "color": "blue"
-    }, {
-      "car": "BMW",
-      "price": 35000,
-      "color": "black"
-    }, {
-      "car": "Porsche",
-      "price": 60000,
-      "color": "green"
-    }
-  ];
-  console.log(myCars)
-  const csv = json2csv(myCars, { fields });
-
-  console.log(csv);
-
-        //creation of csv export file
-      var data = JSON.stringify(results)
-      console.log("Stringified Object ---- " +  data)
+  //turn list of ids to an array of integers
+  var ids = req.body.discounts 
+  ids = ids.split(',')
+  for(var i=0; i<ids.length; i++) { ids[i] = +ids[i]; }
+  var exportDiscounts = discounts.returnDiscountsByIdArray(ids)
+    exportDiscounts.then(function(results) {
+      console.log(results)
+      var stringResults = JSON.stringify(results)
+      console.log(stringResults)
+    
+    /*
       var fields = ['id', 'busname', 'desoffer']
-      const csv = json2csv({ data: data, fields });
+      const csv = json2csv({ data: stringResults, fields });
       console.log("CSV ---- " + csv)
 
-
-  res.setHeader('Content-disposition', 'attachment; filename=testing.csv');
-  res.set('Content-Type', 'text/csv');
-  res.status(200).send(csv);
-
+      res.setHeader('Content-disposition', 'attachment; filename=testing.csv');
+      res.set('Content-Type', 'text/csv');
+      res.status(200).send(csv);
+    */
+    });
 })
-*/
 
 //live_discounts update and delete function
 router.post('/live_discounts', ensureAuthenticated, function(req, res) {

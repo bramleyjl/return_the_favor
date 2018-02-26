@@ -29,10 +29,12 @@
           <input type="submit" value="Log Out"/>
         </div>
       </form> </li>
+      {{#if discountIDs}}
       <li><form method="POST" action="/admin/live_discounts/export">
-        <input type="hidden" name="discounts" value="{{live_discounts}}">
+        <input type="hidden" name="discounts" value="{{discountIDs}}">
         <button type="submit" value="Export">Export Results</button>
     </form></li>
+      {{/if}}
     </ul>
       <form method="GET" action="/admin/live_discounts">
           <table>
