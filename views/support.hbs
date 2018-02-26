@@ -27,101 +27,76 @@
 			<h3><i><u>Off</u>er Discounts</i></h3>
 			<p>Fill out the form and begin honoring our Veterans for their service and sacrifice by Offering Discounts to Veterans who show their F.A.V.O.R. ID Card. Multiple selections are available where indicated. Information that is "Not Displayed" will not be shown. All Sections are required unless otherwise indicated.</p>
 
-			<h3>Business Info</h3>
+
 
 			<!-- <form action="#"> -->
 
-  			<div class="container">
+
 
   				<form method="POST" action="/support/discount">
+					<div class="container">
+	  					<div class="binfo">
+							<h3><span class="accent">Business Info</span></h3>
+							<label for="state">State</label>
+	    					<select id="county" name="state">
+	      					<option value="Albany">NY</option>
+	    					</select>
 
-  					<div>
-  						<label for="busname"> Business Name </label>
-    					<input type="text" placeholder="  Business Name as you want it to appear" name="busname" required>
+							<label for="county">County</label>
+	    					<select id="county" name="county">
+		  					<option disabled selected value>Choose one</option>
+	      					<option value="Albany">Albany</option>
+	      					<option value="Rensselaer">Rensselaer</option>
+	      					<option value="All">All</option>
+	    					</select>
 
-						<label for="state">State</label>
-    					<select id="state" name="state">
-      					<option value="1">NY</option>
-    					</select>
+							<label for="busname"> Business Name </label>
+	    					<input type="text" placeholder="  Business Name as you want it to appear" name="busname" size="40"required>
 
-						<label for="county">County</label>
-    					<select id="county" name="county">
-	  					<option disabled selected value>Choose one or more</option>
-                <option value="1">Rensselaer</option>
-                <option value="2">Albany</option>
-                <option value="3">Schenectady</option>
-                <option value="4">Saratoga</option>
-                <option value="All">All</option>
-    					</select>
-    				</div>
+							<label for="street">Street</label>
+							<input type="text" placeholder=" House# + Street/ Ignore for Multiple Locations" name="street" size="40">
 
-    				<div>
-						<label for="zipcode"> Zip Code </label>
-    					<input type="number" placeholder="  5 Digit Zip Code" name="zip" maxlength="5" required>
+							<label for="zipcode"> Zip Code </label>
+	    					<input type="number" placeholder="  5 Digit Zip Code" name="zipcode" maxlength="5" required>
+	    				</div>
 
+						<div class="cinfo">
+							<h3><span class= "accent">Business Contact Info</span></h3>
+							<label for="cinfo">Contact Name</label>
+							<input type="text" placeholder="'First_Last' Not Displayed" name="cname" size="40" required>
+							<label for="email">Contact Email</label>
+		    				<input type="email" placeholder="  Contact Email Address Not Displayed" name="email" size="40" required>
+							<label for="cphone">Contact Phone</label>
+							<input type="text" placeholder="Format (555)555-5555 Not Displayed" name="cphone" size="40" required>
+						</div>
+					</div>
+					<div class="container">
+					<div class="offerinfo">
+						<h3><span class="accent">Your Offer</span></h3>
     					<label for="category">Category</label>
     					<select id="category" name="category">
 						<option disabled selected value>Choose one</option>
   						<option value="all">All</option>
-              <option value=1>Casual Dining and Take-Out</option>
-              <option value=2>Art and Antiques</option>
-              <option value=3>Banking</option>
-              <option value=4>Books</option>
-              <option value=5>Cleaners</option>
-              <option value=6>Clothing</option>
-              <option value=7>Family and Recreation</option>
-              <option value=8>Flowers</option>
-              <option value=9>Fine Dining and Nightlife</option>
-              <option value=10>Haircare and Spas</option>
-              <option value=11>Jewelry</option>
-              <option value=12>Legal</option>
-              <option value=13>Automotive</option>
-              <option value=14>Home Services</option>
-              <option value=15>Travel</option>
-              <option value=16>Theater and Arts</option>
-              <option value=17>Storage</option>
-              <option value=18>Pets</option>
-              <option value=19>Health and Fitness</option>
-              <option value=20>Electronics</option>
-              <option value=21>Other</option>
-              </select>
+  						<option value="Automotive">Automotive</option>
+  						<option value="finedining">Fine Dining</option>
+  						<option value="casualdining">Casual Dining</option>
+  						<option value="professional">Professional Services</option>
     					</select>
-    				</div>
-
-					<br>
-
-					<div>
-						<label for="street">Street</label>
-						<input type="text" placeholder=" House# + Street/ Ignore for Multiple Locations" name="street">
-					</div>
-
-					<div>
-						<textarea name="buslinks" placeholder= "Add your Business Website URL you want displayed here. If you don't have any websites make sure you submit a House# + Street"></textarea>
-			   	</div>
-
-					<h3>Your Offer</h3>
-
-					<textarea name="desoffer" placeholder= "Describe your Offer exactly as you want it to appear. Be sure to be specific and to include any limitations. Example- '20% off for a tune-ups and/or brake service, once per service, not valid in conjuction with any other discounts'"></textarea>
-
-					<div>
 
 						<label for="expiration">Expiration</label>
     					<select id="expiration" name="expiration">
-              <option disabled selected value>Choose one</option>
-                <option value=3>3 months</option>
-                <option value=6>6 months</option>
-                <option value=9>9 months</option>
-                <option value=12>12 months</option>
-              </select>
+						<option disabled selected value>Choose one</option>
+  						<option value="3mos">3 months</option>
+  						<option value="6mos">6 months</option>
+  						<option value="9mos">9 months</option>
+  						<option value="12mos">12 months</option>
+						</select>
+						<label for="desoffer">What's Your Offer</label>
+						<textarea name="desoffer" placeholder= "Describe your Offer exactly as you want it to appear. Be sure to be specific and to include any limitations. Example- '20% off for a tune-ups and/or brake service, once per service, not valid in conjuction with any other discounts"></textarea>
+						<label for="buslinks">Your Website and Links</label>
+						<textarea name="buslinks" placeholder= "Add your Business Website URL and any Links to 	Social Media You want displayed here. If you don't have any websites make sure you submit a House# + Street"></textarea>
+
 			    	</div>
-
-					<h3>Business Contact Info</h3>
-
-					<input type="text" placeholder="  Contact Name 'First_Last' Not Displayed" name="cname" required>
-
-    				<input type="email" placeholder="  Contact Email Address Not Displayed" name="busmail" required>
-
-					<input type="text" placeholder="  Contact Phone Not Displayed" name="cphone" required>
 
 					<div id="please-complete">
     					<p> Please complete all required fields </p>
