@@ -29,9 +29,6 @@
             .menu .dropdown:nth-child(2) {
                 display: none;
             }
-            /* #sidebar {
-                display: none;
-            } */
 
 }
 @media only screen and (max-width: 695px) {
@@ -43,6 +40,14 @@
             }
 
 }
+@media only screen and (max-width: 450px) {
+            .menu .dropdown:nth-child(1) {
+                display: none;
+            }
+@media only screen and (max-width: 440px) {
+            .menu .dropdown {
+                display: none;
+            }
 /* over this width is 2 postings wide */
 @media only screen and (min-width: 750px) {
 

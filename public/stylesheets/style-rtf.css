@@ -73,7 +73,7 @@ ul {
 .navbar{
     display: block;
     width: 100%;
-    height: 125px;
+    height: 100px;
     background-color: #335579;
     border-bottom: 3px solid #C3960D;
     padding: 0 5% 0 5%;
@@ -97,8 +97,8 @@ ul {
 }
 
 .logo img{
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     margin: 0 auto;
     padding: 0 0 0 0;
 }/*added*/
@@ -108,14 +108,14 @@ ul {
     display: block;/*added*/
     float: right;/*added*/
     margin: 0 auto;/*added*/
-    padding: 20px 0 0 0;/*changed*/
+    padding: 10px 0 0 0;/*changed*/
 }
 
 
 
 .menu{
     display:block;
-    margin: 50px 0 0 0;
+    margin: 40px 0 0 0;
     padding: 0 0 0 0;
     float: right;
     height: auto;
@@ -469,8 +469,8 @@ span.indent {
      margin:10px auto;
      padding: 0 10px;
      background-color: #f9f9f9;
-     border: 2px solid black;
-
+     border: 2px solid #bbb;
+     border-radius: 5px;
  }
  .topline{
      display: block;
