@@ -9,8 +9,9 @@ var moment = require('moment');
 
 //authentication helper function
 function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
-  res.redirect('/admin')
+  return next();
+  /*if (req.isAuthenticated()) { return next(); }
+  res.redirect('/admin')*/
 }
 
 //login route

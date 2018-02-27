@@ -18,8 +18,7 @@ router.get('/confirmation', function(req, res, next) {
 // Submit new discount form
 router.post('/discount', function(req, res, next) {
   var newDiscount = {
-    busname : req.body.busname, 
-    county : req.body.county,
+    busname : req.body.busname,
     state : req.body.state,
     zip : req.body.zip,
     category : req.body.category,
@@ -30,7 +29,8 @@ router.post('/discount', function(req, res, next) {
     cname : req.body.cname,
     busmail : req.body.busmail,
     cphone : req.body.cphone }
-  discounts.createHoldingDiscount(newDiscount);
+  var newDiscountCounties = req.body.county
+  discounts.createHoldingDiscount(newDiscount, newDiscountCounties);
   res.redirect('/support/confirmation');
 });
 

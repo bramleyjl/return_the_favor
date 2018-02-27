@@ -39,17 +39,14 @@
 							<h3><span class="accent">Business Info</span></h3>
 							<label for="state">State</label>
 	    					<select id="county" name="state">
-	      					<option value="Albany">NY</option>
+	      					<option value="1">NY</option>
 	    					</select>
 
 							<label for="county">County</label>
-	    					<select id="county" name="county">
-		  					<option disabled selected value>Choose one</option>
-                  <option value="1">Rensselaer</option>
-                  <option value="2">Albany</option>
-                  <option value="3">Schenectady</option>
-                  <option value="4">Saratoga</option>
-	    					</select>
+            <input type="checkbox" name="county" value="1">Rensselaer<br>
+            <input type="checkbox" name="county" value="2">Albany<br>
+            <input type="checkbox" name="county" value="3">Schenectady<br>
+            <input type="checkbox" name="county" value="4">Saratoga<br>
 
 							<label for="busname"> Business Name </label>
 	    					<input type="text" placeholder="  Business Name as you want it to appear" name="busname" size="40"required>
@@ -58,7 +55,7 @@
 							<input type="text" placeholder=" House# + Street/ Ignore for Multiple Locations" name="street" size="40">
 
 							<label for="zipcode"> Zip Code </label>
-	    					<input type="number" placeholder="  5 Digit Zip Code" name="zipcode" maxlength="5" required>
+	    					<input type="number" placeholder="  5 Digit Zip Code" name="zip" maxlength="5" required>
 	    				</div>
 
 						<div class="cinfo">
@@ -66,7 +63,7 @@
 							<label for="cinfo">Contact Name</label>
 							<input type="text" placeholder="'First_Last' Not Displayed" name="cname" size="40" required>
 							<label for="email">Contact Email</label>
-		    				<input type="email" placeholder="  Contact Email Address Not Displayed" name="email" size="40" required>
+		    				<input type="email" placeholder="  Contact Email Address Not Displayed" name="busmail" size="40" required>
 							<label for="cphone">Contact Phone</label>
 							<input type="text" placeholder="Format (555)555-5555 Not Displayed" name="cphone" size="40" required>
 						</div>
