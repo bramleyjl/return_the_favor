@@ -102,7 +102,7 @@
 
   				<label for="recent">Recent</label>
   				<select id="recent" name="recent">
-				<option value="10">Most Recent</option>
+				<option value="21">Most Recent</option>
 				<option value="1000">All</option>
   				</select>
 
@@ -138,7 +138,7 @@
       <tr>
         <td>{{busname}}</td>
         <td>{{state_name}}</td>
-        <td>{{county_name}}</td>
+        <td>{{county_name}}</td>discounts/filter?county=all&zip=&category=all&recent=1000&search=
         <td>{{zip}}</td>
         <td>{{street}}</td>
         <td>{{desoffer}}</td>
@@ -185,7 +185,8 @@
 
 
     {{#if lastPage}}
-      <form method="POST" action="/discounts/?page={{lastPage}}">
+      <form method="GET" action="/discounts/filter">
+      <input type="hidden" name="page" value={{lastPage}}>
       <input type="hidden" name="county" value={{searchParams.county}}>
       <input type="hidden" name="zip" value={{searchParams.zip}}>
       <input type="hidden" name="category" value={{searchParams.category}}>
@@ -197,7 +198,8 @@
 
 
     {{#if nextPage}}
-        <form method="POST" action="/discounts/?page={{nextPage}}">
+        <form method="GET" action="/discounts/filter">
+        <input type="hidden" name="page" value={{nextPage}}>        
         <input type="hidden" name="county" value={{searchParams.county}}>
         <input type="hidden" name="zip" value={{searchParams.zip}}>
         <input type="hidden" name="category" value={{searchParams.category}}>
