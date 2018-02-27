@@ -4,6 +4,11 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="Return The Favor Program, Discounts for Veterans">
 		<meta name="keywords" content="F.A.V.O.R., DD-214, Discounts, Veterans, NYS, Rensselaer, Troy, Capital Region">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js">
+                </script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.css" rel="stylesheet">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" type="text/css" href="/stylesheets/style-rtf.css">
 		<link rel="stylesheet" type="text/css" href="/stylesheets/style-rtfres.css">
@@ -43,13 +48,23 @@
 	    					</select>
 
 							<label for="county">County</label>
-	    					<select id="county" name="county">
-		  					<option disabled selected value>Choose one</option>
-                  <option value="1">Rensselaer</option>
-                  <option value="2">Albany</option>
-                  <option value="3">Schenectady</option>
-                  <option value="4">Saratoga</option>
+	    					<select id="county" class="smultiple" name="county" multiple="multiple" style="width:50%" data-placeholder="Select one or more">
+	      					<option value="1">Rensselaer</option>
+	      					<option value="2">Albany</option>
+	      					<option value="3">Schenectady</option>
+	      					<option value="4">Saratoga</option>
+	      					<option value="5">Columbia</option>
+	      					<option value="6">Greene</option>
+	      					<option value="7">Fulton</option>
+	      					<option value="8">Warren</option>
+	      					<option value="9">Schoharie</option>
+	      					<option value="10">Montgomery</option>
 	    					</select>
+                            <script type="text/javascript">
+                            $(document).ready(function() {
+                              $('.smultiple').select2();
+                              });
+                            </script>
 
 							<label for="busname"> Business Name </label>
 	    					<input type="text" placeholder="  Business Name as you want it to appear" name="busname" size="40"required>
