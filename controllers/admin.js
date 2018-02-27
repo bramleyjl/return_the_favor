@@ -80,7 +80,7 @@ router.get('/live_discounts', ensureAuthenticated, function(req, res) {
 });
 
 //live_discounts export funtion
-router.post('/live_discounts/export', function(req, res) {
+router.post('/live_discounts/export', ensureAuthenticated, function(req, res) {
   //turn list of ids to an array of integers
   var ids = req.body.discounts.split(',').map(Number);
   var exportDiscounts = discounts.returnDiscountsByIdArray(ids)
@@ -167,6 +167,23 @@ router.get('/veteran_search', ensureAuthenticated, function(req, res) {
     res.render('adminLookup', {live_veterans: results})
   }
   })
+});
+
+//live_veterans export funtion
+router.post('/live_veterans/export', ensureAuthenticated, function(req, res) {
+  var exportVeterans = veterans.returnAllVeterans();
+    exportVeterans.then(function(results) {
+      var fields = ['id', 'name', 'email', 'county'];
+      const opts = { fields };
+      const parser = new Json2csvParser(opts);
+      const csv = parser.parse(results);
+      var time = moment().format("MM-DD-YY_HH.MM")
+
+      res.setHeader('Content-disposition', `attachment; filename=veterans${time}.csv`);
+      res.set('Content-Type', 'text/csv');
+      res.status(200).send(csv);
+      res.render('adminLookup')
+    });
 });
 
 /////////holding page functions/////////
