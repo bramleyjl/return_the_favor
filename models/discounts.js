@@ -277,6 +277,7 @@ exports.returnAllHoldingDiscounts = function() {
 
 //deletes discount from holding table by id
 exports.deleteHoldingDiscount = function(id) {
+  console.log(id)
   return new Promise(function (resolve, reject) {
     db.query("DELETE FROM `holding_discounts` WHERE id = ?", [id], function (err, results) {
       if (err) return reject(err);
