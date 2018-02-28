@@ -270,6 +270,17 @@ exports.returnAllHoldingDiscounts = function() {
   });
 }
 
+//returns all counties linked to discount by id
+exports.returnDiscountCounties = function(id) {
+  console.log(id)
+  return new Promise(function (resolve, reject) {
+    db.query("SELECT * FROM `holdingDiscounts_counties` WHERE `discount_id` = ?", [id], function (err, results) {
+      if (err) return reject(err);
+      console.log(results)
+      return resolve(results)
+    });
+  });
+}
 
 //deletes discount from holding table by id
 exports.deleteHoldingDiscount = function(id) {
@@ -282,7 +293,7 @@ exports.deleteHoldingDiscount = function(id) {
 }
 
 //creates new row in discount table and removes identical holding table row
-exports.validateHoldingDiscount = function(params) {
+exports.validateHoldingDiscount = function(params, counties) {
   //turn Handlebars' parsed timestamps back into SQL-ready timestamps
   params.created = (params.created).substring(4, 24)
   params.created = moment(params.created, "MMM-DD-YYYY HH:mm:ss").format("YYYY-MM-DD HH:mm:ss")
@@ -290,7 +301,17 @@ exports.validateHoldingDiscount = function(params) {
   return new Promise(function (resolve, reject) {
     db.query("INSERT INTO `discounts` SET ?", [params], function (err, results, fields) {
       if (err) return reject(err);
-      return resolve(results)
+      console.log(results)
+      //pull all county ids and create a new liveDiscounts_counties row from each
+      for (var i = counties.length - 1; i >= 0; i--) {
+        var discountCounty = {discount_id: results.insertId, county_id: counties[i].county_id}
+        console.log(discountCounty)
+        db.query("INSERT INTO `liveDiscounts_counties` SET ?", [discountCounty], function (err, results) {
+          if (err) throw err;
+          console.log(results)
+          return resolve (results)
+        });
+      }
     });
   });
 }
