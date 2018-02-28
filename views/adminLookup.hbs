@@ -116,7 +116,7 @@
                         <tr>
                 <th>Business Name</th>
                 <th>State</th>
-                <th>County</th>
+                <th>County {{counties_names}}</th>
                 <th>Street</th>
                 <th>Zip</th>
                 <th>Category</th>
@@ -130,14 +130,10 @@
                   </select>
                 </td>
                 <td>
-                    {{counties_names}}
-                    <select name="county">
-                    <option selected value="{{county}}">{{county_name}}</option>
-                    <option value="1">Rensselaer</option>
-                    <option value="2">Albany</option>
-                    <option value="3">Schenectady</option>
-                    <option value="4">Saratoga</option>
-                  </select>
+                    <input type="checkbox" name="counties" value="1">Rensselaer<br>
+                    <input type="checkbox" name="counties" value="2">Albany<br>
+                    <input type="checkbox" name="counties" value="3">Schenectady<br>
+                    <input type="checkbox" name="counties" value="4">Saratoga<br>
                 </td>
                 <td><input type="text" value="{{street}}" name="street">
                 </td>
@@ -203,7 +199,8 @@
                 <td><input type="text" value="{{cphone}}" name="cphone"></td>
                 <td><input type="text" value="{{busmail}}" name="busmail" size="35"></td>
                 <td><input type="hidden" value="{{created}}" name="created">{{dateFormat created "MM-DD-YYYY"}}</td>
-                <td><input type="text" value="{{dateFormat expiration "MM-DD-YYYY"}}" name="expiration"></td>
+                <td><input type="hidden" value="{{dateFormat expiration "MM-DD-YYYY"}}" name="originalExpiration">
+                <input type="text" value="{{dateFormat expiration "MM-DD-YYYY"}}" name="expiration"></td>
                 <td>
                     <button type="submit" name="action" value="Update">Update</button>
                 </td>

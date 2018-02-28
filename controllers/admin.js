@@ -41,7 +41,7 @@ router.get('/lookup', ensureAuthenticated, function(req, res) {
 //live_discounts filtered page
 router.get('/live_discounts', ensureAuthenticated, function(req, res) {
   if (req.query.action === "idLookup") {
-    var searchQuery = discounts.returnDiscountById(req.query.id);
+    var searchQuery = discounts.returnDiscountsById([req.query.id]);
     searchQuery.then(function(result) {
       if (result.length === 0) {
         var noDiscounts = "true"
@@ -59,7 +59,6 @@ router.get('/live_discounts', ensureAuthenticated, function(req, res) {
     }
     var searchQuery = discounts.adminFilterDiscounts(searchParams);
     searchQuery.then(function(results) {
-      console.log(results)
       if (results.length === 0) {
         var noDiscounts = true
         res.render('adminLookup', {no_discounts: noDiscounts})
@@ -74,7 +73,7 @@ router.get('/live_discounts', ensureAuthenticated, function(req, res) {
       }
       for (var j = results.length - 1; j >= 0; j--) {
         results[j].discountIDs = discountIDs
-      }        
+      }   
       res.render('adminLookup', {live_discounts: results, discountIDs: discountIDs});
       }
     });
@@ -102,6 +101,7 @@ router.post('/live_discounts/export', ensureAuthenticated, function(req, res) {
 
 //live_discounts update and delete function
 router.post('/live_discounts', ensureAuthenticated, function(req, res) {
+  console.log(req.body)
   var discountIDs = req.body.discountIDs.split(',').map(Number);
   if (req.body.action === "Delete") {
     var removeID = discountIDs.indexOf(parseInt(req.body.id))
@@ -109,26 +109,42 @@ router.post('/live_discounts', ensureAuthenticated, function(req, res) {
     discounts.deleteDiscount(req.body.id)
     //skips discount lookup if there was only one discount (that was just deleted)
     if (discountIDs.length === 0) res.render('adminLookup')
+    //fetches previous page's discounts and passes them to template for viewing
+    var remainingDiscounts = discounts.returnDiscountsById(discountIDs)
+    remainingDiscounts.then(function(results){
+      results = discounts.checkExpiration(results, "admin")
+      var discountIDs = [];
+      for (var i = results.length - 1; i >= 0; i--) {
+        discountIDs.unshift(results[i].id);
+      }
+      for (var j = results.length - 1; j >= 0; j--) {
+        results[j].discountIDs = discountIDs
+      }
+      res.render('adminLookup', {live_discounts: results, discountIDs: discountIDs})        
+    });
   } else if (req.body.action === "Update") {
     var updatedDiscount = discounts.updateDiscount(req.body)
     updatedDiscount.then(function(result) {
-      //checks to see if expiration was updated and bumps discount to top visibility if so
-      if (req.body.originalExpiration !== req.body.expiration) discounts.bumpToRecent(req.body.id)
+      var updatedDiscountCounties = discounts.updateDiscountCounties(req.body)
+      updatedDiscountCounties.then(function(result) {
+        //checks to see if expiration was updated and bumps discount to top visibility if so
+        if (req.body.originalExpiration !== req.body.expiration) discounts.bumpToRecent(req.body.id)
+        //fetches previous page's discounts and passes them to template for viewing
+        var remainingDiscounts = discounts.returnDiscountsById(discountIDs)
+        remainingDiscounts.then(function(results){
+          results = discounts.checkExpiration(results, "admin")
+          var discountIDs = [];
+          for (var i = results.length - 1; i >= 0; i--) {
+            discountIDs.unshift(results[i].id);
+          }
+          for (var j = results.length - 1; j >= 0; j--) {
+            results[j].discountIDs = discountIDs
+          }
+          res.render('adminLookup', {live_discounts: results, discountIDs: discountIDs})        
+        });
+      });    
     });
   }
-  //fetches previous page's discounts and passes them to template for viewing
-  var remainingDiscounts = discounts.returnDiscountsByIdArray(discountIDs)
-  remainingDiscounts.then(function(results){
-    results = discounts.checkExpiration(results, "admin")
-    var discountIDs = [];
-    for (var i = results.length - 1; i >= 0; i--) {
-      discountIDs.unshift(results[i].id);
-    }
-    for (var j = results.length - 1; j >= 0; j--) {
-      results[j].discountIDs = discountIDs
-    }
-    res.render('adminLookup', {live_discounts: results, discountIDs: discountIDs})        
-  });
 });
 
 //live_discounts business name search

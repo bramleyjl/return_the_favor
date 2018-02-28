@@ -2,6 +2,16 @@
 let db = require('../db.js');
 let moment = require('moment');
 
+//helper function to create variable length DB queries
+var createInList = function(integer) {
+  var inList = ''
+  for (var i = integer.length - 1; i >= 0; i--) {
+    inList += '?, ';
+  }
+  inList = inList.slice(0, 2);
+  return inList
+}
+
 ////////beginning of 'live_discounts' functions////////
 
 //inserts submitted discount into the live table
@@ -37,8 +47,7 @@ exports.returnAllDiscounts = function() {
 //admin filter function, combines multiple filter options
 exports.adminFilterDiscounts = function(params) {
   return new Promise(function(resolve, reject) {
-    db.query(
-      'SELECT * FROM `liveDiscounts_counties` WHERE `county_id` = ?',
+    db.query("SELECT * FROM `liveDiscounts_counties` WHERE `county_id` = ?",
       [params.county], function(err, results) {
         if (err) return reject(err);
         var inList = '';
@@ -128,9 +137,15 @@ exports.filterDiscounts = function(params) {
   });  
 }
 
-//returns single discount by querying its id
-exports.returnDiscountById = function(id) {
-  return new Promise(function (resolve, reject) {
+//returns one or more discounts by an array of ids
+exports.returnDiscountsById = function(ids) {
+  //constructor for sql query to select the right number of results
+  var inList = '';
+  for (var i = ids.length - 1; i >= 0; i--) {
+    inList += '?, ';
+  }
+  inList = inList.slice(0, -2);
+  return new Promise(function (resolve, reject){ 
     db.query("SELECT `discounts`.*, \
       GROUP_CONCAT(`liveDiscounts_counties`.`county_id` SEPARATOR ', ') AS `counties`, \
       GROUP_CONCAT(`counties`.`name` SEPARATOR ', ') AS `counties_names`, \
@@ -141,32 +156,7 @@ exports.returnDiscountById = function(id) {
       JOIN `counties` ON `liveDiscounts_counties`.`county_id` = `counties`.`id` \
       JOIN `categories` ON `discounts`.`category` = `categories`.`id` \
       JOIN `states` ON `discounts`.`state` = `states`.`id` \
-      WHERE `discounts`.`id` = ? \
-      GROUP BY `discounts`.`id`", 
-    [id], function (err, results) {
-      if (err) return reject(err);
-      return (resolve(results))
-    });
-  });
-}
-
-//returns multiple discounts by an array of ids
-exports.returnDiscountsByIdArray = function(ids) {
-  //constructor for sql query to select the right number of results
-  var inList = '?';
-  for (var i = ids.length - 1; i >= 1; i--) {
-    inList += ", ?"
-  }
-  return new Promise(function (resolve, reject){ db.query("SELECT \
-      `discounts`.*, \
-      `counties`.`name` AS `county_name`, \
-      `categories`.`name` AS `category_name`, \
-      `states`.`abbreviation` AS `state_abv` \
-      FROM `discounts` \
-      JOIN `counties` ON `discounts`.`county` = `counties`.`id` \
-      JOIN `categories` ON `discounts`.`category` = `categories`.`id` \
-      JOIN `states` ON `discounts`.`state` = `states`.`id` \
-      WHERE `discounts`.`id` IN (" + inList + ")", ids, function(err, results) {
+      WHERE `discounts`.`id` IN (" + inList + ") GROUP BY `discounts`.`id`", ids, function(err, results) {
       if (err) return reject(err);
       return (resolve(results))
     });
@@ -181,7 +171,6 @@ exports.updateDiscount = function(params) {
       db.query("UPDATE `discounts` \
       SET `busname` = ?, \
       `state` = ?, \
-      `county` = ?, \
       `zip` = ?, \
       `street` = ?, \
       `buslinks` = ?, \
@@ -195,7 +184,6 @@ exports.updateDiscount = function(params) {
       WHERE `id` = ?", [
       params.busname, 
       params.state,
-      params.county,
       params.zip,
       params.street,
       params.buslinks,
@@ -214,14 +202,46 @@ exports.updateDiscount = function(params) {
   });
 }
 
+//adds and/or deletes corresponding liveDiscounts_counties rows to match discounts updates
+exports.updateDiscountCounties = function(params) {
+  return new Promise(function (resolve, reject) {
+    db.query("SELECT * FROM `liveDiscounts_counties` WHERE `discount_id` = ?", 
+      [params.id], function(err, results) {
+      if (err) return reject(err);
+      var removalQueue = [];
+      var additionQueue = [];
+      var databaseCounties = [];
+      for (var i = results.length - 1; i >= 0; i--) {
+        databaseCounties.push(results[i].county_id)
+        if (params.counties.indexOf(results[i].county_id) === -1) removalQueue.push([params.id, results[i].county_id])
+      }
+      for (var j = params.counties.length - 1; j >= 0; j--) {
+        if (databaseCounties.indexOf(params.counties[j]) === -1) additionQueue.push([parseInt(params.id), parseInt(params.counties[j])])
+      }
+      db.query("DELETE FROM `liveDiscounts_counties` WHERE (`discount_id`, `county_id`) IN (?)", 
+        [removalQueue], function(err, results) {
+          if (err) return reject(err)
+          console.log(results)
+          db.query("INSERT INTO `liveDiscounts_counties` (`discount_id`, `county_id`) VALUES ?", [additionQueue], function(err, results) {
+            if (err) return reject(err)
+            console.log(results)
+            return resolve(results)
+          })
+      })
+    })
+  })
+}
+
 //makes discount most visibile on discounts page
 exports.bumpToRecent = function(id) {
   var now = moment.utc().format("YYYY-MM-DD HH:mm:ss")
-  db.query("UPDATE `discounts` \
-  SET `discounts`.`recent_display` = ? \
-  WHERE `id` = ?", [now, id], function (err, results) {
-    if (err) throw err;
-    return results
+  return new Promise(function (resolve, reject) {
+    db.query("UPDATE `discounts` \
+    SET `discounts`.`recent_display` = ? \
+    WHERE `id` = ?", [now, id], function (err, results) {
+      if (err) return reject(err);
+      return resolve(results)
+    });
   });
 }
 
