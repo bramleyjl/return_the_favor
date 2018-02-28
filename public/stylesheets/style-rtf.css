@@ -436,6 +436,25 @@ padding: 0 0 0 0;
 
 } /* END OF HOMEPAGE IFRAME AREA STYLES */
 
+
+/* EVENT AREA CALENDAR STYLES */
+
+#calendar-outerdiv {
+border: 0px;
+
+}
+
+
+#inner-calendar {
+width:100%;
+max-width:800px;
+border: 0px;
+
+}
+
+/* END OF EVENT AREA CALENDAR STYLES */
+
+
 /* ABOUT PAGE STYLES */
 
 ul.about-list {
