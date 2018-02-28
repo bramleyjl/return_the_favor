@@ -36,30 +36,50 @@ exports.returnAllDiscounts = function() {
 
 //admin filter function, combines multiple filter options
 exports.adminFilterDiscounts = function(params) {
-  return new Promise(function (resolve, reject) {
-    db.query("SELECT \
-      `discounts`.*, \
-      `counties`.`name` AS `county_name`, \
-      `categories`.`name` AS `category_name`, \
-      `states`.`abbreviation` AS `state_abv` \
-      FROM `discounts` \
-      JOIN `counties` ON `discounts`.`county` = `counties`.`id` \
-      JOIN `categories` ON `discounts`.`category` = `categories`.`id` \
-      JOIN `states` ON `discounts`.`state` = `states`.`id` \
-      WHERE (`county` = ? OR ? = 'all') \
-      AND (`category` = ? OR ? = 'all') \
-      AND (`discounts`.`state` = ?) \
-      ORDER BY `expiration` ASC",
-      [params.county, params.county,
-      params.category, params.category,
-      params.state], 
-      function(err, results) {
+  return new Promise(function(resolve, reject) {
+    db.query(
+      'SELECT * FROM `liveDiscounts_counties` WHERE `county_id` = ?',
+      [params.county], function(err, results) {
         if (err) return reject(err);
-        return (resolve(results))
+        var inList = '';
+        var queryParams = [];
+        //if no discounts exist in selected county
+        if (results.length === 0) {
+          inList = '?';
+          queryParams.push(0);
+        } else {
+          for (var i = results.length - 1; i >= 0; i--) {
+            queryParams.push(results[i].discount_id);
+            inList += '?, ';
+          }
+          inList = inList.slice(0, -2);
+        }
+        queryParams.push(params.category, params.category, params.state);
+        db.query(
+          "SELECT `discounts`.*, \
+              GROUP_CONCAT(`liveDiscounts_counties`.`county_id` SEPARATOR ', ') AS `counties`, \
+              GROUP_CONCAT(`counties`.`name` SEPARATOR ', ') AS `counties_names`, \
+              `categories`.`name` AS `category_name`, \
+              `states`.`abbreviation` AS `state_abv` \
+              FROM `discounts` \
+              JOIN `liveDiscounts_counties` ON `discounts`.`id` = `liveDiscounts_counties`.`discount_id` \
+              JOIN `counties` ON `liveDiscounts_counties`.`county_id` = `counties`.`id` \
+              JOIN `categories` ON `discounts`.`category` = `categories`.`id` \
+              JOIN `states` ON `discounts`.`state` = `states`.`id` \
+              WHERE `discounts`.`id` IN (" +inList +") \
+              AND (`discounts`.`category` = ? OR ? = 'all') AND (`discounts`.`state` = ?) \
+              GROUP BY `discounts`.`id` \
+              ORDER BY `expiration` ASC",
+          queryParams, function(err, results) {
+            if (err) return reject(err);
+            return resolve(results);
+          }
+        );
       }
     );
-  })
-}
+  });
+};
+
 
 //search for business by name (admin function)
 exports.businessLookup = function(name) {
@@ -111,16 +131,19 @@ exports.filterDiscounts = function(params) {
 //returns single discount by querying its id
 exports.returnDiscountById = function(id) {
   return new Promise(function (resolve, reject) {
-    db.query("SELECT \
-      `discounts`.*, \
-      `counties`.`name` AS `county_name`, \
+    db.query("SELECT `discounts`.*, \
+      GROUP_CONCAT(`liveDiscounts_counties`.`county_id` SEPARATOR ', ') AS `counties`, \
+      GROUP_CONCAT(`counties`.`name` SEPARATOR ', ') AS `counties_names`, \
       `categories`.`name` AS `category_name`, \
       `states`.`abbreviation` AS `state_abv` \
       FROM `discounts` \
-      JOIN `counties` ON `discounts`.`county` = `counties`.`id` \
+      JOIN `liveDiscounts_counties` ON `discounts`.`id` = `liveDiscounts_counties`.`discount_id` \
+      JOIN `counties` ON `liveDiscounts_counties`.`county_id` = `counties`.`id` \
       JOIN `categories` ON `discounts`.`category` = `categories`.`id` \
       JOIN `states` ON `discounts`.`state` = `states`.`id` \
-      WHERE `discounts`.`id` = ?", [id], function (err, results) {
+      WHERE `discounts`.`id` = ? \
+      GROUP BY `discounts`.`id`", 
+    [id], function (err, results) {
       if (err) return reject(err);
       return (resolve(results))
     });

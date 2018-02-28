@@ -35,7 +35,7 @@ router.get('/', function(req, res) {
 
 //admin lookup page
 router.get('/lookup', ensureAuthenticated, function(req, res) {
-    res.render('adminLookup');
+  res.render('adminLookup');
 });
 
 //live_discounts filtered page
@@ -59,6 +59,7 @@ router.get('/live_discounts', ensureAuthenticated, function(req, res) {
     }
     var searchQuery = discounts.adminFilterDiscounts(searchParams);
     searchQuery.then(function(results) {
+      console.log(results)
       if (results.length === 0) {
         var noDiscounts = true
         res.render('adminLookup', {no_discounts: noDiscounts})
