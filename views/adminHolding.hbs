@@ -51,13 +51,11 @@
                 </select>
       		</td>
       		<td>
-      			<select name="county">
-                  <option selected value="{{county}}">{{county_name}}</option>
-                  <option value="1">Rensselaer</option>
-                  <option value="2">Albany</option>
-                  <option value="3">Schenectady</option>
-                  <option value="4">Saratoga</option>
-                </select>
+          <p>{{counties_names}}</p>
+            <input type="checkbox" name="county" value="1">Rensselaer<br>
+            <input type="checkbox" name="county" value="2">Albany<br>
+            <input type="checkbox" name="county" value="3">Schenectady<br>
+            <input type="checkbox" name="county" value="4">Saratoga<br>
       		</td>
       		<td><input type="text" value="{{street}}" name="street">
       		</td>

@@ -231,38 +231,38 @@ exports.checkExpiration = function(discounts, caller) {
   return discounts
 }
 
-//csv export function
-exports.exportDiscounts = function(objects) {
-
-
-}
-
 ////////beginning of 'holding_discounts' functions////////
 
 //inserts submitted discount into the holding table for review
-exports.createHoldingDiscount = function(params) {
-  var discount = params;
+exports.createHoldingDiscount = function(discount, counties) {
   var currentTime =  moment(new Date());
   discount.expiration = moment(currentTime).add({months:discount.expiration}).format("YYYY-MM-DD HH:mm:ss");
-  console.log(discount)
   db.query("INSERT INTO `holding_discounts` SET ?", [discount], function (err, results, fields) {
     if (err) throw err;
-    return results
+    for (var i = counties.length - 1; i >= 0; i--) {
+      var discountCounty = {discount_id: results.insertId, county_id: counties[i]}
+      db.query("INSERT INTO `holdingDiscounts_counties` SET ?", [discountCounty], function (err, results) {
+        if (err) throw err;
+        return results
+      });
+    }
   });
 }
 
 //returns the entire discounts holding table
 exports.returnAllHoldingDiscounts = function() {
   return new Promise(function (resolve, reject) {
-    db.query("SELECT \
-      `holding_discounts`.*, \
-      `counties`.`name` AS `county_name`, \
+    db.query("SELECT `holding_discounts`.*, \
+      GROUP_CONCAT(`holdingDiscounts_counties`.`county_id` SEPARATOR ', ') AS `counties`, \
+      GROUP_CONCAT(`counties`.`name` SEPARATOR ', ') AS `counties_names`, \
       `categories`.`name` AS `category_name`, \
       `states`.`abbreviation` AS `state_abv` \
       FROM `holding_discounts`\
-      JOIN `counties` ON `holding_discounts`.`county` = `counties`.`id` \
+      JOIN `holdingDiscounts_counties` ON `holding_discounts`.`id` = `holdingDiscounts_counties`.`discount_id` \
+      JOIN `counties` ON `holdingDiscounts_counties`.`county_id` = `counties`.`id` \
       JOIN `categories` ON `holding_discounts`.`category` = `categories`.`id` \
-      JOIN `states` ON `holding_discounts`.`state` = `states`.`id`", 
+      JOIN `states` ON `holding_discounts`.`state` = `states`.`id` \
+      GROUP BY `holding_discounts`.`id`", 
     function (err, results, fields) {
       if (err) return reject(err);
       return resolve(results)
