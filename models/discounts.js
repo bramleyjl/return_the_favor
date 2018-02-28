@@ -237,12 +237,9 @@ exports.checkExpiration = function(discounts, caller) {
 exports.createHoldingDiscount = function(discount, counties) {
   var currentTime =  moment(new Date());
   discount.expiration = moment(currentTime).add({months:discount.expiration}).format("YYYY-MM-DD HH:mm:ss");
-  console.log(discount)
   db.query("INSERT INTO `holding_discounts` SET ?", [discount], function (err, results, fields) {
     if (err) throw err;
-    console.log("new discount id " + results.insertId)
     for (var i = counties.length - 1; i >= 0; i--) {
-      console.log("discount county id " + counties[i])
       var discountCounty = {discount_id: results.insertId, county_id: counties[i]}
       db.query("INSERT INTO `holdingDiscounts_counties` SET ?", [discountCounty], function (err, results) {
         if (err) throw err;
@@ -268,7 +265,6 @@ exports.returnAllHoldingDiscounts = function() {
       GROUP BY `holding_discounts`.`id`", 
     function (err, results, fields) {
       if (err) return reject(err);
-      console.log(results)
       return resolve(results)
     });
   });
@@ -277,7 +273,6 @@ exports.returnAllHoldingDiscounts = function() {
 
 //deletes discount from holding table by id
 exports.deleteHoldingDiscount = function(id) {
-  console.log(id)
   return new Promise(function (resolve, reject) {
     db.query("DELETE FROM `holding_discounts` WHERE id = ?", [id], function (err, results) {
       if (err) return reject(err);
