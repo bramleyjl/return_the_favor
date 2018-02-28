@@ -454,6 +454,33 @@ border: 0px;
 
 /* END OF EVENT AREA CALENDAR STYLES */
 
+/*DOCUMENT DOWNLOAD AREA*/
+
+#documents-list li {
+
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/*END OF DOCUMENT DOWNLOAD AREA*/
+
+/* EVENT AREA CALENDAR STYLES */
+
+#calendar-outerdiv {
+border: 0px;
+
+}
+
+
+#inner-calendar {
+width:100%;
+max-width:800px;
+border: 0px;
+
+}
+
+/* END OF EVENT AREA CALENDAR STYLES */
+
 
 /* ABOUT PAGE STYLES */
 
