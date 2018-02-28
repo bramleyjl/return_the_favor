@@ -12,22 +12,18 @@ inputs.forEach(input => {
   );
 });
 
+$(document).ready(function() {
+  $('.smultiple').select2();
+  var configParamsObj = {
+      placeholder: 'Choose One', // Place holder text to place in the select
+      minimumResultsForSearch: 1 // Overrides default of 15 set above
+  };
+  $(".single").select2(configParamsObj);
+  });
+
 
 $(function(){
  	$(".card").flip ({
         trigger: 'hover'
    		});
 			});
-
-
-$(document).ready(function() {
-    $('.smultiple').select2();
-});
-$('.js-example-basic-single').select2();
-// $(document).ready(function() {
-//     $('.ssingle').select2();
-// });
-// $("#county").select2({
-// placeholder: 'Select One',
-// allowClear: true
-// });
