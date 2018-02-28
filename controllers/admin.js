@@ -216,13 +216,17 @@ router.post('/holding_discounts', ensureAuthenticated, function(req, res) {
     var holdingId = req.body.id
     delete req.body.id
     delete req.body.action
-    var validateHolding = discounts.validateHoldingDiscount(req.body)
-    validateHolding.then( (result) => {
-      var deleteHolding = discounts.deleteHoldingDiscount(holdingId) 
-      deleteHolding.then( (result) => {
+    var discountCounties = discounts.returnDiscountCounties(holdingId)
+    discountCounties.then( (counties) => {
+      console.log(counties)
+      var validateHolding = discounts.validateHoldingDiscount(req.body, counties)
+      validateHolding.then( (result) => {
+        var deleteHolding = discounts.deleteHoldingDiscount(holdingId) 
+        deleteHolding.then( (result) => {
         res.redirect('/admin/holding')
-      })
-    })
+        });
+      });
+    });
   }
 });
 
