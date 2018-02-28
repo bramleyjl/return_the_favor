@@ -4,6 +4,11 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="Return The Favor Program, Discounts for Veterans">
 		<meta name="keywords" content="F.A.V.O.R., DD-214, Discounts, Veterans, NYS, Rensselaer, Troy, Capital Region">
+		<script src="javascript/jquery-3.3.1.min.js"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js">
+                </script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.css" rel="stylesheet">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" type="text/css" href="/stylesheets/style-rtfres.css">
 		<link rel="stylesheet" type="text/css" href="/stylesheets/style-rtf.css">
@@ -36,14 +41,14 @@
     			<input type="text" placeholder="   'First_Last'" name="name" required>
 				<label for="county">County</label>
     			<select id="county" name="county" required>
-            <option disabled selected value>Choose one</option>          
+            <option disabled selected value>Choose one</option>
             <option value="1">Rensselaer</option>
             <option value="2">Albany</option>
             <option value="3">Schenectady</option>
             <option value="4">Saratoga</option>
     			</select>
 
-    			<input type="email" placeholder=" Email Address Required" name="email" required>
+    			<input type="email" placeholder=" Email Address Required" name="email" size="35" required>
 
 				<input type="submit" value="Subscribe">
   			</div>
@@ -66,13 +71,19 @@
 			<!-- form action goes here? -->
 			<div class="container">
  				<label for="county">County</label>
-  				<select id="county" name="county">
-				<option value="all">All</option>
-        <option value=1>Rensselaer</option>
-        <option value=2>Albany</option>
-        <option value=3>Schenectady</option>
-        <option value=4>Saratoga</option>
-  				</select>
+				<select id="county" class=".js-example-basic-single" name="county"  style="width:15%">
+				<option value=""></option>
+				<option value="1">Rensselaer</option>
+				<option value="2">Albany</option>
+				<option value="3">Schenectady</option>
+				<option value="4">Saratoga</option>
+				<option value="5">Columbia</option>
+				<option value="6">Greene</option>
+				<option value="7">Fulton</option>
+				<option value="8">Warren</option>
+				<option value="9">Schoharie</option>
+				<option value="10">Montgomery</option>
+				</select>
 
 				<label for="zipcode"> Zip Code </label>
 				<input type="number" placeholder="  5 Digit Zip Code" name="zip" maxlength="5">
@@ -112,6 +123,7 @@
   				<input class="search" type="text" placeholder="   Search.." name="search">
       			<button type="submit"><i class="fa fa-search fa-2x"></i></button>
 			<!-- close the div "container" -->
+			<script src="public/javascript/script.js"></script>
 			</div>
 			</form>
 
@@ -201,7 +213,7 @@
 
     {{#if nextPage}}
         <form method="GET" action="/discounts/filter">
-        <input type="hidden" name="page" value={{nextPage}}>        
+        <input type="hidden" name="page" value={{nextPage}}>
         <input type="hidden" name="county" value={{searchParams.county}}>
         <input type="hidden" name="zip" value={{searchParams.zip}}>
         <input type="hidden" name="category" value={{searchParams.category}}>
