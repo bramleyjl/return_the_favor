@@ -101,7 +101,6 @@ router.post('/live_discounts/export', ensureAuthenticated, function(req, res) {
 
 //live_discounts update and delete function
 router.post('/live_discounts', ensureAuthenticated, function(req, res) {
-  console.log(req.body)
   var discountIDs = req.body.discountIDs.split(',').map(Number);
   if (req.body.action === "Delete") {
     var removeID = discountIDs.indexOf(parseInt(req.body.id))
@@ -215,6 +214,7 @@ router.get('/holding', ensureAuthenticated, function(req, res) {
     var holdingVeterans = veterans.returnAllHoldingVeterans();
     holdingVeterans.then(function(result) {
       if (result.length > 0) adminDisplay.holdingVeterans = result
+      console.log(adminDisplay.holdingDiscounts)
       res.render('adminHolding', { 
         holding_discounts: adminDisplay.holdingDiscounts,
         holding_veterans: adminDisplay.holdingVeterans
@@ -225,6 +225,7 @@ router.get('/holding', ensureAuthenticated, function(req, res) {
 
 //holding_discounts update, delete, and validate function
 router.post('/holding_discounts', ensureAuthenticated, function(req, res) {
+  console.log(req.body.counties)
   if (req.body.action === "Delete") {
     discounts.deleteHoldingDiscount(req.body.id)
     res.redirect('/admin/holding')
@@ -232,15 +233,11 @@ router.post('/holding_discounts', ensureAuthenticated, function(req, res) {
     var holdingId = req.body.id
     delete req.body.id
     delete req.body.action
-    var discountCounties = discounts.returnDiscountCounties(holdingId)
-    discountCounties.then( (counties) => {
-      console.log(counties)
-      var validateHolding = discounts.validateHoldingDiscount(req.body, counties)
-      validateHolding.then( (result) => {
-        var deleteHolding = discounts.deleteHoldingDiscount(holdingId) 
-        deleteHolding.then( (result) => {
-        res.redirect('/admin/holding')
-        });
+    var validateHolding = discounts.validateHoldingDiscount(req.body)
+    validateHolding.then( (result) => {
+      var deleteHolding = discounts.deleteHoldingDiscount(holdingId) 
+      deleteHolding.then( (result) => {
+      res.redirect('/admin/holding')
       });
     });
   }

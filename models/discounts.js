@@ -219,31 +219,36 @@ exports.updateDiscountCounties = function(params) {
     db.query("SELECT * FROM `liveDiscounts_counties` WHERE `discount_id` = ?", 
       [params.id], function(err, results) {
       if (err) return reject(err);
-      params.counties = params.counties.map(Number)
+      //converts params.counties to an array of integers
+      if (params.counties.length > 1) {
+        params.counties = params.counties.map(Number);
+      } else {
+        params.counties = [parseInt(params.counties)]
+      }
       var removalQueue = [];
       var additionQueue = [];
       var databaseCounties = [];
       for (var i = results.length - 1; i >= 0; i--) {
         databaseCounties.push(results[i].county_id)
-        console.log(params.counties, results[i].county_id)
-        console.log(params.counties.indexOf(results[i].county_id))
         if (params.counties.indexOf(results[i].county_id) === -1) removalQueue.push([params.id, results[i].county_id])
       }
-      for (var j = params.counties.length - 1; j >= 0; j--) {
-        console.log(databaseCounties, params.counties[j])
-        console.log(databaseCounties.indexOf(params.counties[j]))        
-        if (databaseCounties.indexOf(params.counties[j]) === -1) additionQueue.push([parseInt(params.id), params.counties[j]])
+      for (var j = params.counties.length - 1; j >= 0; j--) {    
+        if (databaseCounties.indexOf(params.counties[j]) === -1) additionQueue.push([params.id, params.counties[j]])
       }
-      db.query("DELETE FROM `liveDiscounts_counties` WHERE (`discount_id`, `county_id`) IN (?)", 
+      if (removalQueue.length > 0) {
+        db.query("DELETE FROM `liveDiscounts_counties` WHERE (`discount_id`, `county_id`) IN (?)", 
         [removalQueue], function(err, results) {
           if (err) return reject(err)
-          console.log(results)
-          db.query("INSERT INTO `liveDiscounts_counties` (`discount_id`, `county_id`) VALUES ?", [additionQueue], function(err, results) {
-            if (err) return reject(err)
-            console.log(results)
-            return resolve(results)
-          })
+          return resolve(results)
       })
+      }
+      if (additionQueue.length > 0) {
+        db.query("INSERT INTO `liveDiscounts_counties` (`discount_id`, `county_id`) VALUES ?", 
+        [additionQueue], function(err, addResults) {
+          if (err) return reject(err)
+          return resolve(addResults)
+        })
+      }
     })
   })
 }
@@ -329,18 +334,6 @@ exports.returnAllHoldingDiscounts = function() {
   });
 }
 
-//returns all counties linked to discount by id
-exports.returnDiscountCounties = function(id) {
-  console.log(id)
-  return new Promise(function (resolve, reject) {
-    db.query("SELECT * FROM `holdingDiscounts_counties` WHERE `discount_id` = ?", [id], function (err, results) {
-      if (err) return reject(err);
-      console.log(results)
-      return resolve(results)
-    });
-  });
-}
-
 //deletes discount from holding table by id
 exports.deleteHoldingDiscount = function(id) {
   return new Promise(function (resolve, reject) {
@@ -352,7 +345,10 @@ exports.deleteHoldingDiscount = function(id) {
 }
 
 //creates new row in discount table and removes identical holding table row
-exports.validateHoldingDiscount = function(params, counties) {
+exports.validateHoldingDiscount = function(params) {
+  var counties = params.counties
+  console.log(counties)
+  delete params.counties
   //turn Handlebars' parsed timestamps back into SQL-ready timestamps
   params.created = (params.created).substring(4, 24)
   params.created = moment(params.created, "MMM-DD-YYYY HH:mm:ss").format("YYYY-MM-DD HH:mm:ss")
@@ -361,16 +357,17 @@ exports.validateHoldingDiscount = function(params, counties) {
     db.query("INSERT INTO `discounts` SET ?", [params], function (err, results, fields) {
       if (err) return reject(err);
       console.log(results)
-      //pull all county ids and create a new liveDiscounts_counties row from each
+      //pull all county ids and create an object to make liveDiscounts_counties rows with
+      var countyRows = []
       for (var i = counties.length - 1; i >= 0; i--) {
-        var discountCounty = {discount_id: results.insertId, county_id: counties[i].county_id}
-        console.log(discountCounty)
-        db.query("INSERT INTO `liveDiscounts_counties` SET ?", [discountCounty], function (err, results) {
-          if (err) throw err;
-          console.log(results)
-          return resolve (results)
-        });
+        countyRows.push([results.insertId, counties[i]])
+        console.log(countyRows)
       }
+      db.query("INSERT INTO `liveDiscounts_counties` (`discount_id`, `county_id`) VALUES ?", 
+      [countyRows], function(err, results) {
+          if (err) return reject(err)
+          return resolve(results)
+      });
     });
   });
 }
