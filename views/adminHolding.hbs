@@ -58,7 +58,7 @@
             {{#each counties}}
               <p>{{ this }}</p>
             {{/each}}
-            <select id="county" class="smultiple" name="counties" multiple="multiple" style="width:100%">
+            <select id="county" class="smultiple" name="counties" multiple="multiple" style="width:100%" required>
             <option selected value="{{counties}}">{{counties_names}}</option>
             <option value="1">Rensselaer</option>
             <option value="2">Albany</option>
@@ -170,9 +170,9 @@
         </tr>
       </thead>
       <tr>
-          <td><input type="text" value="{{name}}" name="name"></td>
+          <td><input type="text" value="{{name}}" name="name" required></td>
           <td>
-              <select id="county" class="single" name="county"  style="width:75%">
+              <select id="county" class="single" name="county"  style="width:75%" required>
               <option selected value="{{county}}">{{county_name}}</option>
               <option value="1">Rensselaer</option>
               <option value="2">Albany</option>
@@ -186,7 +186,7 @@
               <option value="10">Montgomery</option>
             </select>
           </td>
-          <td><input type="email" value="{{email}}" name="email" size="35"></td>
+          <td><input type="email" value="{{email}}" name="email" size="35" required></td>
           <td>
               <button type="submit" name="action" value="Delete">Delete</button>
           </td>
