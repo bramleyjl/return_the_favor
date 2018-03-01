@@ -73,6 +73,9 @@
             <option value="9">Schoharie</option>
             <option value="10">Montgomery</option>
             </select> --}}
+            {{#each counties}}
+              <p>{{ this }}</p>
+            {{/each}}
             <select id="county" name="counties" style="width:100%">
             <option value="{{counties}}">{{counties_names}}</option>
             <option value="1">Rensselaer</option>

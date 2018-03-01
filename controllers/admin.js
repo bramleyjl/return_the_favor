@@ -84,9 +84,9 @@ router.get('/live_discounts', ensureAuthenticated, function(req, res) {
 router.post('/live_discounts/export', ensureAuthenticated, function(req, res) {
   //turn list of ids to an array of integers
   var ids = req.body.discounts.split(',').map(Number);
-  var exportDiscounts = discounts.returnDiscountsByIdArray(ids)
+  var exportDiscounts = discounts.returnDiscountsById(ids)
     exportDiscounts.then(function(results) {
-      var fields = ['id', 'busname', 'desoffer'];
+      var fields = ['id', 'busname', 'counties_names', 'desoffer', 'cname', 'cphone', 'busmail', 'notes'];
       const opts = { fields };
       const parser = new Json2csvParser(opts);
       const csv = parser.parse(results);
@@ -102,6 +102,7 @@ router.post('/live_discounts/export', ensureAuthenticated, function(req, res) {
 //live_discounts update and delete function
 router.post('/live_discounts', ensureAuthenticated, function(req, res) {
   var discountIDs = req.body.discountIDs.split(',').map(Number);
+  console.log(discountIDs)
   if (req.body.action === "Delete") {
     var removeID = discountIDs.indexOf(parseInt(req.body.id))
     discountIDs.splice(removeID, 1);
@@ -122,24 +123,38 @@ router.post('/live_discounts', ensureAuthenticated, function(req, res) {
       res.render('adminLookup', {live_discounts: results, discountIDs: discountIDs})        
     });
   } else if (req.body.action === "Update") {
+    //updates discount
     var updatedDiscount = discounts.updateDiscount(req.body)
     updatedDiscount.then(function(result) {
+      //creates or deletes liveDiscounts_counties rows as necessary
       var updatedDiscountCounties = discounts.updateDiscountCounties(req.body)
       updatedDiscountCounties.then(function(result) {
-        //checks to see if expiration was updated and bumps discount to top visibility if so
-        if (req.body.originalExpiration !== req.body.expiration) discounts.bumpToRecent(req.body.id)
-        //fetches previous page's discounts and passes them to template for viewing
-        var remainingDiscounts = discounts.returnDiscountsById(discountIDs)
-        remainingDiscounts.then(function(results){
-          results = discounts.checkExpiration(results, "admin")
-          var discountIDs = [];
-          for (var i = results.length - 1; i >= 0; i--) {
-            discountIDs.unshift(results[i].id);
-          }
-          for (var j = results.length - 1; j >= 0; j--) {
-            results[j].discountIDs = discountIDs
-          }
-          res.render('adminLookup', {live_discounts: results, discountIDs: discountIDs})        
+        console.log(req.body.id)
+        //grabs updated discount so it can be at the top of the results displayed
+        var getUpdatedDiscount = discounts.returnDiscountsById([req.body.id])
+        getUpdatedDiscount.then(function(result) {
+          var updated_discount = result
+          console.log("updated_discount " + updated_discount[0])
+          //removes updated discount from list of IDs so it isn't fetched twice
+          var removeID = discountIDs.indexOf(parseInt(req.body.id))
+          discountIDs.splice(removeID, 1);
+          //fetches previous page's other discounts and passes them to template for viewing
+          var remainingDiscounts = discounts.returnDiscountsById(discountIDs)
+          remainingDiscounts.then(function(results){
+            results.unshift(updated_discount[0])
+            console.log(results)
+            //checks to see if expiration was updated, then sets all discounts' expiration status
+            if (req.body.originalExpiration !== req.body.expiration) discounts.bumpToRecent(req.body.id)
+            results = discounts.checkExpiration(results, "admin")
+            var discountIDs = [];
+            for (var i = results.length - 1; i >= 0; i--) {
+              discountIDs.unshift(results[i].id);
+            }
+            for (var j = results.length - 1; j >= 0; j--) {
+              results[j].discountIDs = discountIDs
+            }
+            res.render('adminLookup', {live_discounts: results, discountIDs: discountIDs})        
+          });
         });
       });    
     });
@@ -214,7 +229,6 @@ router.get('/holding', ensureAuthenticated, function(req, res) {
     var holdingVeterans = veterans.returnAllHoldingVeterans();
     holdingVeterans.then(function(result) {
       if (result.length > 0) adminDisplay.holdingVeterans = result
-      console.log(adminDisplay.holdingDiscounts)
       res.render('adminHolding', { 
         holding_discounts: adminDisplay.holdingDiscounts,
         holding_veterans: adminDisplay.holdingVeterans
@@ -225,7 +239,6 @@ router.get('/holding', ensureAuthenticated, function(req, res) {
 
 //holding_discounts update, delete, and validate function
 router.post('/holding_discounts', ensureAuthenticated, function(req, res) {
-  console.log(req.body.counties)
   if (req.body.action === "Delete") {
     discounts.deleteHoldingDiscount(req.body.id)
     res.redirect('/admin/holding')
