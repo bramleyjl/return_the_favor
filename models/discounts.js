@@ -154,6 +154,8 @@ exports.returnDiscountsById = function(ids) {
     inList += '?, ';
   }
   inList = inList.slice(0, -2);
+  console.log(ids)
+  console.log(inList)
   return new Promise(function (resolve, reject){ 
     db.query("SELECT `discounts`.*, \
       GROUP_CONCAT(`liveDiscounts_counties`.`county_id` SEPARATOR ', ') AS `counties`, \
@@ -165,7 +167,9 @@ exports.returnDiscountsById = function(ids) {
       JOIN `counties` ON `liveDiscounts_counties`.`county_id` = `counties`.`id` \
       JOIN `categories` ON `discounts`.`category` = `categories`.`id` \
       JOIN `states` ON `discounts`.`state` = `states`.`id` \
-      WHERE `discounts`.`id` IN (" + inList + ") GROUP BY `discounts`.`id`", ids, function(err, results) {
+      WHERE `discounts`.`id` IN (" + inList + ") \
+      GROUP BY `discounts`.`id` \
+      ORDER BY `expiration` ASC", ids, function(err, results) {
       if (err) return reject(err);
       return (resolve(results))
     });
@@ -242,11 +246,12 @@ exports.updateDiscountCounties = function(params) {
       }
       if (additionQueue.length > 0) {
         db.query("INSERT INTO `liveDiscounts_counties` (`discount_id`, `county_id`) VALUES ?", 
-        [additionQueue], function(err, addResults) {
+        [additionQueue], function(err, results) {
           if (err) return reject(err)
-          return resolve(addResults)
+          return resolve(results)
         })
       }
+      return resolve(results)
     })
   })
 }
@@ -335,7 +340,6 @@ exports.returnAllHoldingDiscounts = function() {
           results[i].counties = [parseInt(results[i].counties)]
         }
       }
-      console.log(results)
       return resolve(results)
     });
   });
