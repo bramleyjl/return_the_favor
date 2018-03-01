@@ -55,28 +55,11 @@
                 </select>
       		</td>
       		<td>
-          {{!-- <p>{{counties_names}}</p> --}}
-            {{!-- <input type="checkbox" name="county" value="1">Rensselaer<br>
-            <input type="checkbox" name="county" value="2">Albany<br>
-            <input type="checkbox" name="county" value="3">Schenectady<br>
-            <input type="checkbox" name="county" value="4">Saratoga<br> --}}
-            {{!-- <select id="county" class="smultiple" name="counties" multiple="multiple" style="width:100%" data-placeholder="Select one or more">
-            <option value="1">Rensselaer</option>
-            <option value="2">Albany</option>
-            <option value="3">Schenectady</option>
-            <option value="4">Saratoga</option>
-            <option value="5">Columbia</option>
-            <option value="6">Greene</option>
-            <option value="7">Fulton</option>
-            <option value="8">Warren</option>
-            <option value="9">Schoharie</option>
-            <option value="10">Montgomery</option>
-            </select> --}}
             {{#each counties}}
               <p>{{ this }}</p>
             {{/each}}
-            <select id="county" name="counties" style="width:100%">
-            <option value="{{counties}}">{{counties_names}}</option>
+            <select id="county" class="smultiple" name="counties" multiple="multiple" style="width:100%">
+            <option selected value="{{counties}}">{{counties_names}}</option>
             <option value="1">Rensselaer</option>
             <option value="2">Albany</option>
             <option value="3">Schenectady</option>
@@ -189,12 +172,18 @@
       <tr>
           <td><input type="text" value="{{name}}" name="name"></td>
           <td>
-            <select name="county">
+              <select id="county" class="single" name="county"  style="width:75%">
               <option selected value="{{county}}">{{county_name}}</option>
               <option value="1">Rensselaer</option>
               <option value="2">Albany</option>
               <option value="3">Schenectady</option>
               <option value="4">Saratoga</option>
+              <option value="5">Columbia</option>
+              <option value="6">Greene</option>
+              <option value="7">Fulton</option>
+              <option value="8">Warren</option>
+              <option value="9">Schoharie</option>
+              <option value="10">Montgomery</option>
             </select>
           </td>
           <td><input type="email" value="{{email}}" name="email" size="35"></td>

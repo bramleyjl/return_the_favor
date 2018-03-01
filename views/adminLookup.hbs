@@ -2,11 +2,15 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="/javascript/jquery-3.3.1.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js">
+            </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/style-rtf.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/style-rtfres.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700" rel="stylesheet">
-    <script src="javascript/jquery-3.3.1.min.js"></script>
     <link rel="icon" type="image/png" href="/images/favicon.png">
     <title>RTFAdminLookup</title>
   </head>
@@ -51,12 +55,19 @@
                   <td><select id="state" name="state">
             <option value="1">NY</option>
           </select></td>
-                  <td><select id="county" name="county" required>
-            <option value="">Choose a County</option>
-            <option value=1>Rensselaer</option>
-            <option value=2>Albany</option>
-            <option value=3>Schenectady</option>
-            <option value=4>Saratoga</option>
+                  <td><select id="county" class="single" name="county"  style="width:100%">
+  				<option></option>
+  				<option value ="all">All</option>
+  					<option value="1">Rensselaer</option>
+  					<option value="2">Albany</option>
+  					<option value="3">Schenectady</option>
+  					<option value="4">Saratoga</option>
+  					<option value="5">Columbia</option>
+  					<option value="6">Greene</option>
+  					<option value="7">Fulton</option>
+  					<option value="8">Warren</option>
+  					<option value="9">Schoharie</option>
+  					<option value="10">Montgomery</option>
           </select></td>
                   <td><select id="category" name="category">
             <option value="all">All</option>
@@ -128,10 +139,26 @@
                   </select>
                 </td>
                 <td>
-                    <input type="checkbox" name="counties" value="1">Rensselaer<br>
+                    {{!-- <input type="checkbox" name="counties" value="1">Rensselaer<br>
                     <input type="checkbox" name="counties" value="2">Albany<br>
                     <input type="checkbox" name="counties" value="3">Schenectady<br>
-                    <input type="checkbox" name="counties" value="4">Saratoga<br>
+                    <input type="checkbox" name="counties" value="4">Saratoga<br> --}}
+                    {{#each counties}}
+                      <p>{{ this }}</p>
+                    {{/each}}
+                    <select id="county" class="smultiple" name="counties" multiple="multiple" style="width:100%">
+                    <option selected value="{{counties}}">{{counties_names}}</option>
+                    <option value="1">Rensselaer</option>
+                    <option value="2">Albany</option>
+                    <option value="3">Schenectady</option>
+                    <option value="4">Saratoga</option>
+                    <option value="5">Columbia</option>
+                    <option value="6">Greene</option>
+                    <option value="7">Fulton</option>
+                    <option value="8">Warren</option>
+                    <option value="9">Schoharie</option>
+                    <option value="10">Montgomery</option>
+                   </select>
                 </td>
                 <td><input type="text" value="{{street}}" name="street">
                 </td>
@@ -255,17 +282,14 @@
 
 <!-- ************************ START OF LIVE VETERANS **************** -->
 <div id= "adminSectionThree">
-  <h2>Veterans Email</h2>
+  <h2>Veterans Email<form method="POST" action="/admin/live_veterans/export">
+    <button type="submit" value="Export">Export All Veterans</button>
+  </form></h2>
   <div class="container">
-      <ul>
-          <li><form method="GET" action="/admin/veteran_search">
+          <form method="GET" action="/admin/veteran_search">
             <input type="text" name="email" placeholder="Search email here" size="40" required>
             <button type="submit">Search</button>
-          </form></li>
-          <li><form method="POST" action="/admin/live_veterans/export">
-            <button type="submit" value="Export">Export All Veterans</button>
-          </form></li>
-      </ul>        
+          </form>
   </div>
 
   {{#if live_veterans}}
@@ -283,12 +307,18 @@
   <tr>
       <td><input type="text" value="{{name}}" name="name" size="35"></td>
       <td>
-        <select name="county">
+          <select id="county" class="single" name="county"  style="width:75%">
           <option selected value="{{county}}">{{county_name}}</option>
           <option value="1">Rensselaer</option>
           <option value="2">Albany</option>
           <option value="3">Schenectady</option>
           <option value="4">Saratoga</option>
+          <option value="5">Columbia</option>
+          <option value="6">Greene</option>
+          <option value="7">Fulton</option>
+          <option value="8">Warren</option>
+          <option value="9">Schoharie</option>
+          <option value="10">Montgomery</option>
         </select>
       </td>
       <td><input type="text" value="{{email}}" name="email" size="40"></td>
@@ -309,9 +339,10 @@
     <p>No veteran with that email found.</p>
   </div>
   {{/if}}
-
+<script src="/javascript/script.js"></script>
 <!-- close section one -->
 </div>
+
 <!-- ************************ END OF LIVE VETERANS **************** -->
 
 <!-- ______________START OF THE FOOTER AREA OF THE PAGE_______________ -->
@@ -319,5 +350,5 @@
 <!-- ______________END THE FOOTER AREA OF THE PAGE_______________ -->
 
 </body>
-<script src="javascript/script.js"></script>
+
 </html>
