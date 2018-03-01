@@ -29,8 +29,7 @@ router.post('/discount', function(req, res, next) {
     cname : req.body.cname,
     busmail : req.body.busmail,
     cphone : req.body.cphone }
-  console.log("expiration is " + req.body.expiration)
-  var newDiscountCounties = req.body.county
+  var newDiscountCounties = req.body.counties
   discounts.createHoldingDiscount(newDiscount, newDiscountCounties);
   res.redirect('/support/confirmation');
 });

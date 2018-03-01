@@ -303,6 +303,8 @@ exports.checkExpiration = function(discounts, caller) {
 //inserts submitted discount into the holding table for review
 exports.createHoldingDiscount = function(discount, counties) {
   var currentTime =  moment(new Date());
+  console.log("counties " + counties)
+  console.log(counties.length)
   discount.expiration = moment(currentTime).add({months:discount.expiration}).format("YYYY-MM-DD HH:mm:ss");
   db.query("INSERT INTO `holding_discounts` SET ?", [discount], function (err, results, fields) {
     if (err) throw err;
