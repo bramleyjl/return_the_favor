@@ -7,7 +7,7 @@ var veterans = require('../models/veterans.js');
 // discounts index listing
 router.get('/', function(req, res) {
   var defaultSearch = {
-    county : 'all',
+    counties : 'all',
     zip : '',
     category : 'all',
     search : '',
@@ -23,7 +23,7 @@ router.get('/', function(req, res) {
 // discounts searched/filtered
 router.get('/filter', function(req, res) {
   var searchParams = {
-      county : req.query.county,
+      counties : req.query.county,
       zip : req.query.zip,
       category : req.query.category,
       recent : req.query.recent,

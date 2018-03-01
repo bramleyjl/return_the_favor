@@ -2,16 +2,6 @@
 let db = require('../db.js');
 let moment = require('moment');
 
-//helper function to create variable length DB queries
-var createInList = function(integer) {
-  var inList = ''
-  for (var i = integer.length - 1; i >= 0; i--) {
-    inList += '?, ';
-  }
-  inList = inList.slice(0, 2);
-  return inList
-}
-
 ////////beginning of 'live_discounts' functions////////
 
 //inserts submitted discount into the live table
@@ -110,31 +100,52 @@ exports.businessLookup = function(name) {
 //public filter function, combines multiple filtering/searching options
 exports.filterDiscounts = function(params) {
   params.recent = parseInt(params.recent)
-  return new Promise(function (resolve, reject) {
-    db.query("SELECT \
-      `discounts`.*, \
-      `counties`.`name` AS `county_name`, \
-      `categories`.`name` AS `category_name`, \
-      `states`.`name` AS `state_name` \
-      FROM `discounts` \
-      JOIN `counties` ON `discounts`.`county` = `counties`.`id` \
-      JOIN `categories` ON `discounts`.`category` = `categories`.`id` \
-      JOIN `states` ON `discounts`.`state` = `states`.`id` \
-      WHERE (`county` = ? OR ? = 'all') \
-      AND (`zip` = ? OR ? = '') \
-      AND (`category` = ? OR ? = 'all') \
-      AND (((`busname`) LIKE "+ db.escape('%'+params.search+'%') + " OR (`desoffer`) LIKE " + db.escape('%'+params.search+'%') + ") OR ? = '') \
-       ORDER BY `recent_display` DESC LIMIT ?",
-    [params.county, params.county, 
-      params.zip, params.zip, 
-      params.category, params.category,
-      params.search, params.recent], 
-      function (err, results) {
-        if (err) return reject(err);
-        return (resolve(results))
+  return new Promise(function(resolve, reject) {
+  db.query("SELECT * FROM `liveDiscounts_counties` WHERE (`county_id` = ? OR ? = 'all')",
+    [params.counties, params.counties], function(err, results) {
+      if (err) return reject(err);
+      var inList = '';
+      var queryParams = [];
+      //if no discounts exist in selected county
+      if (results.length === 0) {
+        inList = '?';
+        queryParams.push(0);
+      } else {
+        for (var i = results.length - 1; i >= 0; i--) {
+          queryParams.push(results[i].discount_id);
+          inList += '?, ';
+        }
+        inList = inList.slice(0, -2);
       }
-    );
-  });  
+      queryParams.push(
+        params.zip, params.zip, 
+        params.category, params.category, 
+        params.search, 
+        params.recent);
+      db.query("SELECT `discounts`.*, \
+        GROUP_CONCAT(`liveDiscounts_counties`.`county_id` SEPARATOR ', ') AS `counties`, \
+        GROUP_CONCAT(`counties`.`name` SEPARATOR ', ') AS `counties_names`, \
+        `categories`.`name` AS `category_name`, \
+        `states`.`abbreviation` AS `state_abv` \
+        FROM `discounts` \
+        JOIN `liveDiscounts_counties` ON `discounts`.`id` = `liveDiscounts_counties`.`discount_id` \
+        JOIN `counties` ON `liveDiscounts_counties`.`county_id` = `counties`.`id` \
+        JOIN `categories` ON `discounts`.`category` = `categories`.`id` \
+        JOIN `states` ON `discounts`.`state` = `states`.`id` \
+        WHERE `discounts`.`id` IN (" + inList +") \
+        AND (`zip` = ? OR ? = '') \
+        AND (`discounts`.`category` = ? OR ? = 'all') \
+        AND (((`busname`) LIKE "+ db.escape('%'+params.search+'%') + " OR (`desoffer`) LIKE " + db.escape('%'+params.search+'%') + ") OR ? = '') \
+        GROUP BY `discounts`.`id` \
+        ORDER BY `recent_display` DESC LIMIT ?",
+        queryParams, 
+        function (err, results) {
+          if (err) return reject(err);
+          return (resolve(results))
+        }
+      );
+    });  
+  });
 }
 
 //returns one or more discounts by an array of ids
@@ -208,15 +219,20 @@ exports.updateDiscountCounties = function(params) {
     db.query("SELECT * FROM `liveDiscounts_counties` WHERE `discount_id` = ?", 
       [params.id], function(err, results) {
       if (err) return reject(err);
+      params.counties = params.counties.map(Number)
       var removalQueue = [];
       var additionQueue = [];
       var databaseCounties = [];
       for (var i = results.length - 1; i >= 0; i--) {
         databaseCounties.push(results[i].county_id)
+        console.log(params.counties, results[i].county_id)
+        console.log(params.counties.indexOf(results[i].county_id))
         if (params.counties.indexOf(results[i].county_id) === -1) removalQueue.push([params.id, results[i].county_id])
       }
       for (var j = params.counties.length - 1; j >= 0; j--) {
-        if (databaseCounties.indexOf(params.counties[j]) === -1) additionQueue.push([parseInt(params.id), parseInt(params.counties[j])])
+        console.log(databaseCounties, params.counties[j])
+        console.log(databaseCounties.indexOf(params.counties[j]))        
+        if (databaseCounties.indexOf(params.counties[j]) === -1) additionQueue.push([parseInt(params.id), params.counties[j]])
       }
       db.query("DELETE FROM `liveDiscounts_counties` WHERE (`discount_id`, `county_id`) IN (?)", 
         [removalQueue], function(err, results) {

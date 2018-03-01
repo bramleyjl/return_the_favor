@@ -6,7 +6,7 @@ var discounts = require('../models/discounts.js');
 /* GET home page. */
 router.get('/', function(req, res) {
   var defaultSearch = {
-    county : 'all',
+    counties : 'all',
     zip : '',
     category : 'all',
     search : '',

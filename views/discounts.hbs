@@ -79,7 +79,7 @@
 			<div class="container">
 				<label for="county">County</label>
 				<select id="county" class="single" name="county"  style="width:15%">
-				<option></option>
+				<option value ="all">All</option>
 					<option value="1">Rensselaer</option>
 					<option value="2">Albany</option>
 					<option value="3">Schenectady</option>
@@ -185,7 +185,7 @@
 	  						<b>Category:</b> {{category_name}}
 	  					</li>
 	  					<li class="county">
-	  						<b>County:</b> {{county_name}}
+	  						<b>County:</b> {{counties_names}}
 	  					</li>
 	  					<li class="zipcode">
 	  						<b>Zip:</b> {{zip}}
@@ -208,7 +208,7 @@
     {{#if lastPage}}
       <form method="GET" action="/discounts/filter">
       <input type="hidden" name="page" value={{lastPage}}>
-      <input type="hidden" name="county" value={{searchParams.county}}>
+      <input type="hidden" name="county" value={{searchParams.counties}}>
       <input type="hidden" name="zip" value={{searchParams.zip}}>
       <input type="hidden" name="category" value={{searchParams.category}}>
       <input type="hidden" name="recent" value={{searchParams.recent}}>
@@ -221,7 +221,7 @@
     {{#if nextPage}}
         <form method="GET" action="/discounts/filter">
         <input type="hidden" name="page" value={{nextPage}}>
-        <input type="hidden" name="county" value={{searchParams.county}}>
+        <input type="hidden" name="county" value={{searchParams.counties}}>
         <input type="hidden" name="zip" value={{searchParams.zip}}>
         <input type="hidden" name="category" value={{searchParams.category}}>
         <input type="hidden" name="recent" value={{searchParams.recent}}>
