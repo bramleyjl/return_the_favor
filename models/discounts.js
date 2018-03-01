@@ -71,6 +71,13 @@ exports.adminFilterDiscounts = function(params) {
               ORDER BY `expiration` ASC",
           queryParams, function(err, results) {
             if (err) return reject(err);
+            for (var i = results.length - 1; i >= 0; i--) {
+              if (results[i].counties.length > 1) {
+                results[i].counties = results[i].counties.split(',').map(Number);
+              } else {
+                results[i].counties = [parseInt(results[i].counties)]
+              }
+            }
             return resolve(results);
           }
         );
@@ -171,6 +178,13 @@ exports.returnDiscountsById = function(ids) {
       GROUP BY `discounts`.`id` \
       ORDER BY `expiration` ASC", ids, function(err, results) {
       if (err) return reject(err);
+      for (var i = results.length - 1; i >= 0; i--) {
+        if (results[i].counties.length > 1) {
+          results[i].counties = results[i].counties.split(',').map(Number);
+        } else {
+          results[i].counties = [parseInt(results[i].counties)]
+        }
+      }
       return (resolve(results))
     });
   });
@@ -221,8 +235,10 @@ exports.updateDiscountCounties = function(params) {
     db.query("SELECT * FROM `liveDiscounts_counties` WHERE `discount_id` = ?", 
       [params.id], function(err, results) {
       if (err) return reject(err);
+      console.log(params.counties, typeof(params.counties))
       //converts params.counties to an array of integers
       if (params.counties.length > 1) {
+        if (typeof params.counties === 'string') params.counties = params.counties.split(',')
         params.counties = params.counties.map(Number);
       } else {
         params.counties = [parseInt(params.counties)]
@@ -303,6 +319,8 @@ exports.checkExpiration = function(discounts, caller) {
 //inserts submitted discount into the holding table for review
 exports.createHoldingDiscount = function(discount, counties) {
   var currentTime =  moment(new Date());
+  console.log("counties " + counties)
+  console.log(counties.length)
   discount.expiration = moment(currentTime).add({months:discount.expiration}).format("YYYY-MM-DD HH:mm:ss");
   db.query("INSERT INTO `holding_discounts` SET ?", [discount], function (err, results, fields) {
     if (err) throw err;

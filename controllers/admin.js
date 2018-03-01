@@ -73,7 +73,8 @@ router.get('/live_discounts', ensureAuthenticated, function(req, res) {
       }
       for (var j = results.length - 1; j >= 0; j--) {
         results[j].discountIDs = discountIDs
-      }   
+      }
+      console.log(results)   
       res.render('adminLookup', {live_discounts: results, discountIDs: discountIDs});
       }
     });
@@ -102,7 +103,6 @@ router.post('/live_discounts/export', ensureAuthenticated, function(req, res) {
 //live_discounts update and delete function
 router.post('/live_discounts', ensureAuthenticated, function(req, res) {
   var discountIDs = req.body.discountIDs.split(',').map(Number);
-  console.log(discountIDs)
   if (req.body.action === "Delete") {
     var removeID = discountIDs.indexOf(parseInt(req.body.id))
     discountIDs.splice(removeID, 1);
@@ -129,12 +129,10 @@ router.post('/live_discounts', ensureAuthenticated, function(req, res) {
       //creates or deletes liveDiscounts_counties rows as necessary
       var updatedDiscountCounties = discounts.updateDiscountCounties(req.body)
       updatedDiscountCounties.then(function(result) {
-        console.log(req.body.id)
         //grabs updated discount so it can be at the top of the results displayed
         var getUpdatedDiscount = discounts.returnDiscountsById([req.body.id])
         getUpdatedDiscount.then(function(result) {
           var updated_discount = result
-          console.log("updated_discount " + updated_discount[0])
           //removes updated discount from list of IDs so it isn't fetched twice
           var removeID = discountIDs.indexOf(parseInt(req.body.id))
           discountIDs.splice(removeID, 1);
@@ -142,7 +140,6 @@ router.post('/live_discounts', ensureAuthenticated, function(req, res) {
           var remainingDiscounts = discounts.returnDiscountsById(discountIDs)
           remainingDiscounts.then(function(results){
             results.unshift(updated_discount[0])
-            console.log(results)
             //checks to see if expiration was updated, then sets all discounts' expiration status
             if (req.body.originalExpiration !== req.body.expiration) discounts.bumpToRecent(req.body.id)
             results = discounts.checkExpiration(results, "admin")
