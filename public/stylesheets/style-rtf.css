@@ -264,6 +264,10 @@ ul {
  .binfo label, .cinfo label, .offerinfo label {
      display: block;
  }
+ .container label {
+     margin: 0 0 0 0;
+     padding: 0 0 0 0;
+ }
 
    /* Support page CSS */
  .binfo{
@@ -568,7 +572,7 @@ span.indent {
     margin: 0 0 0 0;
     padding: 0 0 0 0;
     background: #f2f2f2;
-    max-height: 28px;
+    height: inherit;
     border-radius: 0;
     border: 1px solid #C3960D;
 }
@@ -671,6 +675,29 @@ form div + div {
     float:left;
     margin-right: 3px;
 }
+.container ul {
+    display: block;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    width: 100%;
+}
+.container  li {
+    display: inline;
+    float:left;
+    margin-right: 3px;
+}
+/* .topbtns{
+    display: block;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    width: 100%;
+}
+.topbtns {
+    display: inline;
+    float:left;
+    margin: 0 3px 0 0;
+    padding: 0 0 0 0;
+} */
 .adminhold{
     display: block;
     margin: 5px auto;

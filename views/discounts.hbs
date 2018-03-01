@@ -14,7 +14,6 @@
 		<link rel="stylesheet" type="text/css" href="/stylesheets/style-rtf.css">
 		<link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700" rel="stylesheet">
 		<link rel="icon" type="image/png" href="/images/favicon.png">
-    {{!-- <script src="javascript/jquery-3.3.1.min.js"></script> --}}
 		<title>Discounts Return The Favor Veterans DD-214</title>
 	</head>
 
@@ -78,7 +77,8 @@
 			<!-- form action goes here? -->
 			<div class="container">
 				<label for="county">County</label>
-				<select id="county" class="single" name="county"  style="width:15%">
+				<select id="county" class="single" name="county"  style="width:12%">
+				<option></option>
 				<option value ="all">All</option>
 					<option value="1">Rensselaer</option>
 					<option value="2">Albany</option>
@@ -92,8 +92,8 @@
 					<option value="10">Montgomery</option>
 					</select>
 
-				<label for="zipcode"> Zip Code </label>
-				<input type="number" placeholder="  5 Digit Zip Code" name="zip" maxlength="5">
+				<label for="zipcode">Zip</label>
+				<input type="number" placeholder="  5 Digit Zip" name="zip" maxlength="5">
 
   				<label for="category">Category</label>
   				<select id="category" name="category">
@@ -130,7 +130,7 @@
   				<input class="search" type="text" placeholder="   Search.." name="search">
       			<button type="submit"><i class="fa fa-search fa-2x"></i></button>
 			<!-- close the div "container" -->
-			<script src="javascript/script.js"></script>
+
 			</div>
 			</form>
 
@@ -233,7 +233,7 @@
 
     </div>
 <!-- ************************ END OF DISCOUNTS **************** -->
-
+<script src="javascript/script.js"></script>
 <!-- ______________START OF THE FOOTER AREA OF THE PAGE_______________ -->
 {{> footer}}
 <!-- ______________END THE FOOTER AREA OF THE PAGE_______________ -->

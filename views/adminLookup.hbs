@@ -24,11 +24,9 @@
      <ul>
       <li><form action="/admin/holding" method="GET">
         <input type="submit" value="Holding Page">
-    </form>
-      <form action="/admin/logout" method="get">
-        <div>
+    </form></li>
+      <li><form action="/admin/logout" method="get">
           <input type="submit" value="Log Out"/>
-        </div>
       </form> </li>
       {{#if discountIDs}}
       <li><form method="POST" action="/admin/live_discounts/export">
@@ -260,16 +258,16 @@
 <!-- ************************ START OF LIVE VETERANS **************** -->
 <div id= "adminSectionThree">
   <h2>Veterans Email</h2>
-
-    <form method="POST" action="/admin/live_veterans/export">
-      <button type="submit" value="Export">Export All Veterans</button>
-    </form>
-
   <div class="container">
-  <form method="GET" action="/admin/veteran_search">
-    <input type="text" name="email" placeholder="Search email here" size="40" required>
-    <button type="submit">Search</button>
-  </form>
+      <ul>
+          <li><form method="GET" action="/admin/veteran_search">
+            <input type="text" name="email" placeholder="Search email here" size="40" required>
+            <button type="submit">Search</button>
+          </form></li>
+          <li><form method="POST" action="/admin/live_veterans/export">
+            <button type="submit" value="Export">Export All Veterans</button>
+          </form></li>
+      </ul>        
   </div>
 
   {{#if live_veterans}}
