@@ -20,7 +20,9 @@ $(document).ready(function() {
   };
   $(".single").select2(configParamsObj);
   });
-
+  $(".js-example-tags").select2({
+    tags: true
+  });
 
 $(function(){
  	$(".card").flip ({

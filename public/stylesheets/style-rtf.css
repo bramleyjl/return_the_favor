@@ -675,7 +675,7 @@ form div + div {
     float:left;
     margin-right: 3px;
 }
-.container ul {
+/* .container ul {
     display: block;
     margin: 0 0 0 0;
     padding: 0 0 0 0;
@@ -685,7 +685,7 @@ form div + div {
     display: inline;
     float:left;
     margin-right: 3px;
-}
+} */
 /* .topbtns{
     display: block;
     margin: 0 0 0 0;

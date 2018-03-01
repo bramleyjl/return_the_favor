@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="javascript/jquery-3.3.1.min.js"></script>
+    <script src="/javascript/jquery-3.3.1.min.js"></script>
     <script
         src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js">
             </script>
@@ -11,7 +11,6 @@
     <link rel="stylesheet" type="text/css" href="/stylesheets/style-rtf.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/style-rtfres.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700" rel="stylesheet">
-    <script src="javascript/jquery-3.3.1.min.js"></script>
     <link rel="icon" type="image/png" href="/images/favicon.png">
     <title>RTFAdminHolding</title>
   </head>
@@ -61,7 +60,7 @@
             <input type="checkbox" name="county" value="2">Albany<br>
             <input type="checkbox" name="county" value="3">Schenectady<br>
             <input type="checkbox" name="county" value="4">Saratoga<br> --}}
-            {{!-- <select id="county" class="smultiple" name="county" multiple="multiple" style="width:100%">
+            {{!-- <select id="county" class="smultiple" name="counties" multiple="multiple" style="width:100%" data-placeholder="Select one or more">
             <option value="1">Rensselaer</option>
             <option value="2">Albany</option>
             <option value="3">Schenectady</option>
@@ -73,8 +72,8 @@
             <option value="9">Schoharie</option>
             <option value="10">Montgomery</option>
             </select> --}}
-            <select id="county" name="counties" style="width:100%">
-            <option value="{{counties}}">{{counties_names}}</option>
+            <select id="county" class="smultiple" name="counties" multiple="multiple" style="width:100%">
+            <option selected="{{counties}}">{{#each counties_names}}</option>{{/each}}
             <option value="1">Rensselaer</option>
             <option value="2">Albany</option>
             <option value="3">Schenectady</option>
@@ -85,6 +84,7 @@
             <option value="8">Warren</option>
             <option value="9">Schoharie</option>
             <option value="10">Montgomery</option>
+           </select>
       		</td>
       		<td><input type="text" value="{{street}}" name="street">
       		</td>
@@ -211,7 +211,7 @@
       {{/if}}
 
     <!-- close adminSectionTwo -->
-    <script src="javascript/script.js"></script>
+    <script src="/javascript/script.js"></script>
     </div>
 <!-- ************************ END OF VETERANS HOLDING **************** -->
 
