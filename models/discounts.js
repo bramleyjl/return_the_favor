@@ -346,8 +346,14 @@ exports.deleteHoldingDiscount = function(id) {
 
 //creates new row in discount table and removes identical holding table row
 exports.validateHoldingDiscount = function(params) {
+  //converts params.counties to an array of integers
+  //then stashes & deletes it so the new discount row can be created
+  if (params.counties.length > 1) {
+    params.counties = params.counties.split(',').map(Number);
+  } else {
+    params.counties = [parseInt(params.counties)]
+  }
   var counties = params.counties
-  console.log(counties)
   delete params.counties
   //turn Handlebars' parsed timestamps back into SQL-ready timestamps
   params.created = (params.created).substring(4, 24)
@@ -356,7 +362,6 @@ exports.validateHoldingDiscount = function(params) {
   return new Promise(function (resolve, reject) {
     db.query("INSERT INTO `discounts` SET ?", [params], function (err, results, fields) {
       if (err) return reject(err);
-      console.log(results)
       //pull all county ids and create an object to make liveDiscounts_counties rows with
       var countyRows = []
       for (var i = counties.length - 1; i >= 0; i--) {

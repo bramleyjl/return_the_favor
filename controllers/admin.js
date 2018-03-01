@@ -214,7 +214,6 @@ router.get('/holding', ensureAuthenticated, function(req, res) {
     var holdingVeterans = veterans.returnAllHoldingVeterans();
     holdingVeterans.then(function(result) {
       if (result.length > 0) adminDisplay.holdingVeterans = result
-      console.log(adminDisplay.holdingDiscounts)
       res.render('adminHolding', { 
         holding_discounts: adminDisplay.holdingDiscounts,
         holding_veterans: adminDisplay.holdingVeterans
@@ -225,7 +224,6 @@ router.get('/holding', ensureAuthenticated, function(req, res) {
 
 //holding_discounts update, delete, and validate function
 router.post('/holding_discounts', ensureAuthenticated, function(req, res) {
-  console.log(req.body.counties)
   if (req.body.action === "Delete") {
     discounts.deleteHoldingDiscount(req.body.id)
     res.redirect('/admin/holding')
