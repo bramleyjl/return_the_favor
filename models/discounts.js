@@ -85,10 +85,8 @@ exports.businessLookup = function(name) {
   return new Promise(function (resolve, reject) {
     db.query("SELECT \
       `discounts`.`id`, \
-      `discounts`.`busname`, \
-      `counties`.`name` AS `county_name` \
+      `discounts`.`busname` \
       FROM `discounts` \
-      JOIN `counties` ON `discounts`.`county` = `counties`.`id` \
       WHERE `busname` LIKE "+ db.escape('%'+name+'%'), function (err, results) {
         if (err) return reject(err);
         return (resolve(results))
@@ -156,6 +154,8 @@ exports.returnDiscountsById = function(ids) {
     inList += '?, ';
   }
   inList = inList.slice(0, -2);
+  console.log(ids)
+  console.log(inList)
   return new Promise(function (resolve, reject){ 
     db.query("SELECT `discounts`.*, \
       GROUP_CONCAT(`liveDiscounts_counties`.`county_id` SEPARATOR ', ') AS `counties`, \
@@ -167,7 +167,9 @@ exports.returnDiscountsById = function(ids) {
       JOIN `counties` ON `liveDiscounts_counties`.`county_id` = `counties`.`id` \
       JOIN `categories` ON `discounts`.`category` = `categories`.`id` \
       JOIN `states` ON `discounts`.`state` = `states`.`id` \
-      WHERE `discounts`.`id` IN (" + inList + ") GROUP BY `discounts`.`id`", ids, function(err, results) {
+      WHERE `discounts`.`id` IN (" + inList + ") \
+      GROUP BY `discounts`.`id` \
+      ORDER BY `expiration` ASC", ids, function(err, results) {
       if (err) return reject(err);
       return (resolve(results))
     });
@@ -244,11 +246,12 @@ exports.updateDiscountCounties = function(params) {
       }
       if (additionQueue.length > 0) {
         db.query("INSERT INTO `liveDiscounts_counties` (`discount_id`, `county_id`) VALUES ?", 
-        [additionQueue], function(err, addResults) {
+        [additionQueue], function(err, results) {
           if (err) return reject(err)
-          return resolve(addResults)
+          return resolve(results)
         })
       }
+      return resolve(results)
     })
   })
 }
@@ -311,6 +314,7 @@ exports.createHoldingDiscount = function(discount, counties) {
       });
     }
   });
+
 }
 
 //returns the entire discounts holding table
@@ -329,6 +333,13 @@ exports.returnAllHoldingDiscounts = function() {
       GROUP BY `holding_discounts`.`id`", 
     function (err, results, fields) {
       if (err) return reject(err);
+      for (var i = results.length - 1; i >= 0; i--) {
+        if (results[i].counties.length > 1) {
+          results[i].counties = results[i].counties.split(',').map(Number);
+        } else {
+          results[i].counties = [parseInt(results[i].counties)]
+        }
+      }
       return resolve(results)
     });
   });
@@ -346,8 +357,14 @@ exports.deleteHoldingDiscount = function(id) {
 
 //creates new row in discount table and removes identical holding table row
 exports.validateHoldingDiscount = function(params) {
+  //converts params.counties to an array of integers
+  //then stashes & deletes it so the new discount row can be created
+  if (params.counties.length > 1) {
+    params.counties = params.counties.split(',').map(Number);
+  } else {
+    params.counties = [parseInt(params.counties)]
+  }
   var counties = params.counties
-  console.log(counties)
   delete params.counties
   //turn Handlebars' parsed timestamps back into SQL-ready timestamps
   params.created = (params.created).substring(4, 24)
@@ -356,12 +373,10 @@ exports.validateHoldingDiscount = function(params) {
   return new Promise(function (resolve, reject) {
     db.query("INSERT INTO `discounts` SET ?", [params], function (err, results, fields) {
       if (err) return reject(err);
-      console.log(results)
       //pull all county ids and create an object to make liveDiscounts_counties rows with
       var countyRows = []
       for (var i = counties.length - 1; i >= 0; i--) {
         countyRows.push([results.insertId, counties[i]])
-        console.log(countyRows)
       }
       db.query("INSERT INTO `liveDiscounts_counties` (`discount_id`, `county_id`) VALUES ?", 
       [countyRows], function(err, results) {
