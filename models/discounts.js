@@ -85,10 +85,8 @@ exports.businessLookup = function(name) {
   return new Promise(function (resolve, reject) {
     db.query("SELECT \
       `discounts`.`id`, \
-      `discounts`.`busname`, \
-      `counties`.`name` AS `county_name` \
+      `discounts`.`busname` \
       FROM `discounts` \
-      JOIN `counties` ON `discounts`.`county` = `counties`.`id` \
       WHERE `busname` LIKE "+ db.escape('%'+name+'%'), function (err, results) {
         if (err) return reject(err);
         return (resolve(results))
@@ -311,6 +309,7 @@ exports.createHoldingDiscount = function(discount, counties) {
       });
     }
   });
+
 }
 
 //returns the entire discounts holding table
@@ -329,6 +328,14 @@ exports.returnAllHoldingDiscounts = function() {
       GROUP BY `holding_discounts`.`id`", 
     function (err, results, fields) {
       if (err) return reject(err);
+      for (var i = results.length - 1; i >= 0; i--) {
+        if (results[i].counties.length > 1) {
+          results[i].counties = results[i].counties.split(',').map(Number);
+        } else {
+          results[i].counties = [parseInt(results[i].counties)]
+        }
+      }
+      console.log(results)
       return resolve(results)
     });
   });
@@ -366,7 +373,6 @@ exports.validateHoldingDiscount = function(params) {
       var countyRows = []
       for (var i = counties.length - 1; i >= 0; i--) {
         countyRows.push([results.insertId, counties[i]])
-        console.log(countyRows)
       }
       db.query("INSERT INTO `liveDiscounts_counties` (`discount_id`, `county_id`) VALUES ?", 
       [countyRows], function(err, results) {

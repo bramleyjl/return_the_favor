@@ -84,9 +84,9 @@ router.get('/live_discounts', ensureAuthenticated, function(req, res) {
 router.post('/live_discounts/export', ensureAuthenticated, function(req, res) {
   //turn list of ids to an array of integers
   var ids = req.body.discounts.split(',').map(Number);
-  var exportDiscounts = discounts.returnDiscountsByIdArray(ids)
+  var exportDiscounts = discounts.returnDiscountsById(ids)
     exportDiscounts.then(function(results) {
-      var fields = ['id', 'busname', 'desoffer'];
+      var fields = ['id', 'busname', 'counties_names', 'desoffer', 'cname', 'cphone', 'busmail', 'notes'];
       const opts = { fields };
       const parser = new Json2csvParser(opts);
       const csv = parser.parse(results);
@@ -211,6 +211,7 @@ router.get('/holding', ensureAuthenticated, function(req, res) {
   var holdingDiscounts = discounts.returnAllHoldingDiscounts();
   holdingDiscounts.then(function(result) {
     if (result.length > 0) adminDisplay.holdingDiscounts = result
+console.log(typeof(result[0].counties), typeof(result[0].counties[0]))
     var holdingVeterans = veterans.returnAllHoldingVeterans();
     holdingVeterans.then(function(result) {
       if (result.length > 0) adminDisplay.holdingVeterans = result
