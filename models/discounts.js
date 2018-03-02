@@ -161,8 +161,6 @@ exports.returnDiscountsById = function(ids) {
     inList += '?, ';
   }
   inList = inList.slice(0, -2);
-  console.log(ids)
-  console.log(inList)
   return new Promise(function (resolve, reject){ 
     db.query("SELECT `discounts`.*, \
       GROUP_CONCAT(`liveDiscounts_counties`.`county_id` SEPARATOR ', ') AS `counties`, \
@@ -235,10 +233,12 @@ exports.updateDiscountCounties = function(params) {
     db.query("SELECT * FROM `liveDiscounts_counties` WHERE `discount_id` = ?", 
       [params.id], function(err, results) {
       if (err) return reject(err);
-      console.log(params.counties, typeof(params.counties))
       //converts params.counties to an array of integers
       if (params.counties.length > 1) {
-        if (typeof params.counties === 'string') params.counties = params.counties.split(',')
+        if (params.counties[0].length > 1) { 
+          var firstCounties = params.counties.shift()
+          params.counties = firstCounties.split(',').concat(params.counties)
+        }
         params.counties = params.counties.map(Number);
       } else {
         params.counties = [parseInt(params.counties)]
@@ -319,8 +319,6 @@ exports.checkExpiration = function(discounts, caller) {
 //inserts submitted discount into the holding table for review
 exports.createHoldingDiscount = function(discount, counties) {
   var currentTime =  moment(new Date());
-  console.log("counties " + counties)
-  console.log(counties.length)
   discount.expiration = moment(currentTime).add({months:discount.expiration}).format("YYYY-MM-DD HH:mm:ss");
   db.query("INSERT INTO `holding_discounts` SET ?", [discount], function (err, results, fields) {
     if (err) throw err;
@@ -378,7 +376,11 @@ exports.validateHoldingDiscount = function(params) {
   //converts params.counties to an array of integers
   //then stashes & deletes it so the new discount row can be created
   if (params.counties.length > 1) {
-    params.counties = params.counties.split(',').map(Number);
+    if (params.counties[0].length > 1) { 
+      var firstCounties = params.counties.shift()
+      params.counties = firstCounties.split(',').concat(params.counties)
+    }
+    params.counties = params.counties.map(Number);
   } else {
     params.counties = [parseInt(params.counties)]
   }
