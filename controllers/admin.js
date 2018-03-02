@@ -102,6 +102,7 @@ router.post('/live_discounts/export', ensureAuthenticated, function(req, res) {
 
 //live_discounts update and delete function
 router.post('/live_discounts', ensureAuthenticated, function(req, res) {
+  console.log(req.body)
   var discountIDs = req.body.discountIDs.split(',').map(Number);
   if (req.body.action === "Delete") {
     var removeID = discountIDs.indexOf(parseInt(req.body.id))

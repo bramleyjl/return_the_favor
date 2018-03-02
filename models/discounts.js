@@ -235,9 +235,11 @@ exports.updateDiscountCounties = function(params) {
       if (err) return reject(err);
       //converts params.counties to an array of integers
       if (params.counties.length > 1) {
-        if (params.counties[0].length > 1) { 
+        if (typeof(params.counties) === 'object' && params.counties[0].length > 1) {
           var firstCounties = params.counties.shift()
           params.counties = firstCounties.split(',').concat(params.counties)
+        } else if (typeof(params.counties) === 'string') {
+          params.counties = params.counties.split(',')
         }
         params.counties = params.counties.map(Number);
       } else {
@@ -375,10 +377,13 @@ exports.deleteHoldingDiscount = function(id) {
 exports.validateHoldingDiscount = function(params) {
   //converts params.counties to an array of integers
   //then stashes & deletes it so the new discount row can be created
+  console.log(params.counties, typeof(params.counties), params.counties[0].length)
   if (params.counties.length > 1) {
-    if (params.counties[0].length > 1) { 
+    if (typeof(params.counties) === 'object' && params.counties[0].length > 1) {
       var firstCounties = params.counties.shift()
       params.counties = firstCounties.split(',').concat(params.counties)
+    } else if (typeof(params.counties) === 'string') {
+      params.counties = params.counties.split(',')
     }
     params.counties = params.counties.map(Number);
   } else {
