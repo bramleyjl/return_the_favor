@@ -59,7 +59,9 @@
               <p>{{ this }}</p>
             {{/each}}
             <select id="county" class="smultiple" name="counties" multiple="multiple" style="width:100%" required>
-            <option selected value="{{counties}}">{{counties_names}}</option>
+            {{#each counties}}
+            <option selected value="{{this}}">{{this}}</option>
+            {{/each}}
             <option value="1">Rensselaer</option>
             <option value="2">Albany</option>
             <option value="3">Schenectady</option>
