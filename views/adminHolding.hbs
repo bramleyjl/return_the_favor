@@ -55,12 +55,12 @@
                 </select>
       		</td>
       		<td>
-            {{#each counties}}
+            {{!-- {{#each counties_names}}
               <p>{{ this }}</p>
-            {{/each}}
+            {{/each}} --}}
             <select id="county" class="smultiple" name="counties" multiple="multiple" style="width:100%" required>
-            {{#each counties}}
-            <option selected value="{{this}}">{{this}}</option>
+            {{#each counties_names}}
+            <option selected value="{{counties}}">{{this}}</option>
             {{/each}}
             <option value="1">Rensselaer</option>
             <option value="2">Albany</option>
