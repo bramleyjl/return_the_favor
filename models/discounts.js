@@ -56,8 +56,8 @@ exports.adminFilterDiscounts = function(params) {
         queryParams.push(params.category, params.category, params.state);
         db.query(
           "SELECT `discounts`.*, \
-              GROUP_CONCAT(`liveDiscounts_counties`.`county_id` SEPARATOR ', ') AS `counties`, \
-              GROUP_CONCAT(`counties`.`name` SEPARATOR ', ') AS `counties_names`, \
+              GROUP_CONCAT(`liveDiscounts_counties`.`county_id` SEPARATOR ', ') AS `county_ids`, \
+              GROUP_CONCAT(`counties`.`name` SEPARATOR ', ') AS `county_names`, \
               `categories`.`name` AS `category_name`, \
               `states`.`abbreviation` AS `state_abv` \
               FROM `discounts` \
@@ -72,13 +72,20 @@ exports.adminFilterDiscounts = function(params) {
           queryParams, function(err, results) {
             if (err) return reject(err);
             for (var i = results.length - 1; i >= 0; i--) {
-              if (results[i].counties.length > 1) {
-                results[i].counties = results[i].counties.split(',').map(Number);
-                results[i].counties_names = results[i].counties_names.split(',');
+              if (results[i].county_ids.length > 1) {
+                results[i].county_ids = results[i].county_ids.split(',').map(Number);
+                results[i].county_names = results[i].county_names.split(',');
               } else {
-                results[i].counties = [parseInt(results[i].counties)]
-                results[i].counties_names = [results[i].counties_names]
+                results[i].county_ids = [parseInt(results[i].county_ids)]
+                results[i].county_names = [results[i].county_names]
               }
+              results[i].counties = []
+              for (var j = results[i].county_ids.length - 1; j >= 0; j--) {
+                results[i].counties.push({
+                  id: results[i].county_ids[j],
+                  name: results[i].county_names[j]
+                })
+              } 
             }
             return resolve(results);
           }
@@ -130,8 +137,8 @@ exports.filterDiscounts = function(params) {
         params.search, 
         params.recent);
       db.query("SELECT `discounts`.*, \
-        GROUP_CONCAT(`liveDiscounts_counties`.`county_id` SEPARATOR ', ') AS `counties`, \
-        GROUP_CONCAT(`counties`.`name` SEPARATOR ', ') AS `counties_names`, \
+        GROUP_CONCAT(`liveDiscounts_counties`.`county_id` SEPARATOR ', ') AS `county_ids`, \
+        GROUP_CONCAT(`counties`.`name` SEPARATOR ', ') AS `county_names`, \
         `categories`.`name` AS `category_name`, \
         `states`.`abbreviation` AS `state_abv` \
         FROM `discounts` \
@@ -149,14 +156,22 @@ exports.filterDiscounts = function(params) {
         function (err, results) {
           if (err) return reject(err);
           for (var i = results.length - 1; i >= 0; i--) {
-            if (results[i].counties.length > 1) {
-              results[i].counties = results[i].counties.split(',').map(Number);
-              results[i].counties_names = results[i].counties_names.split(',');
+            if (results[i].county_ids.length > 1) {
+              results[i].county_ids = results[i].county_ids.split(',').map(Number);
+              results[i].county_names = results[i].county_names.split(',');
             } else {
-              results[i].counties = [parseInt(results[i].counties)]
-              results[i].counties_names = [results[i].counties_names]
+              results[i].county_ids = [parseInt(results[i].county_ids)]
+              results[i].county_names = [results[i].county_names]
             }
+            results[i].counties = []
+            for (var j = results[i].county_ids.length - 1; j >= 0; j--) {
+              results[i].counties.push({
+                id: results[i].county_ids[j],
+                name: results[i].county_names[j]
+              })
+            }            
           }
+          console.log(results)
           return (resolve(results))
         }
       );
@@ -174,8 +189,8 @@ exports.returnDiscountsById = function(ids) {
   inList = inList.slice(0, -2);
   return new Promise(function (resolve, reject){ 
     db.query("SELECT `discounts`.*, \
-      GROUP_CONCAT(`liveDiscounts_counties`.`county_id` SEPARATOR ', ') AS `counties`, \
-      GROUP_CONCAT(`counties`.`name` SEPARATOR ', ') AS `counties_names`, \
+      GROUP_CONCAT(`liveDiscounts_counties`.`county_id` SEPARATOR ', ') AS `county_ids`, \
+      GROUP_CONCAT(`counties`.`name` SEPARATOR ', ') AS `county_names`, \
       `categories`.`name` AS `category_name`, \
       `states`.`abbreviation` AS `state_abv` \
       FROM `discounts` \
@@ -188,14 +203,22 @@ exports.returnDiscountsById = function(ids) {
       ORDER BY `expiration` ASC", ids, function(err, results) {
       if (err) return reject(err);
       for (var i = results.length - 1; i >= 0; i--) {
-        if (results[i].counties.length > 1) {
-          results[i].counties = results[i].counties.split(',').map(Number);
-          results[i].counties_names = results[i].counties_names.split(',');
+        if (results[i].county_ids.length > 1) {
+          results[i].county_ids = results[i].county_ids.split(',').map(Number);
+          results[i].county_names = results[i].county_names.split(',');
         } else {
-          results[i].counties = [parseInt(results[i].counties)]
-          results[i].counties_names = [results[i].counties_names]
+          results[i].county_ids = [parseInt(results[i].county_ids)]
+          results[i].county_names = [results[i].county_names]
+        }
+        results[i].counties = []
+        for (var j = results[i].county_ids.length - 1; j >= 0; j--) {
+          results[i].counties.push({
+            id: results[i].county_ids[j],
+            name: results[i].county_names[j]
+          })
         }
       }
+      console.log(results)
       return (resolve(results))
     });
   });
@@ -352,8 +375,8 @@ exports.createHoldingDiscount = function(discount, counties) {
 exports.returnAllHoldingDiscounts = function() {
   return new Promise(function (resolve, reject) {
     db.query("SELECT `holding_discounts`.*, \
-      GROUP_CONCAT(`holdingDiscounts_counties`.`county_id` SEPARATOR ', ') AS `counties`, \
-      GROUP_CONCAT(`counties`.`name` SEPARATOR ', ') AS `counties_names`, \
+      GROUP_CONCAT(`holdingDiscounts_counties`.`county_id` SEPARATOR ', ') AS `county_ids`, \
+      GROUP_CONCAT(`counties`.`name` SEPARATOR ', ') AS `county_names`, \
       `categories`.`name` AS `category_name`, \
       `states`.`abbreviation` AS `state_abv` \
       FROM `holding_discounts`\
@@ -365,14 +388,22 @@ exports.returnAllHoldingDiscounts = function() {
     function (err, results, fields) {
       if (err) return reject(err);
       for (var i = results.length - 1; i >= 0; i--) {
-        if (results[i].counties.length > 1) {
-          results[i].counties = results[i].counties.split(',').map(Number);
-          results[i].counties_names = results[i].counties_names.split(',');
+        if (results[i].county_ids.length > 1) {
+          results[i].county_ids = results[i].county_ids.split(',').map(Number);
+          results[i].county_names = results[i].county_names.split(',');
         } else {
-          results[i].counties = [parseInt(results[i].counties)]
-          results[i].counties_names = [results[i].counties_names]
+          results[i].county_ids = [parseInt(results[i].county_ids)]
+          results[i].county_names = [results[i].county_names]
+        }
+        results[i].counties = []
+        for (var j = results[i].county_ids.length - 1; j >= 0; j--) {
+          results[i].counties.push({
+            id: results[i].county_ids[j],
+            name: results[i].county_names[j]
+          })
         }
       }
+      console.log(results)
       return resolve(results)
     });
   });
@@ -405,6 +436,7 @@ exports.validateHoldingDiscount = function(params) {
   }
   var counties = params.counties
   delete params.counties
+  console.log(counties)
   //turn Handlebars' parsed timestamps back into SQL-ready timestamps
   params.created = (params.created).substring(4, 24)
   params.created = moment(params.created, "MMM-DD-YYYY HH:mm:ss").format("YYYY-MM-DD HH:mm:ss")
@@ -417,6 +449,7 @@ exports.validateHoldingDiscount = function(params) {
       for (var i = counties.length - 1; i >= 0; i--) {
         countyRows.push([results.insertId, counties[i]])
       }
+      console.log(countyRows)
       db.query("INSERT INTO `liveDiscounts_counties` (`discount_id`, `county_id`) VALUES ?", 
       [countyRows], function(err, results) {
           if (err) return reject(err)

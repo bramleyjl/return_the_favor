@@ -184,9 +184,11 @@
 	  					<li class="category">
 	  						<b>Category:</b> {{category_name}}
 	  					</li>
+              {{#each counties}}
 	  					<li class="county">
-	  						<b>County:</b> {{counties_names}}
+	  						<b>County:</b> {{name}}
 	  					</li>
+              {{/each}}
 	  					<li class="zipcode">
 	  						<b>Zip:</b> {{zip}}
 	  					</li>
