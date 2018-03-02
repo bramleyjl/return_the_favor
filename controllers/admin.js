@@ -48,6 +48,7 @@ router.get('/live_discounts', ensureAuthenticated, function(req, res) {
         res.render('adminLookup', {no_discounts: noDiscounts})
       } else {
       result = discounts.checkExpiration(result, "admin")
+      console.log(result)
       res.render('adminLookup', {live_discounts: result, discountIDs: result[0].id})
       }
     })
@@ -227,7 +228,7 @@ router.get('/holding', ensureAuthenticated, function(req, res) {
     var holdingVeterans = veterans.returnAllHoldingVeterans();
     holdingVeterans.then(function(result) {
       if (result.length > 0) adminDisplay.holdingVeterans = result
-      console.log(adminDisplay.holdingDiscounts)
+        console.log(adminDisplay.holdingDiscounts)
       res.render('adminHolding', { 
         holding_discounts: adminDisplay.holdingDiscounts,
         holding_veterans: adminDisplay.holdingVeterans
@@ -242,7 +243,6 @@ router.post('/holding_discounts', ensureAuthenticated, function(req, res) {
     discounts.deleteHoldingDiscount(req.body.id)
     res.redirect('/admin/holding')
   } else if (req.body.action === "Validate") {
-    console.log(req.body)
     var holdingId = req.body.id
     delete req.body.id
     delete req.body.action

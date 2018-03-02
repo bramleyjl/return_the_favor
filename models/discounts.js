@@ -74,8 +74,10 @@ exports.adminFilterDiscounts = function(params) {
             for (var i = results.length - 1; i >= 0; i--) {
               if (results[i].counties.length > 1) {
                 results[i].counties = results[i].counties.split(',').map(Number);
+                results[i].counties_names = results[i].counties_names.split(',');
               } else {
                 results[i].counties = [parseInt(results[i].counties)]
+                results[i].counties_names = [results[i].counties_names]
               }
             }
             return resolve(results);
@@ -146,6 +148,15 @@ exports.filterDiscounts = function(params) {
         queryParams, 
         function (err, results) {
           if (err) return reject(err);
+          for (var i = results.length - 1; i >= 0; i--) {
+            if (results[i].counties.length > 1) {
+              results[i].counties = results[i].counties.split(',').map(Number);
+              results[i].counties_names = results[i].counties_names.split(',');
+            } else {
+              results[i].counties = [parseInt(results[i].counties)]
+              results[i].counties_names = [results[i].counties_names]
+            }
+          }
           return (resolve(results))
         }
       );
@@ -179,8 +190,10 @@ exports.returnDiscountsById = function(ids) {
       for (var i = results.length - 1; i >= 0; i--) {
         if (results[i].counties.length > 1) {
           results[i].counties = results[i].counties.split(',').map(Number);
+          results[i].counties_names = results[i].counties_names.split(',');
         } else {
           results[i].counties = [parseInt(results[i].counties)]
+          results[i].counties_names = [results[i].counties_names]
         }
       }
       return (resolve(results))
@@ -354,8 +367,10 @@ exports.returnAllHoldingDiscounts = function() {
       for (var i = results.length - 1; i >= 0; i--) {
         if (results[i].counties.length > 1) {
           results[i].counties = results[i].counties.split(',').map(Number);
+          results[i].counties_names = results[i].counties_names.split(',');
         } else {
           results[i].counties = [parseInt(results[i].counties)]
+          results[i].counties_names = [results[i].counties_names]
         }
       }
       return resolve(results)
@@ -377,7 +392,6 @@ exports.deleteHoldingDiscount = function(id) {
 exports.validateHoldingDiscount = function(params) {
   //converts params.counties to an array of integers
   //then stashes & deletes it so the new discount row can be created
-  console.log(params.counties, typeof(params.counties), params.counties[0].length)
   if (params.counties.length > 1) {
     if (typeof(params.counties) === 'object' && params.counties[0].length > 1) {
       var firstCounties = params.counties.shift()
