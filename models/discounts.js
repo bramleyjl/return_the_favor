@@ -171,7 +171,6 @@ exports.filterDiscounts = function(params) {
               })
             }            
           }
-          console.log(results)
           return (resolve(results))
         }
       );
@@ -182,6 +181,7 @@ exports.filterDiscounts = function(params) {
 //returns one or more discounts by an array of ids
 exports.returnDiscountsById = function(ids) {
   //constructor for sql query to select the right number of results
+  if (typeof(ids) === "string") ids = [ids]
   var inList = '';
   for (var i = ids.length - 1; i >= 0; i--) {
     inList += '?, ';
@@ -218,7 +218,6 @@ exports.returnDiscountsById = function(ids) {
           })
         }
       }
-      console.log(results)
       return (resolve(results))
     });
   });
