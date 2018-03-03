@@ -22,7 +22,7 @@ $(document).ready(function() {
   });
 
 
-$(function(){
+$(document).ready(function(){
  	$(".card").flip ({
         trigger: 'hover'
    		});
