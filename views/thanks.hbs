@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Return The Favor Program, Discounts for Veterans">
+    <meta name="keywords" content="F.A.V.O.R., DD-214, Discounts, Veterans, NYS, Rensselaer, Troy, Capital Region">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style-rtf.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style-rtfres.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700" rel="stylesheet">
+    
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <script src="/javascript/jquery-3.3.1.min.js"></script>
+    
+
+    <title>Thanks</title>
+  </head>
+
+  <body>
+<!-- ************************ START OF NAVBAR AREA**************** -->
+{{> header }}
+<!-- ************************ END OF NAVBAR AREA**************** -->
+
+<!-- ************************ START OF SECTION ONE **************** -->
+    <div id= "sectionOne">
+      <ul class="sectop">
+        <li><h2><span class= "accent">Than</span>ks</h2></li>
+        <li class="dogbuil"><img class= "dogtags" src= "/images/icon-ID_tags.svg">
+        <img class= "building" src= "/images/icon-shop.svg"></li>
+      </ul>
+{{#if veteran}}
+  <p>Thanks for signing up for our email list!</p>
+{{/if}}
+
+
+{{#if business}}
+  <p>Thanks for signing up a discount!</p>
+{{/if}}
+    <!-- close section one -->
+    </div>
+
+<!-- ************************ END OF SECTION ONE **************** -->
+
+<!-- ************************ START OF SECTION TWO **************** -->
+<div id= "sectionTwo">
+  <ul class="sectop">
+  <li><h2><u>Section </u>Two</h2></li>
+  <li class="dogbuil"><img class= "dogtags" src= "/images/icon-ID_tags.svg">
+  <img class= "building" src= "/images/icon-shop.svg"></li>
+</ul>
+
+<p>Thanks for signing up!</p>
+
+      <i class="fa fa-envelope fa-2x"></i>
+    </div>
+
+<!-- ************************ END OF SECTION TWO **************** -->
+
+<!-- ______________START OF THE FOOTER AREA OF THE PAGE_______________ -->
+{{> footer}}
+<!-- ______________END THE FOOTER AREA OF THE PAGE_______________ -->
+
+</body>
+</html>
