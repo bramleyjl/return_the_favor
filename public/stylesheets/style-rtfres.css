@@ -3,15 +3,7 @@
 /* over this width is 2 postings wide */
 @media only screen and (min-width: 200px) {
 
-    #outerdiv {
-        width: 150px;
-        height:900px;
-    }
 
-     #outerdiv.wide-discounts{
-        width: 540px;
-        height:650px;
-    }
 }
 /* things that should appear on mobile*/
 @media only screen and (max-width: 850px) {
@@ -22,6 +14,8 @@
             display:none;
 
            }
+
+         
 
 }
 
@@ -39,107 +33,44 @@
                 max-height: 40%;
             }
 
+      
+
 }
+
+
 @media only screen and (max-width: 450px) {
+            
             .menu .dropdown:nth-child(1) {
                 display: none;
             }
+
+
+}
+
 @media only screen and (max-width: 440px) {
             .menu .dropdown {
                 display: none;
             }
-/* over this width is 2 postings wide */
-@media only screen and (min-width: 750px) {
-
-    #outerdiv {
-        width: 280px;
-        height:900px;
-    }
-
-     #outerdiv.wide-discounts{
-        width: 600px;
-        height:650px;
-    }
-
-
-
-
-
 }
 
 
-/* over this width is 3 postings wide */
-@media only screen and (min-width: 890px) {
-    #outerdiv {
-        width: 430px;
-        height:825px;
-    }
-
-     #outerdiv.wide-discounts{
-        width: 700px;
-        height:525px;
-    }
+@media only screen and (max-width: 520px) {
+                     #filter {
+            font-size: 16px;
+            float: left;
+            padding-left: 0px;
 
 
-}
+           }
 
+           #discount-title {
 
+            font-size: 12px;
+            float: left;
+            width: auto;
 
-/* over this width is 4 postings wide */
-@media only screen and (min-width: 1015px) {
-
-
-     #outerdiv.wide-discounts{
-        width: 1000px;
-        height:500px;
-    }
-}
-
-
-
-/* over this width is 5 postings wide */
-@media only screen and (min-width: 1180px) {
-    #outerdiv {
-        width: 680px;
-        height:575px;
-    }
-
-    #outerdiv.wide-discounts{
-        width: 1000px;
-        height:500px;
-    }
+           }
 
 }
 
-
-/* over this width is 6 postings wide */
-@media only screen and (min-width: 1278px) {
-    #outerdiv {
-        width: 820px;
-        height:450px;
-    }
-
-
-}
-
-
-/*over this width is 7 postings wide */
-@media only screen and (min-width: 1450px) {
-    #outerdiv {
-        width: 975px;
-        height:400px;
-    }
-
-
- }
-
-/*over this width is 7 postings wide */
-@media only screen and (min-width: 1550px) {
-    #outerdiv {
-        width: 1150px;
-        height:450px;
-    }
-
-
-}
 /* END OF MEDIA QUERIES */
