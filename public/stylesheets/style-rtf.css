@@ -249,6 +249,10 @@ ul {
      padding: 5px;
      border: 1px solid #C3960D;
  }
+ button a {
+     text-decoration: none;
+     color: inherit;
+ }
  button[value=Delete]:hover {
      background-color: red;
  }
