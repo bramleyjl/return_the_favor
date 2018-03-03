@@ -63,7 +63,7 @@ router.get('/filter', function(req, res) {
 
 // single discount by id
 router.get('/view/:id', function(req, res) {
- discounts.returnDiscountById(req.params.id).then( function (discount) {
+  discounts.returnDiscountsById(req.params.id).then( function (discount) {
     res.render('discounts', {discounts : discount})
   }).catch( function (err) {
     if (err) res.redirect('/discounts');
