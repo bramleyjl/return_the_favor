@@ -11,9 +11,8 @@ router.get('/', function(req, res, next) {
 
 // confirmation after submitting a discount
 router.get('/confirmation', function(req, res, next) {
-  res.send('Thanks for signing up!');
+  res.render('thanks', {business : true});
 });
-
 
 // Submit new discount form
 router.post('/discount', function(req, res, next) {

@@ -19,7 +19,12 @@ router.post('/veteran', function(req, res, next) {
     county : req.body.county   
   }
   veterans.createHoldingVeteran(newVeteran);
-  res.redirect('/events');
+  res.redirect('/events/confirmation');
+});
+
+// confirmation after submitting a discount
+router.get('/confirmation', function(req, res, next) {
+  res.render('thanks', {veteran : true});
 });
 
 module.exports = router;

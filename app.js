@@ -9,6 +9,7 @@ var config = require( './config/config.json' );
 const session = require('express-session');
 const passport = require('passport');
 const passportConfig = require('./config/passport');
+var flash = require('express-flash');
 
 var indexController = require('./controllers/index');
 var discountsController = require('./controllers/discounts');
@@ -17,6 +18,13 @@ var eventsController = require('./controllers/events');
 var adminController = require('./controllers/admin');
 
 var app = express();
+
+//passport & flash messages
+passportConfig(passport)
+app.use(session({ secret: "jokerandthethief" }));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 
 // view engine setup
 var handlebars = require('hbs');
@@ -27,19 +35,12 @@ handlebars.registerHelper('json', function(context) {return JSON.stringify(conte
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-
 app.use(favicon(path.join(__dirname, 'public/images', 'favicon.png')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-//passport
-passportConfig(passport)
-app.use(session({ secret: "jokerandthethief" }));
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(cookieParser());
 
 // call controllers
 app.use('/', indexController);

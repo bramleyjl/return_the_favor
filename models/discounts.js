@@ -402,7 +402,6 @@ exports.returnAllHoldingDiscounts = function() {
           })
         }
       }
-      console.log(results)
       return resolve(results)
     });
   });
@@ -435,7 +434,6 @@ exports.validateHoldingDiscount = function(params) {
   }
   var counties = params.counties
   delete params.counties
-  console.log(counties)
   //turn Handlebars' parsed timestamps back into SQL-ready timestamps
   params.created = (params.created).substring(4, 24)
   params.created = moment(params.created, "MMM-DD-YYYY HH:mm:ss").format("YYYY-MM-DD HH:mm:ss")
@@ -448,7 +446,6 @@ exports.validateHoldingDiscount = function(params) {
       for (var i = counties.length - 1; i >= 0; i--) {
         countyRows.push([results.insertId, counties[i]])
       }
-      console.log(countyRows)
       db.query("INSERT INTO `liveDiscounts_counties` (`discount_id`, `county_id`) VALUES ?", 
       [countyRows], function(err, results) {
           if (err) return reject(err)
