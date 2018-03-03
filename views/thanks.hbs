@@ -9,10 +9,10 @@
     <link rel="stylesheet" type="text/css" href="/stylesheets/style-rtfres.css">
 
     <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700" rel="stylesheet">
-    
+
     <link rel="icon" type="image/png" href="/images/favicon.png">
     <script src="/javascript/jquery-3.3.1.min.js"></script>
-    
+
 
     <title>Thanks</title>
   </head>
@@ -23,20 +23,32 @@
 <!-- ************************ END OF NAVBAR AREA**************** -->
 
 <!-- ************************ START OF SECTION ONE **************** -->
-    <div id= "sectionOne">
+    <div id= "adminSectionOne">
       <ul class="sectop">
-        <li><h2><span class= "accent">Than</span>ks</h2></li>
+        <li><h2><span class= "accent">Suc</span>cess!</h2></li>
         <li class="dogbuil"><img class= "dogtags" src= "/images/icon-ID_tags.svg">
         <img class= "building" src= "/images/icon-shop.svg"></li>
       </ul>
-{{#if veteran}}
-  <p>Thanks for signing up for our email list!</p>
-{{/if}}
+      {{#if veteran}}
+<div class="thanks">
 
+      <h2>Thanks for signing up for our email list!</h2>
+      <h3>We will be reviewing your submission and adding you to our mailing list soon</h3>
+      <h4><a href="/discounts#sectionTwo">Go back to Searching Discounts</a></h4>
 
-{{#if business}}
+</div>
+    {{/if}}
+    {{#if business}}
+<div class="thanks">
+
+      <h2>Thank You for Honoring Our Veterans by offering a discount!</h2>
+      <h3>We will be reviewing your submission and adding you to our Discount Offerings soon</h3>
+      <h4><a href="/discounts#sectionTwo">See other Discounts offered</a></h4>
+</div>
+    {{/if}}
+{{!-- {{#if business}}
   <p>Thanks for signing up a discount!</p>
-{{/if}}
+{{/if}} --}}
     <!-- close section one -->
     </div>
 
@@ -44,16 +56,44 @@
 
 <!-- ************************ START OF SECTION TWO **************** -->
 <div id= "sectionTwo">
-  <ul class="sectop">
-  <li><h2><u>Section </u>Two</h2></li>
-  <li class="dogbuil"><img class= "dogtags" src= "/images/icon-ID_tags.svg">
-  <img class= "building" src= "/images/icon-shop.svg"></li>
+	<ul class="sectop">
+	<li><h2><u>Con</u>tact</h2></li>
+	<li class="dogbuil"><img class= "dogtags" src= "/images/icon-ID_tags.svg">
+	<img class= "building" src= "/images/icon-shop.svg"></li>
 </ul>
 
-<p>Thanks for signing up!</p>
+	<span><b>Return The F.A.V.O.R.</b>
+	</span>
 
-      <i class="fa fa-envelope fa-2x"></i>
-    </div>
+	<br>
+
+	<span><b>Jason Lebrecht</b>
+	</span>
+
+	<br>
+
+	<span><b>333 Broadway</b>
+	</span>
+
+	<br>
+
+	<span><b>Suite 204</b>
+	</span>
+
+	<br>
+
+	<span><b>Troy, NY 12180  </b>
+	</span>
+
+	<br>
+
+	<br>
+
+	<span><a href= "mailto:ReturnTheFavorVet@gmail.com"<b>ReturnTheFavorVet@gmail.com</b></a>
+	</span>
+
+			<i class="fa fa-envelope fa-2x"></i>
+		</div>
 
 <!-- ************************ END OF SECTION TWO **************** -->
 
