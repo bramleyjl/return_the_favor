@@ -454,3 +454,17 @@ exports.validateHoldingDiscount = function(params) {
     });
   });
 }
+
+//checks submitted discount's email against all discounts in database to prevent spam
+exports.checkEmail = function(email) {
+  return new Promise(function (resolve, reject) {
+    db.query("SELECT `busmail` FROM `holding_discounts` WHERE `busmail` = ?", [email], function (err, results) {
+      if (err) return reject(err)
+      if (results.length === 0) {  
+        return resolve()
+      } else {
+      return resolve(results[0].busmail)
+      }
+    })
+  })
+}

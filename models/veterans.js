@@ -140,3 +140,25 @@ exports.validateHoldingVeteran = function(params) {
     });
   });
 }
+
+//checks submitted veteran's email against all veterans in database to prevent spam
+exports.checkEmail = function(email) {
+  return new Promise(function (resolve, reject) {
+    db.query("SELECT `email` FROM `holding_veterans` WHERE `email` = ?", [email], function (err, results) {
+      if (err) return reject(err)
+      if (results.length === 0) {  
+        db.query("SELECT `email` FROM `veterans` WHERE `email` = ?", [email], function (err, results) {
+          if (err) return reject(err)
+            if (results.length === 0) {
+              return resolve()
+            }
+            else {
+              return resolve(results[0].email)
+            }
+        })
+      } else {
+      return resolve(results[0].email)
+      }
+    })
+  })
+}

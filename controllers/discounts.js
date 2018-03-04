@@ -71,21 +71,32 @@ router.get('/view/:id', function(req, res) {
 });
 
 // Submit new veteran form
-router.post('/veteran', function(req, res, next) {
-  if (req.body.name === '' || req.body.email === '' || req.body.county === '') {
-    res.redirect('/error')
-  }
-  var newVeteran = {
-    name : req.body.name,
-    email : req.body.email,
-    county : req.body.county   
-  }
-  veterans.createHoldingVeteran(newVeteran);
-  res.redirect('/discounts/confirmation');
+router.post('/veteran', function(req, res) {
+  var spamCheck = veterans.checkEmail(req.body.email)
+  spamCheck.then(function (email) {
+    if (email === undefined) {
+      var newVeteran = {
+        name : req.body.name,
+        email : req.body.email,
+        county : req.body.county   
+      }
+      veterans.createHoldingVeteran(newVeteran);
+      res.redirect('/discounts/confirmation');
+    } else {
+      res.render('error', {
+        message: `Duplicate Email`,
+        error: {
+          status: 422,
+          stack: `We're sorry, ${email} is already registered in our database.`
+        }
+      })      
+    }
+  })
+
 });
 
 // confirmation after submitting a discount
-router.get('/confirmation', function(req, res, next) {
+router.get('/confirmation', function(req, res) {
   res.render('thanks', {veteran : true});
 });
 

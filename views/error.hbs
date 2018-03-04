@@ -1,3 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="/javascript/jquery-3.3.1.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js">
+            </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style-rtf.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style-rtfres.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <title>RTFAdminLookup</title>
+  </head>
+
+  <body>
+{{!-- ************************ START OF NAVBAR AREA**************** --}}
+{{> header }}
+<!-- ************************ END OF NAVBAR AREA**************** -->
+
+<!-- ************************ START OF ERROR PAGE **************** -->
+<div id= "adminSectionOne">
 <h1>{{message}}</h1>
 <h2>{{error.status}}</h2>
 <pre>{{error.stack}}</pre>
+</div>
+<!-- ************************ END OF ERROR PAGE **************** -->
+
+<!-- ______________START OF THE FOOTER AREA OF THE PAGE_______________ -->
+{{> footer}}
+<!-- ______________END THE FOOTER AREA OF THE PAGE_______________ -->
+
+</body>
+
+</html>
