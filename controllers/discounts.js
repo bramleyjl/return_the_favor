@@ -34,11 +34,11 @@ router.get('/filter', function(req, res) {
     results = discounts.checkExpiration(results, "user");
     //query results pagination
     var totalDiscounts = results.length,
-      pageSize = 50,
-      pageCount = Math.ceil(results.length / pageSize),
-      currentPage = 1,
-      discountsArrays = [],
-      discountsPresent = []
+    pageSize = 50,
+    pageCount = Math.ceil(results.length / pageSize),
+    currentPage = 1,
+    discountsArrays = [],
+    discountsPresent = []
     //splits query results into groups per page
     while (results.length > 0) {
       discountsArrays.push(results.splice(0, pageSize));
@@ -49,7 +49,7 @@ router.get('/filter', function(req, res) {
     }
     //determines whether to show last or next page buttons
     if (currentPage !== 1) var lastPage = currentPage - 1
-    if (currentPage !== pageCount) var nextPage = currentPage + 1
+    if (currentPage !== pageCount && pageCount!== 0) var nextPage = currentPage + 1
     discountsPresent = discountsArrays[+currentPage -1];
     res.render('discounts', {
       discounts : discountsPresent,
