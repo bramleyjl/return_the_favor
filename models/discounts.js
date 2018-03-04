@@ -226,7 +226,7 @@ exports.returnDiscountsById = function(ids) {
 //updates discount in live table
 exports.updateDiscount = function(params) {
   //turn Handlebars' parsed timestamps back into SQL-ready timestamps
-  params.expiration = moment(params.expiration, "MM-DD-YYYY").format("YYYY-MM-DD HH:mm:ss")
+  var expirationTimestamp = moment(params.expiration, "MM-DD-YYYY").format("YYYY-MM-DD HH:mm:ss")
   return new Promise(function (resolve, reject) {
       db.query("UPDATE `discounts` \
       SET `busname` = ?, \
@@ -253,7 +253,7 @@ exports.updateDiscount = function(params) {
       params.cphone,
       params.busmail,
       params.notes,
-      params.expiration,
+      expirationTimestamp,
       params.id
       ], function (err, results) {
         if (err) return reject(err);

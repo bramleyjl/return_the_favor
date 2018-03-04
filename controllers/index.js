@@ -14,11 +14,8 @@ router.get('/', function(req, res) {
   }
   var defaultQuery = discounts.filterDiscounts(defaultSearch);
   defaultQuery.then(function(results) {
-    results = discounts.checkExpiration(results, "user")
-
-    req.flash('success', 'This is a flash message using the express-flash module.');
-    
-    res.render('home', {discounts : results, expressFlash: req.flash('success')});
+    results = discounts.checkExpiration(results, "user")   
+    res.render('home', {discounts : results});
   })
 });
 

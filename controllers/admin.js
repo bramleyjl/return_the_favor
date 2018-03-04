@@ -101,6 +101,8 @@ router.post('/live_discounts/export', ensureAuthenticated, function(req, res) {
 
 //live_discounts update and delete function
 router.post('/live_discounts', ensureAuthenticated, function(req, res) {
+  console.log(req.body)
+  console.log(req.body.originalExpiration, req.body.expiration)
   var discountIDs = req.body.discountIDs.split(',').map(Number);
   if (req.body.action === "Delete") {
     var removeID = discountIDs.indexOf(parseInt(req.body.id))
@@ -111,8 +113,8 @@ router.post('/live_discounts', ensureAuthenticated, function(req, res) {
     //fetches previous page's discounts and passes them to template for viewing
     var remainingDiscounts = discounts.returnDiscountsById(discountIDs)
     remainingDiscounts.then(function(results){
-      results = discounts.checkExpiration(results, "admin")
       //sets all discounts' expiration status
+      results = discounts.checkExpiration(results, "admin")
       var discountIDs = [];
       for (var i = results.length - 1; i >= 0; i--) {
         discountIDs.unshift(results[i].id);
@@ -126,6 +128,7 @@ router.post('/live_discounts', ensureAuthenticated, function(req, res) {
     //updates discount
     var updatedDiscount = discounts.updateDiscount(req.body)
     updatedDiscount.then(function(result) {
+      console.log("updated " + req.body.expiration)
       //creates or deletes liveDiscounts_counties rows as necessary
       var updatedDiscountCounties = discounts.updateDiscountCounties(req.body)
       updatedDiscountCounties.then(function(result) {
@@ -138,6 +141,7 @@ router.post('/live_discounts', ensureAuthenticated, function(req, res) {
           discountIDs.splice(removeID, 1);
           //presents updated ID if it was the only one displayed previously
           if (discountIDs.length === 0) {
+            console.log(req.body.originalExpiration, req.body.expiration)
             if (req.body.originalExpiration !== req.body.expiration) discounts.bumpToRecent(req.body.id)
             var live_discount = discounts.checkExpiration(updated_discount[0], "admin")
             res.render('adminLookup', {live_discounts: live_discount, discountIDs: live_discount.id})            
@@ -147,6 +151,7 @@ router.post('/live_discounts', ensureAuthenticated, function(req, res) {
             remainingDiscounts.then(function(results){
               results.unshift(updated_discount[0])
               //checks to see if expiration was updated, then sets all discounts' expiration status
+              console.log(req.body.originalExpiration, req.body.expiration)
               if (req.body.originalExpiration !== req.body.expiration) discounts.bumpToRecent(req.body.id)
               results = discounts.checkExpiration(results, "admin")
               var discountIDs = [];
