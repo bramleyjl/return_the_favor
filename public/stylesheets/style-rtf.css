@@ -87,7 +87,7 @@ ul {
     float: left;/*added*/
     width: auto;/*added*/
     padding: 0 0 0 0;/*changed*/
-    margin: 10px 0;/*added*/
+    margin: 8px 0 0 0;/*added*/
 }
 .logo a{
     text-decoration: none;
@@ -99,7 +99,7 @@ ul {
 .logo img{
     width: 80px;
     height: 80px;
-    margin: 0 auto;
+    margin: 0 0 0 0;
     padding: 0 0 0 0;
 }/*added*/
 
@@ -108,15 +108,15 @@ ul {
     display: block;/*added*/
     float: right;/*added*/
     margin: 0 auto;/*added*/
-    padding: 10px 0 0 0;/*changed*/
+    padding: 8px 0 0 0;/*changed*/
 }
 
 
 
 .menu{
     display:block;
-    margin: 40px 0 0 0;
-    padding: 0 0 0 0;
+    margin: 0 0 0 0;
+    padding: 35px 0 0 0;
     float: right;
     height: auto;
     width: auto;
@@ -248,6 +248,10 @@ ul {
      border-radius: 12px;
      padding: 5px;
      border: 1px solid #C3960D;
+ }
+ button a {
+     text-decoration: none;
+     color: inherit;
  }
  button[value=Delete]:hover {
      background-color: red;
