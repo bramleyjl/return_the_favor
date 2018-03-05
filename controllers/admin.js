@@ -85,24 +85,43 @@ router.post('/live_discounts/export', ensureAuthenticated, function(req, res) {
   //turn list of ids to an array of integers
   var ids = req.body.discounts.split(',').map(Number);
   var exportDiscounts = discounts.returnDiscountsById(ids)
-    exportDiscounts.then(function(results) {
-      var fields = ['id', 'busname', 'counties_names', 'desoffer', 'cname', 'cphone', 'busmail', 'notes'];
-      const opts = { fields };
-      const parser = new Json2csvParser(opts);
-      const csv = parser.parse(results);
-      var time = moment().format("MM-DD-YY_HH.MM")
-
-      res.setHeader('Content-disposition', `attachment; filename=discounts${time}.csv`);
-      res.set('Content-Type', 'text/csv');
-      res.status(200).send(csv);
-      res.render('adminLookup', {live_discounts: results})
-    });
+  exportDiscounts.then(function(results) {
+    var fields = [{
+      label: 'ID',
+      value: 'id'
+    },{
+      label: 'Business',
+      value: 'busname'
+    },{
+      label: 'Counties',
+      value: 'county_names'
+    },{
+      label: 'Discount',
+      value: 'desoffer'
+    },{
+      label: 'Contact',
+      value: 'cname'
+    },{
+      label: 'Phone',
+      value: 'cphone'
+    },{
+      label: 'Email',
+      value: 'busmail'
+    },{
+      label: 'Notes',
+      value: 'notes'
+    }];      
+    var parser = new Json2csvParser({fields});
+    var csv = parser.parse(results);
+    var time = moment().format("MM-DD-YY_HH.MM")
+    
+    res.attachment(`discounts${time}.csv`);
+    res.status(200).send(csv);
+  });
 });
 
 //live_discounts update and delete function
 router.post('/live_discounts', ensureAuthenticated, function(req, res) {
-  console.log(req.body)
-  console.log(req.body.originalExpiration, req.body.expiration)
   var discountIDs = req.body.discountIDs.split(',').map(Number);
   if (req.body.action === "Delete") {
     var removeID = discountIDs.indexOf(parseInt(req.body.id))
@@ -128,7 +147,6 @@ router.post('/live_discounts', ensureAuthenticated, function(req, res) {
     //updates discount
     var updatedDiscount = discounts.updateDiscount(req.body)
     updatedDiscount.then(function(result) {
-      console.log("updated " + req.body.expiration)
       //creates or deletes liveDiscounts_counties rows as necessary
       var updatedDiscountCounties = discounts.updateDiscountCounties(req.body)
       updatedDiscountCounties.then(function(result) {
@@ -141,7 +159,6 @@ router.post('/live_discounts', ensureAuthenticated, function(req, res) {
           discountIDs.splice(removeID, 1);
           //presents updated ID if it was the only one displayed previously
           if (discountIDs.length === 0) {
-            console.log(req.body.originalExpiration, req.body.expiration)
             if (req.body.originalExpiration !== req.body.expiration) discounts.bumpToRecent(req.body.id)
             var live_discount = discounts.checkExpiration(updated_discount[0], "admin")
             res.render('adminLookup', {live_discounts: live_discount, discountIDs: live_discount.id})            
@@ -151,7 +168,6 @@ router.post('/live_discounts', ensureAuthenticated, function(req, res) {
             remainingDiscounts.then(function(results){
               results.unshift(updated_discount[0])
               //checks to see if expiration was updated, then sets all discounts' expiration status
-              console.log(req.body.originalExpiration, req.body.expiration)
               if (req.body.originalExpiration !== req.body.expiration) discounts.bumpToRecent(req.body.id)
               results = discounts.checkExpiration(results, "admin")
               var discountIDs = [];
@@ -214,16 +230,22 @@ router.get('/veteran_search', ensureAuthenticated, function(req, res) {
 router.post('/live_veterans/export', ensureAuthenticated, function(req, res) {
   var exportVeterans = veterans.returnAllVeterans();
     exportVeterans.then(function(results) {
-      var fields = ['id', 'name', 'email', 'county'];
-      const opts = { fields };
-      const parser = new Json2csvParser(opts);
-      const csv = parser.parse(results);
+      var fields = [{
+        label: 'ID',
+        value: 'id'
+      },{
+        label: 'Name',
+        value: 'name'
+      },{
+        label: 'Email',
+        value: 'email'
+      }];      
+      var parser = new Json2csvParser({fields});
+      var csv = parser.parse(results);
       var time = moment().format("MM-DD-YY_HH.MM")
 
-      res.setHeader('Content-disposition', `attachment; filename=veterans${time}.csv`);
-      res.set('Content-Type', 'text/csv');
+      res.attachment(`veterans${time}.csv`);
       res.status(200).send(csv);
-      res.render('adminLookup')
     });
 });
 

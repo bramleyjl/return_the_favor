@@ -51,6 +51,7 @@ router.get('/filter', function(req, res) {
     if (currentPage !== 1) var lastPage = currentPage - 1
     if (currentPage !== pageCount && pageCount!== 0) var nextPage = currentPage + 1
     discountsPresent = discountsArrays[+currentPage -1];
+    console.log(discountsPresent)
     res.render('discounts', {
       discounts : discountsPresent,
       searchParams : searchParams,
