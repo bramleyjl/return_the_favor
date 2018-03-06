@@ -31,36 +31,41 @@ router.get('/filter', function(req, res) {
   }
   var searchQuery = discounts.filterDiscounts(searchParams);
   searchQuery.then(function(results) {
-    results = discounts.checkExpiration(results, "user");
-    //query results pagination
-    var totalDiscounts = results.length,
-    pageSize = 50,
-    pageCount = Math.ceil(results.length / pageSize),
-    currentPage = 1,
-    discountsArrays = [],
-    discountsPresent = []
-    //splits query results into groups per page
-    while (results.length > 0) {
-      discountsArrays.push(results.splice(0, pageSize));
+    if (results.length === 0) {
+      var noDiscounts = "true"
+      res.render('discounts', {no_discounts: noDiscounts})
+    } else {
+      results = discounts.checkExpiration(results, "user");
+      //query results pagination
+      var totalDiscounts = results.length,
+      pageSize = 50,
+      pageCount = Math.ceil(results.length / pageSize),
+      currentPage = 1,
+      discountsArrays = [],
+      discountsPresent = []
+      //splits query results into groups per page
+      while (results.length > 0) {
+        discountsArrays.push(results.splice(0, pageSize));
+      }
+      //sets current page
+      if (typeof req.query.page !== 'undefined') {
+        currentPage = +parseInt(req.query.page);
+      }
+      //determines whether to show last or next page buttons
+      if (currentPage !== 1) var lastPage = currentPage - 1
+      if (currentPage !== pageCount && pageCount!== 0) var nextPage = currentPage + 1
+      discountsPresent = discountsArrays[+currentPage -1];
+      console.log(discountsPresent)
+      res.render('discounts', {
+        discounts : discountsPresent,
+        searchParams : searchParams,
+        currentPage : currentPage,
+        lastPage : lastPage,
+        nextPage : nextPage
+      });
     }
-    //sets current page
-    if (typeof req.query.page !== 'undefined') {
-      currentPage = +parseInt(req.query.page);
-    }
-    //determines whether to show last or next page buttons
-    if (currentPage !== 1) var lastPage = currentPage - 1
-    if (currentPage !== pageCount && pageCount!== 0) var nextPage = currentPage + 1
-    discountsPresent = discountsArrays[+currentPage -1];
-    console.log(discountsPresent)
-    res.render('discounts', {
-      discounts : discountsPresent,
-      searchParams : searchParams,
-      currentPage : currentPage,
-      lastPage : lastPage,
-      nextPage : nextPage
-    });
-  }) 
-})
+  }); 
+});
 
 // single discount by id
 router.get('/view/:id', function(req, res) {
