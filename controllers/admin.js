@@ -93,20 +93,35 @@ router.post('/live_discounts/export', ensureAuthenticated, function(req, res) {
       label: 'Business',
       value: 'busname'
     },{
+      label: 'State',
+      value: 'state'
+    },{
       label: 'Counties',
       value: 'county_names'
+    },{
+      label: 'Zipcode',
+      value: 'zip'
+    },{
+      label: 'Address',
+      value: 'street'
     },{
       label: 'Discount',
       value: 'desoffer'
     },{
+      label: 'Links',
+      value: 'buslinks'
+    },{
+      label: 'Expiration Date',
+      value: 'expiration'
+    },{
       label: 'Contact',
       value: 'cname'
     },{
-      label: 'Phone',
-      value: 'cphone'
-    },{
       label: 'Email',
       value: 'busmail'
+    },{
+      label: 'Phone',
+      value: 'cphone'
     },{
       label: 'Notes',
       value: 'notes'
