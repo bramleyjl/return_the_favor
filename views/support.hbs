@@ -4,7 +4,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="Return The Favor Program, Discounts for Veterans">
 		<meta name="keywords" content="F.A.V.O.R., DD-214, Discounts, Veterans, NYS, Rensselaer, Troy, Capital Region">
-		<script src="javascript/jquery-3.3.1.min.js"></script>
+		<script src="/javascript/jquery-3.3.1.min.js"></script>
         <script
             src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js">
                 </script>
@@ -48,16 +48,68 @@
 
 							<label for="county">County</label>
 	    					<select id="county" class="smultiple" name="counties" multiple="multiple" style="width:50%" data-placeholder="Select one or more" required>
-	      					<option value="1">Rensselaer</option>
-	      					<option value="2">Albany</option>
-	      					<option value="3">Schenectady</option>
-	      					<option value="4">Saratoga</option>
-	      					<option value="5">Columbia</option>
-	      					<option value="6">Greene</option>
-	      					<option value="7">Fulton</option>
-	      					<option value="8">Warren</option>
-	      					<option value="9">Schoharie</option>
-	      					<option value="10">Montgomery</option>
+								<option value="1">Rensselaer</option>
+								<option value="2">Albany</option>
+								<option value="3">Schenectady</option>
+								<option value="4">Saratoga</option>
+								<option value="5">Columbia</option>
+								<option value="6">Greene</option>
+								<option value="7">Fulton</option>
+								<option value="8">Warren</option>
+								<option value="9">Schoharie</option>
+								<option value="10">Montgomery</option>
+								<option value="11">Allegany</option>
+								<option value="12">Bronx</option>
+								<option value="13">Broome</option>
+								<option value="14">Cattaraugus</option>
+								<option value="15">Cayuga</option>
+								<option value="16">Chautauqua</option>
+								<option value="17">Chemung</option>
+								<option value="18">Chenango</option>
+								<option value="19">Clinton</option>
+								<option value="20">Cortland</option>
+								<option value="21">Delaware</option>
+								<option value="22">Dutchess</option>
+								<option value="23">Erie</option>
+								<option value="24">Essex</option>
+								<option value="25">Franklin</option>
+								<option value="26">Genesee</option>
+								<option value="27">Hamilton</option>
+								<option value="28">Herkimer</option>
+								<option value="29">Jefferson</option>
+								<option value="30">Kings</option>
+								<option value="31">Lewis</option>
+								<option value="32">Livingston</option>
+								<option value="33">Madison</option>
+								<option value="34">Monroe</option>
+								<option value="35">Nassau</option>
+								<option value="36">New York</option>
+								<option value="37">Niagara</option>
+								<option value="38">Oneida</option>
+								<option value="39">Onondaga</option>
+								<option value="40">Ontario</option>
+								<option value="41">Orange</option>
+								<option value="42">Orleans</option>
+								<option value="43">Oswego</option>
+								<option value="44">Otsego</option>
+								<option value="45">Putnam</option>
+								<option value="46">Queens</option>
+								<option value="47">Richmond</option>
+								<option value="48">Rockland</option>
+								<option value="49">St_Lawrence</option>
+								<option value="50">Schuyler</option>
+								<option value="51">Seneca</option>
+								<option value="52">Steuben</option>
+								<option value="53">Suffolk</option>
+								<option value="54">Sullivan</option>
+								<option value="55">Tioga</option>
+								<option value="56">Tompkins</option>
+								<option value="57">Ulster</option>
+								<option value="58">Washington</option>
+								<option value="59">Wayne</option>
+								<option value="60">Westchester</option>
+								<option value="61">Wyoming</option>
+								<option value="62">Yates</option>
 	    					</select>
 
 							<label for="busname"> Business Name </label>
@@ -84,28 +136,30 @@
 					<div class="offerinfo">
 						<h3><span class="accent">Your Offer</span></h3>
     					<label for="category">Category</label>
-    					<select id="category" name="category">
+    					<select id="category" name="category" class="single">
 						<option disabled selected value>Choose one</option>
-        <option value=1>Casual Dining and Take-Out</option>
-        <option value=2>Art and Antiques</option>
-        <option value=3>Banking</option>
-        <option value=4>Books</option>
-        <option value=5>Cleaners</option>
-        <option value=6>Clothing</option>
-        <option value=7>Family and Recreation</option>
-        <option value=8>Flowers</option>
-        <option value=9>Fine Dining and Nightlife</option>
-        <option value=10>Haircare and Spas</option>
-        <option value=11>Jewelry</option>
-        <option value=12>Legal</option>
-        <option value=13>Automotive</option>
-        <option value=14>Home Services</option>
-        <option value=15>Travel</option>
-        <option value=16>Theater and Arts</option>
-        <option value=17>Storage</option>
-        <option value=18>Pets</option>
-        <option value=20>Electronics</option>
-        <option value=21>Other</option>
+						<option value=1>Casual Dining, Cafes & Take-Out</option>
+						<option value=2>Restaurants, Pubs & Catering</option>
+						<option value=3>Food & Grocery</option>
+						<option value=4>Beer, Wine, Spirits & Tobacco</option>
+						<option value=5>Education, Training & Books</option>
+						<option value=6>Professional Services</option>
+						<option value=7>Financial Services</option>
+						<option value=8>Electronics & Technology Services</option>
+						<option value=9>Health, Wellness & Fitness</option>
+						<option value=10>Family, Sports & Recreation</option>
+						<option value=11>Arts & Entertainment</option>
+						<option value=12>Jewelry, Florists, Gifts & Events</option>
+						<option value=13>Personal Care & Services</option>
+						<option value=14>Wardrobe, Accessories & Services</option>
+						<option value=15>Home & Garden, Building Supplies</option>
+						<option value=16>Real Estate & Home Services</option>
+						<option value=17>Automotive & Machinery</option>
+						<option value=18>Art, Antiques & Related Services</option>
+						<option value=19>Hotels, Inns & Travel</option>
+						<option value=20>Specialty Items & Services</option>
+						<option value=21>Pets & Live Stock</option>
+						<option value=22>Miscellaneous</option>
     					</select>
 
 						<label for="expiration">Expiration</label>
@@ -117,7 +171,7 @@
   						<option value=12>12 months</option>
 						</select>
 						<label for="desoffer">What's Your Offer</label>
-						<textarea name="desoffer" placeholder= "Describe your Offer exactly as you want it to appear. Be sure to be specific and to include any limitations. Example-'20% off for a tune-ups and/or brake service, once per service, not valid in conjuction with any other discounts'"></textarea>
+						<textarea name="desoffer" placeholder= "Describe your Offer exactly as you want it to appear. Be sure to be specific and to include any LIMITATIONS, LOCATIONS applicable, PHONE # if you want one displayed. Example-'20% off food only, not valid in conjuction other discounts, good at all locations call (518) 555-1212'" size="100%"></textarea>
 						<label for="buslinks">Your Website</label>
 						<textarea name="buslinks" placeholder= "Add your Business Website URL here. (Format: www.yourbusiness.com) If you don't have any websites make sure you submit a House# + Street"></textarea>
 
@@ -153,7 +207,7 @@
 			<li><p>(Opens in a new window)</p></li>
 		</ul>
 		</div>
-<script src="javascript/script.js"></script>
+<script src="/javascript/script.js"></script>
 <!-- ************************ END OF SECTION TWO **************** -->
 
 <!-- ______________START OF THE FOOTER AREA OF THE PAGE_______________ -->
