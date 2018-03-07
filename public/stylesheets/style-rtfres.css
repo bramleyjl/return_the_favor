@@ -15,7 +15,7 @@
 
            }
 
-         
+
 
 }
 
@@ -33,13 +33,13 @@
                 max-height: 40%;
             }
 
-      
+
 
 }
 
 
 @media only screen and (max-width: 450px) {
-            
+
             .menu .dropdown:nth-child(1) {
                 display: none;
             }
@@ -51,6 +51,11 @@
             .menu .dropdown {
                 display: none;
             }
+}
+@media only screen and (max-width: 400px) {
+input[type=text],[type=number],[type=email],[class=search], select {
+     min-width: 100%;
+ }
 }
 
 
