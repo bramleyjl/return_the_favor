@@ -269,7 +269,7 @@ ul {
      display: block;
  }
  .container label {
-     margin: 0 0 0 0;
+     margin: 0 0 0 10px;
      padding: 0 0 0 0;
  }
 
@@ -583,17 +583,19 @@ span.indent {
     border: 1px solid #C3960D;
 }
 .select2-container--default .select2-selection--single{
-    margin: 0 0 2px 0;
+    margin: 0 5px 2px 0;
     padding: 0 0 0 0;
     background: #f2f2f2;
     max-height: 28px;
+    max-width: 220px;
+    min-width: 150px;
     border-radius: 0;
     border: 1px solid #C3960D;
 
 }
   /* end select2 css */
 /* input type and textarea css */
-input[type=text], [type=number],[type=email], select {
+input[type=text],[type=email], select {
      background-color: #f2f2f2;
      height: 28px;
      width: auto;
@@ -601,6 +603,19 @@ input[type=text], [type=number],[type=email], select {
      padding: 0 0 0 0;
      border: 1px solid #C3960D;
      vertical-align: baseline;
+ }
+input[type=number] {
+     background-color: #f2f2f2;
+     height: 28px;
+     max-width: 60px;
+     margin: 0 0 0 0;
+     padding: 0 0 0 0;
+     border: 1px solid #C3960D;
+     vertical-align: baseline;
+ }
+ input[type=reset] {
+     margin: 0 0 0 0;
+     padding: 0 0 0 0;
  }
 
 input[class=search] {

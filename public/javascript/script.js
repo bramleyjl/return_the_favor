@@ -15,8 +15,9 @@ inputs.forEach(input => {
 $(document).ready(function() {
   $('.smultiple').select2();
   var configParamsObj = {
-      placeholder: 'Choose One', // Place holder text to place in the select
-      minimumResultsForSearch: 1 // Overrides default of 15 set above
+      placeholder: 'Choose One',
+      minimumResultsForSearch: 1,
+      dropdownAutoWidth: true
   };
   $(".single").select2(configParamsObj);
   });
