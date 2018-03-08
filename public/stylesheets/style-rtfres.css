@@ -60,7 +60,7 @@
             .menu .dropdown:nth-child(1) {
                 display: none;
             }
-@media only screen and (max-width: 360px) {
+@media only screen and (max-width: 205px) {
             .menu .dropdown {
                 display: none;
                         }
