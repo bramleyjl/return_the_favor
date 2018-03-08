@@ -38,20 +38,34 @@
 }
 
 
-@media only screen and (max-width: 450px) {
 
-            .menu .dropdown:nth-child(1) {
-                display: none;
-            }
 
 
 }
 
 @media only screen and (max-width: 440px) {
             .menu .dropdown {
-                display: none;
+                display: flex;
+                font-size: 10px;
             }
 }
+@media only screen and (max-width: 360px) {
+            .menu .dropdown {
+                padding: 0 0 0 0;
+                margin: 0 0 0 0;
+            }
+}
+@media only screen and (max-width: 340px) {
+
+            .menu .dropdown:nth-child(1) {
+                display: none;
+            }
+@media only screen and (max-width: 360px) {
+            .menu .dropdown {
+                display: none;
+                        }
+            }
+
 @media only screen and (max-width: 400px) {
 input[type=text],[type=number],[type=email],[class=search], select {
      min-width: 100%;
