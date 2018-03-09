@@ -1,21 +1,15 @@
 /* START OF MEDIA QUERIES */
 
 /* over this width is 2 postings wide */
-@media only screen and (min-width: 200px) {
+/* @media only screen and (min-width: 200px) {
 
 
-}
+} */
 /* things that should appear on mobile*/
 @media only screen and (max-width: 850px) {
-
-
            .rtf h1 {
-
             display:none;
-
            }
-
-
 
 }
 
@@ -23,32 +17,36 @@
             .menu .dropdown:nth-child(2) {
                 display: none;
             }
-
-}
-@media only screen and (max-width: 695px) {
-            .
-            .logo {
-                margin:0 0 0 0;
-                padding: 0 0 0 0;
-                max-height: 40%;
+            label {
+                display: block;
             }
-
-
-
 }
 
-
-
-
-
-}
 
 @media only screen and (max-width: 440px) {
+input[type=text],[type=number],[type=email],[class=search], select {
+     min-width: 90%;
+     margin: 10px 0;
+ }
+ /* label {
+     display: block;
+ } */
+ button {
+     margin: 10px 0;
+ }
+ input[type=reset],[type=submit] {
+     margin: 10px 0;
+ }
+ .menu .dropdown {
+     display: flex;
+ }
+}
+/* @media only screen and (max-width: 440px) {
             .menu .dropdown {
                 display: flex;
                 font-size: 10px;
             }
-}
+} */
 @media only screen and (max-width: 360px) {
             .menu .dropdown {
                 padding: 0 0 0 0;
@@ -66,22 +64,7 @@
                         }
             }
 
-@media only screen and (max-width: 400px) {
-input[type=text],[type=number],[type=email],[class=search], select {
-     min-width: 100%;
-     margin: 10px 0;
- }
- label {
-     display: block;
- }
- button {
-     margin: 10px 0;
- }
- input[type=reset],[type=submit] {
-     margin: 10px 0;
- }
 
-}
 
 
 @media only screen and (max-width: 520px) {
