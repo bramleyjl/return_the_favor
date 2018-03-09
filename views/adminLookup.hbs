@@ -150,7 +150,7 @@
             <option value="descending">Descending</option>
           </select></td>
                   <td><button type="submit">Filter</button></td>
-                  <td><input type="reset" value="Reset"></td>
+                  <td><a href="#adminSectionTwo">Next Section</a></td>
       </form>
       <form method="GET" action="/admin/live_discounts">
           <td><input type="number" name="id"></td>
@@ -329,6 +329,7 @@
                 <td><input type="hidden" value="{{created}}" name="created">{{dateFormat created "MM-DD-YYYY"}}</td>
                 <td><input type="hidden" value="{{dateFormat expiration "MM-DD-YYYY"}}" name="originalExpiration">
                 <input type="text" value="{{dateFormat expiration "MM-DD-YYYY"}}" name="expiration"></td>
+                <td><a href="#adminSectionOne">TOP</a></td>
                 <td>
                     <button type="submit" name="action" value="Update">Update</button>
                 </td>
