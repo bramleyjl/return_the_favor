@@ -58,6 +58,9 @@ input[type=text],[type=number],[type=email],[class=search], select {
             .menu .dropdown:nth-child(1) {
                 display: none;
             }
+            .select2-container--default .select2-selection--single{
+                max-width: 90%;
+            }
 @media only screen and (max-width: 205px) {
             .menu .dropdown {
                 display: none;
