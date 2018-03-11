@@ -2,6 +2,7 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
+var bcrypt = require('bcryptjs');
 var discounts = require('../models/discounts.js');
 var veterans = require('../models/veterans.js');
 const Json2csvParser = require('json2csv').Parser;
@@ -9,10 +10,20 @@ var moment = require('moment');
 
 //authentication helper function
 function ensureAuthenticated(req, res, next) {
-  return next();
-  /*if (req.isAuthenticated()) { return next(); }
-  res.redirect('/admin')*/
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/admin')
 }
+
+//hidden route to generate a new password hash that can be manually added to database
+router.get('/secretpasswordcreator', function(req, res) {
+  var newpass = req.query.password
+  bcrypt.genSalt(10, function(err, salt) {
+    bcrypt.hash(newpass, salt, function(err, hash) {
+      console.log(hash) 
+    });
+  });
+  res.render('admin');
+})
 
 //login route
 router.post('/login',

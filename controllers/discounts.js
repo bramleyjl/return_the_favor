@@ -38,7 +38,7 @@ router.get('/filter', function(req, res) {
       results = discounts.checkExpiration(results, "user");
       //query results pagination
       var totalDiscounts = results.length,
-      pageSize = 4,
+      pageSize = 50,
       pageCount = Math.ceil(results.length / pageSize),
       currentPage = 1,
       discountsArrays = [],

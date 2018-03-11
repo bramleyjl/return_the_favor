@@ -6,6 +6,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var config = require( './config/config.json' );
+var helmet = require('helmet');
 const session = require('express-session');
 const passport = require('passport');
 const passportConfig = require('./config/passport');
@@ -41,6 +42,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
+app.use(helmet());
 
 // call controllers
 app.use('/', indexController);
@@ -65,7 +67,6 @@ app.listen( {
         console.log( `Couldn't listen on port ${config.port}. (Run as root?)` );
     }
 } );
-
 
 // error handler
 app.use(function(err, req, res, next) {

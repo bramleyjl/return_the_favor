@@ -1,5 +1,6 @@
 var passport = require('passport');
 var LocalStrategy   = require('passport-local').Strategy;
+var bcrypt = require('bcryptjs');
 let db = require('../db.js');
 
 module.exports = function(passport) {
@@ -18,20 +19,16 @@ module.exports = function(passport) {
 
   passport.use(new LocalStrategy(function(username, password, done) { 
     db.query("SELECT * FROM `admins` WHERE `username` = ?", [username], function(err,rows){
-      if (err) {
-        console.log("Error!")
-        return done(err);
-      }
-      if (rows.length === 0) {
-        console.log("Incorrect Username")
-        return done(null, false); 
-      } 
-      if (rows[0].password !== password) {
-        console.log("Incorrect Password!")
-        return done(null, false);      
-      }
-      console.log("Success!")
-      return done(null, rows[0]);     
+      bcrypt.compare(password, rows[0].password, function(err, res) {
+        if (err) return done(err);
+        if (res === false) {
+          console.log("Incorrect Username or Password")
+          return done(null, false);
+        } else {
+          console.log("Success!")
+          return done(null, rows[0]);
+        }
+      });
     });
   }));
 
