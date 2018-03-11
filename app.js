@@ -7,9 +7,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var config = require( './config/config.json' );
 var helmet = require('helmet');
-const session = require('express-session');
-const passport = require('passport');
-const passportConfig = require('./config/passport');
+var session = require('express-session');
+var passport = require('passport');
+var passportConfig = require('./config/passport');
 var flash = require('express-flash');
 
 var indexController = require('./controllers/index');
@@ -22,7 +22,11 @@ var app = express();
 
 //passport & flash messages
 passportConfig(passport)
-app.use(session({ secret: "jokerandthethief" }));
+app.use(session({ 
+  secret: "jokerandthethief",
+  resave: false,
+  saveUninitialized: false, 
+}));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
