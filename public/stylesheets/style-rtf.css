@@ -262,6 +262,11 @@ ul {
  button[value=Validate]:hover {
      background-color: #4CAF50;
  }
+ .clear {
+     background: none;
+     border: none;
+     color: blue;     
+ }
 
  /* end of button css */
  /* label CSS */
