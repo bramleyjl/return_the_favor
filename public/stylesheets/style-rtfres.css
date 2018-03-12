@@ -52,6 +52,12 @@ input[type=text],[type=number],[type=email],[class=search], select {
                 padding: 0 0 0 0;
                 margin: 0 0 0 0;
             }
+            .clear {
+                max-width: 120px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                float: right;
+            }
 }
 @media only screen and (max-width: 340px) {
 
