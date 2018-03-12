@@ -97,6 +97,10 @@ router.post('/live_discounts/export', ensureAuthenticated, function(req, res) {
   var ids = req.body.discounts.split(',').map(Number);
   var exportDiscounts = discounts.returnDiscountsById(ids)
   exportDiscounts.then(function(results) {
+    //turns county_names to a string for a cleaner .csv export
+    for (var i = results.length - 1; i >= 0; i--) {
+      results[i].county_names = results[i].county_names.toString();
+    }
     var fields = [{
       label: 'ID',
       value: 'id'
@@ -105,7 +109,7 @@ router.post('/live_discounts/export', ensureAuthenticated, function(req, res) {
       value: 'busname'
     },{
       label: 'State',
-      value: 'state'
+      value: 'state_abv'
     },{
       label: 'Counties',
       value: 'county_names'
